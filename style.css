@@ -1,6 +1,12 @@
+* {
+    margin: 0; 
+    padding: 0;
+}
+
 body {
-background-color: grey;
+background-color: whitesmoke;
 margin: 0;
+
 }
 
 .sideNav{
@@ -13,12 +19,10 @@ margin: 0;
 }
 
 #innerSideBar{
-    display: none;
+    position: absolute;
     background: yellow;
-    margin-top: 20px;
-    margin-left: 70px;
     height: 100vh;
-    width: 20%;
+    width: 10%;
 }
 
 .show{
@@ -35,12 +39,31 @@ h1{
     width: 100vh;
 }
 
-.container {
-    position: absolute;
-    top: 50px; 
-    right: 50px;
-    border: 2px black solid; 
-    width: 70%; 
-    height: 100%; 
+form {
+    display: flex;
+    flex-direction: column; 
+    width: 60vw;
+    margin: auto;
+    max-height: 100%;
+}
+
+#editor-container { /* not used */
+    height: 100vh;
     /* margin: auto; */
 }
+
+.editorStyling { /* styling for text editor */
+    background-color: white;
+    border: none;
+}
+
+.tox-tinymce { /* styling for text editor */
+    border: none !important;
+}
+
+.tox .tox-edit-area { /* styling for text editor */
+    border: none !important;
+}
+
+
+
