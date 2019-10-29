@@ -9,42 +9,29 @@
 <!--     <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet"> -->
     <script src="https://kit.fontawesome.com/085d527749.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
 </head>
 <body> 
- 
     <nav class="sideBar">
-            <button id="showHideBtn" onclick="showHideFunction()">
-                <i class="fas fa-cog"></i>
-            </button> 
+        <button id="showHideBtn" onclick="showHideFunction()">
+            <i class="fas fa-cog"></i>
+        </button> 
         <!-- En "container" till vänster för de olika knapparna -->
         <div id="sideNav">
-                <button id="myBtn"><i class="fas fa-question"></i></button>
+                <button id="helpBtn"> <i class="fas fa-question"> </i> Help </button>
+                <button id="searchBtn"> <i class="fas fa-search"> </i> Search </button>
+                <button id="printBtn"> <i class="fas fa-print"> </i> Print </button>
+                <button id="favouriteBtn" form="search"> <i class="far fa-star"> </i> Favourites </button>
         </div>
-        
-
-              <!-- Ytterligare en container som är tänkt att ha för vidare inställningar -->
-        <!-- T.ex för att visa "mina anteckningar" etc -->
+            <!-- Ytterligare en container som är tänkt att ha för vidare inställningar -->
         <div id="innerSideBar"></div>
+            <!-- T.ex för att visa "mina anteckningar" etc -->
+        </div>
     </nav>
     
-   <form><!-- Tiny MCE Option -->
-        <textarea>Next, use our Get Started docs to setup Tiny!</textarea>
-   </form>
-
-
-    <!-- <main class="note-container">
-            <div id="editor-container"></div>
-            Här ligger anteckningarna.
-    </main> -->
-
-<footer></footer>
-
-<!-- <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
-<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script> -->
-<script src="app.js"></script>
-
+<form id="editorForm">              <!-- Tiny MCE Option -->
+    <textarea> Next, use our Get Started docs to setup Tiny! </textarea>
+</form>
+    
 <!-- Hjälp knapp -->
 
 <div id="myModal" class="modal">
@@ -53,5 +40,8 @@
         <p>Lorem ipsum</p>
     </div>
 </div> 
+
+<script src="app.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 </body>
 </html>

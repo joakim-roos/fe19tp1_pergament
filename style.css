@@ -3,11 +3,17 @@
     padding: 0;
 }
 
+/* body,html{
+  overflow:hidden
+} */
+
 body {
-background-color: whitesmoke;
+background-color: lightgrey;
 margin: 0;
+}
 
-
+#testFooter{
+  background: blue;
 }
 .sideBar{
   display: flex;
@@ -15,8 +21,31 @@ margin: 0;
   margin: 0;
   width: 200px;
 }
+
+#sideNav{
+  display: block;
+  position: fixed;
+  background: red;
+  top: 70px;
+  width: 10vh;
+  height: 100vh;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+#innerSideBar{
+  display: block;
+  position: fixed;
+  background: yellow;
+  /* top: 70px; */
+  height: 100vh;
+  width: 50vh;
+  margin-right: 0px;
+  margin-left: 10vh;
+}
+
 .fa-cog{
-  position: absolute;
+  position: fixed;
   top: 10px;
   z-index: 1;
 }
@@ -35,35 +64,12 @@ margin: 0;
   font-size: 40px;
 }
 
-#showHideBtn ::after{
+#showHideBtn::after{
   border: none;
   outline: none;
   background: none;
   font-size: 40px;
   background: red;
-
-}
-
-#sideNav{
-    display: block;
-    position: fixed;
-    background: red;
-    top: 70px;
-    width: 10vh;
-    height: 100vh;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-#innerSideBar{
-    position: fixed;
-    background: yellow;
-    /* top: 70px; */
-    height: 100vh;
-    width: 70vh;
-    display: block;
-    margin-right: 0px;
-    margin-left: 10vh;
 }
 
 .show{
@@ -72,40 +78,35 @@ margin: 0;
     padding: none;
 }
 
-header{
-    margin: 0;
-    background: orange;
-}
-
 h1{
     margin-top: 5px;
     width: 100vh;
 }
 
-form {
-    position: fixed;
+#editorForm {
+    background-color: lightgrey;
+    margin-left: auto;
     display: flex;
-    justify-content: flex-end;
     top: 10px;
-    flex-direction: row; 
-    width: 60vw;
-    margin: 0 auto;
-    max-height: 100vh;
+    width: 70vw;
+    height: 100vh;
 }
 
-∑
-
 .editorStyling { /* styling for text editor */
-    background-color: white;
+    background-color: rgb(228, 228, 228) !important; 
     border: none;
 }
 
 .tox-tinymce { /* styling for text editor */
     border: none !important;
+    width: 90%;
 }
 
 .tox .tox-edit-area { /* styling for text editor */
     border: none !important;
+}
+.tox-toolbar {
+  background-color: lightgrey !important;
 }
  
  
@@ -141,11 +142,12 @@ form {
     font-size: 28px;
     font-weight: bold;
   }
-  .fa-question{
-    display: block;
-    width: 50px;
- 
-    color:black;
+  .tox .tox-notification {
+    display: none !important; 
+  }
+  .tox .tox-notification--in{
+    opacity: 0 !important;
+    display: none !important;
   }
 
   .close:hover,
@@ -155,21 +157,54 @@ form {
     cursor: pointer;
   }
   
-  #myBtn {
+  #helpBtn {
     border: none;
     outline: none;
     background: none;
-    font-size: 40px;
+    font-size: 20px;
+    padding: 10px;
   }
   
-  #myBtn:hover {
-    
-    /* border-radius: 15px; */
-    margin: 5px;
+  #helpBtn:hover {
     color: white;
-    font-size: 30px;
-    /* background-color: green; */
-    width: 110px;
+    font-size: 20px;
+  }
+
+  #searchBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  #searchBtn:hover{
+    color: white;
+  }
+
+  #printBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 20px;
+    padding: 10px;
+  }
+  
+  #printBtn:hover{
+    color: white;
+  }
+
+  #favouriteBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 15px;
+    padding: 5px;
+    color: white;
+  }
+  
+  #favouriteBtn:hover{
+    color: steelblue;
   }
 
  
