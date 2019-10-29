@@ -19,7 +19,7 @@
         <div id="sideNav">
                 <button id="helpBtn"> <i class="fas fa-question"> </i> Help </button>
                 <button id="searchBtn"> <i class="fas fa-search"> </i> Search </button>
-                <button id="printBtn"> <i class="fas fa-print"> </i> Print </button>
+                <button id="printBtn" onclick="printDiv('printableArea')"> <i class="fas fa-print"> </i> Print </button>
                 <button id="favouriteBtn" form="search"> <i class="far fa-star"> </i> Favourites </button>
         </div>
             <!-- Ytterligare en container som är tänkt att ha för vidare inställningar -->
@@ -29,7 +29,7 @@
     </nav>
     
 <form id="editorForm">              <!-- Tiny MCE Option -->
-    <textarea> Next, use our Get Started docs to setup Tiny! </textarea>
+    <textarea id="printableArea"> Next, use our Get Started docs to setup Tiny! </textarea>
 </form>
     
 <!-- Hjälp knapp -->
