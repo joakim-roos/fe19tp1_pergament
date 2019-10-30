@@ -4,11 +4,28 @@
   notes,
 ] */
 
+// Joakim - 'Skapa en anteckning'
 
-window.onload = function(){ 
-var showBtn = document.getElementById("showHideBtn");
+const addNewNote = document.getElementById("saveEditorBtn");
+
+addNewNote.onclick = function () {
+  addElement()
+}
+
+function addElement () { 
+  let currentNote = document.getElementById("innerSideBar"); 
+  let child = currentNote.firstChild;
+  let newNote = document.createElement("div"); 
+  newNote.className = "newNote";
+  newNote.innerHTML = tinyMCE.get('printableArea').getContent();
+  currentNote.insertBefore(newNote, child);
+};
+
+
 
 //Fabian
+
+var showBtn = document.getElementById("showHideBtn");
 showBtn.onclick = function() {showHideFunction()};
 
 function showHideFunction(){
@@ -16,16 +33,13 @@ function showHideFunction(){
 
      if(sideNav.style.display === "block"){
       sideNav.style.display = "none";
-      console.log("1");
      }
-      else{
+      else {
         sideNav.style.display = "block";
-        showBtn.style.backgroundColor = "red";
-        console.log("2");
      }
-    
-
 }
+
+
   // TINY MCE Rich text editor. 
   tinymce.init({
     selector:'textarea',
@@ -34,9 +48,10 @@ function showHideFunction(){
     plugins: "autoresize",
     min_height: 700,
     max_height: 700,
-    content_css: '/style.css',
-    body_class: 'editorStyling'
-});
+    content_css: '/style.css, https://fonts.googleapis.com/css?family=Raleway&display=swap',
+    body_class: 'editorStyling',
+    editor_selector: "editor",
+  });
 
 
 
@@ -69,6 +84,7 @@ window.onclick = function(event) {
   }
 }
 
+
 /* För att skriva ut en anteckning */
 printDiv = function(divName) {
   var printContents = document.getElementById(divName).innerHTML;
@@ -81,4 +97,4 @@ printDiv = function(divName) {
 //  document.body.innerHTML = originalContents;
 location.reload();
 }
-};
+
