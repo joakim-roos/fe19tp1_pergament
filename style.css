@@ -27,7 +27,7 @@ margin: 0;
   position: fixed;
   background: red;
   top: 70px;
-  width: 10vh;
+  width: 20vh;
   height: 100vh;
   box-sizing: border-box;
   z-index: 1;
@@ -41,7 +41,6 @@ margin: 0;
   height: 100vh;
   width: 50vh;
   margin-right: 0px;
-  margin-left: 10vh;
 }
 
 .fa-cog{
