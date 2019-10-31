@@ -258,7 +258,10 @@ h1{
   #newNoteBtn:hover {
     background-color: grey; 
   }
-
+  .ta-bort-knappen {
+    border: none;
+    float: right;
+  }
 
 
 

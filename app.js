@@ -14,11 +14,38 @@ function addElement () {
   let newNote = document.createElement("div"); 
   newNote.className = "newNote";
   newNote.innerHTML = editorContent;  
+
+//Malin
+  // Skapar ett ID och spar i variabel 
+  var datumet = Date.now();
+  var skapatID = Math.floor(datumet / 1000);
+  //ger div(newnote) det skapade ID:t 
+  newNote.setAttribute('id', skapatID);
+  //skapa raderaknapp
+  var raderaKnapp = document.createElement("button");
+  // ger knapp en klass för att kunna styla det 
+  raderaKnapp.className="ta-bort-knappen";
+  //ger knapp specifikt ID och kör funktion vid klick 
+  raderaKnapp.setAttribute("onclick", "removeElement("+skapatID+")")
+  //ger radera knapp ett innehåll 
+  var textRaderaKnapp = document.createTextNode("X");
+  //slår ihop knappen med innehållet 
+  raderaKnapp.appendChild(textRaderaKnapp);
+  //lägger knappen i div (newnote) 
+  newNote.appendChild(raderaKnapp);
+
   /* newNote.innerHTML = tinyMCE.get('printableArea').getContent(); */
   currentNote.insertBefore(newNote, child);
 };
 
-
+//Malin
+//klickfunktionen
+function removeElement(skapatID) {
+  // spar anteckningen i en varabel 
+  var attRadera = document.getElementById(skapatID);
+  //raderar anteckningen
+  attRadera.parentNode.removeChild(attRadera);
+}
   
 
 
