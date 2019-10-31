@@ -106,6 +106,7 @@ h1{
   width: 70vw;
 }
 
+
 /* #editorForm {
     background-color: rgb(240, 240, 240);
     display: flex;
@@ -231,7 +232,6 @@ h1{
     color: steelblue;
   }
 
-
   .circle{
     position: absolute;
     top: 80vh;
@@ -244,18 +244,19 @@ h1{
     width: 110px;
     border-radius: 50%;
   }
-  .new-Note-Btn {
+  
+  #newNoteBtn {
     height: 50px;
     width: 50px;
     border: none;
   }
-  #newNoteBtn {
-    background-color: whitesmoke;
-    
-  }
+
+ /*  #newNoteBtn {
+    fill: sandybrown;
+  } */
   
   #newNoteBtn:hover {
-    background-color: grey;
+    background-color: grey; 
   }
 
 
