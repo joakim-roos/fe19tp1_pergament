@@ -39,8 +39,7 @@ font-family: 'Raleway', sans-serif;
 
 #innerSideBar{
   background-color: rgb(252, 246, 229);
-  /* top: 70px; */
-  height: 100vh;
+  height: 90vh;
   width: 230px;
   margin-left: 100px;
   overflow: hidden;
@@ -102,7 +101,7 @@ h1{
 }
 
 #editor-container {
-  height: 100vh;
+  height: 90vh;
   width: 70vw;
 }
 
@@ -243,6 +242,7 @@ h1{
     height: 110px;
     width: 110px;
     border-radius: 50%;
+    outline: none;
   }
   
   #newNoteBtn {
@@ -255,9 +255,11 @@ h1{
     fill: sandybrown;
   } */
   
-  #newNoteBtn:hover {
-    background-color: grey; 
+  .circle:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
   }
+
   .ta-bort-knappen {
     border: none;
     float: right;
