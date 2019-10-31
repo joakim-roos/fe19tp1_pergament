@@ -1,12 +1,6 @@
-/* var quire = [ 
-  title = "",
-  date(),
-  notes,
-] */
 
-// Joakim - 'Skapa en anteckning'
-
-const addNewNote = document.getElementById("saveEditorBtn");
+// Joakim - 'Skapa en anteckning' - Submit-knappen funkar och lägger till en anteckning på innersidebar. Dock går det inte att klicka på den än.
+const addNewNote = document.getElementById("newNoteBtn");
 
 addNewNote.onclick = function () {
   addElement()
@@ -23,8 +17,7 @@ function addElement () {
 
 
 
-//Fabian
-
+// Fabian
 var showBtn = document.getElementById("showHideBtn");
 showBtn.onclick = function() {showHideFunction()};
 
@@ -40,7 +33,7 @@ function showHideFunction(){
 }
 
 
-  // TINY MCE Rich text editor. 
+  // TINY MCE config. 
   tinymce.init({
     selector:'textarea',
     menubar: false,
@@ -55,7 +48,7 @@ function showHideFunction(){
 
 
 
-// Hjälp knapp 
+// Hjälp knapp - Malin
 
 // Get the modal hela första diven 
 var modal = document.getElementById("myModal");
@@ -85,7 +78,7 @@ window.onclick = function(event) {
 }
 
 
-/* För att skriva ut en anteckning */
+// Print-knapp - Malin 
 printDiv = function(divName) {
   var printContents = document.getElementById(divName).innerHTML;
   var originalContents = document.body.innerHTML;
