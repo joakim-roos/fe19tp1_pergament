@@ -57,11 +57,11 @@ showBtn.onclick = function() {showHideFunction()};
 function showHideFunction(){
   var sideNav = document.querySelector("#sideNav");
 
-     if(sideNav.style.display === "block"){
+     if(sideNav.style.display === "inline-block"){
       sideNav.style.display = "none";
      }
       else {
-        sideNav.style.display = "block";
+        sideNav.style.display = "inline-block";
      }
 }
 
