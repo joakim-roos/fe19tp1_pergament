@@ -26,7 +26,7 @@ function addElement () {
   // ger knapp en klass för att kunna styla det 
   raderaKnapp.className="ta-bort-knappen";
   //ger knapp specifikt ID och kör funktion vid klick 
-  raderaKnapp.setAttribute("onclick", "removeElement("+skapatID+")")
+  raderaKnapp.setAttribute("onclick", "removeElement("+skapatID+")");
   //ger radera knapp ett innehåll 
   var textRaderaKnapp = document.createTextNode("X");
   //slår ihop knappen med innehållet 
@@ -36,6 +36,8 @@ function addElement () {
 
   /* newNote.innerHTML = tinyMCE.get('printableArea').getContent(); */
   currentNote.insertBefore(newNote, child);
+
+
 };
 
 //Malin
@@ -46,11 +48,10 @@ function removeElement(skapatID) {
   //raderar anteckningen
   attRadera.parentNode.removeChild(attRadera);
 }
-  
-
 
 
 // Fabian
+//Visa/göm SettingsElementet (SideNav) med hjälp av en knapp
 var showBtn = document.getElementById("showHideBtn");
 showBtn.onclick = function() {showHideFunction()};
 
