@@ -36,13 +36,15 @@ addNewNote.onclick = function () {
 
 function addElement () { 
   //let editorContent = document.querySelector(".ql-editor").innerHTML;
-  let editorContent=quill.getText();  //quill.root.innerHTML
-  console.log(editorContent);
+  let editorContent=quill.root.innerHTML;
+  //console.log(editorContent);
   let currentNote = document.getElementById("innerSideBar"); 
   let child = currentNote.firstChild;
   let newNote = document.createElement("div"); 
   newNote.className = "newNote";
+  console.log(newNote.innerHTML);
   newNote.innerHTML = editorContent;
+  console.log(newNote.innerHTML);
   quill.deleteText(0,quill.getLength()); //tömmer canvas från symboler
 
 
@@ -95,13 +97,14 @@ function addElement () {
 //flyttar runt markeringen
 function focusElement(newId){
   var oldNote=selectedNote;
-  selectedNote=Id2Note(newId);
+  selectedNote=Id2Note(newId);  
 
-  if (oldNote!=selectedNote){
-   oldNote.textContent=quill.getText(); //antagligen buggar här
-   quill.setText(selectedNote.textContent);
+  if (oldNote!=selectedNote && oldNote!=null){
+   console.log(oldNote.innerHTML);
+   oldNote.innerHTML=quill.root.innerHTML; //antagligen buggar här
+   quill.root.innerHTML=(selectedNote.innerHTML);
+   console.log(oldNote.innerHTML);
   }
-
 }
 
 //Malin
@@ -206,3 +209,5 @@ printDiv = function(divName) {
 location.reload();
 }
 
+
+addElement(); //so the list won't start empty
