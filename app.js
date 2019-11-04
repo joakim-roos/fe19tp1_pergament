@@ -182,9 +182,9 @@ function showHideFunction(){
 
 
 // Hjälp knapp - Malin
-var modal = document.getElementById("myModal"); // Get the modal hela första diven 
-var btn = document.getElementById("helpBtn"); // Get the button that opens the modal
-var span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
+let modal = document.getElementById("myModal"); // Get the modal hela första diven 
+let btn = document.getElementById("helpBtn"); // Get the button that opens the modal
+let span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
 
 btn.onclick = function() {  // When the user clicks the button, open the modal 
   modal.style.display = "block";
@@ -203,8 +203,8 @@ window.onclick = function(event) { // When the user clicks anywhere outside of t
 
 // Print-knapp - Malin 
 printDiv = function(divName) {
-  var printContents = document.querySelector(".ql-editor").innerHTML;
-  var originalContents = document.body.innerHTML;
+  let printContents = document.querySelector(".ql-editor").innerHTML;
+  let originalContents = document.body.innerHTML;
   document.body.innerHTML = printContents;
   window.print();
 //  document.body.innerHTML = originalContents;
