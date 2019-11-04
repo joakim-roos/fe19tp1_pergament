@@ -2,25 +2,73 @@
 // Joakim - 'Skapa en anteckning' - Submit-knappen funkar och lägger till en anteckning på innersidebar. Dock går det inte att klicka på den än.
 const addNewNote = document.getElementById("newNoteBtn");
 
-addNewNote.onclick = function () {
-  addElement()
+//tom lista för notes
+const noteList=[];
+//global variable för notes
+var Count=-1;
+//global variable för vald note
+var selectedNote;
+
+//få lägsta öppna id, rätt dålig funktion men fick inte Lambda att fungera i JS
+function getOpenId(){
+  Count++;
+  return Count;
 }
 
+//en simpel funktion för att konverta från heltal till Note
+function Id2Note(int){
+  var i;
+  var t;
+  for(i=0;i<noteList.length;i++){
+    t=noteList[i].getAttribute("testId");
+    if(int==t){
+      return noteList[i]
+    }
+  }
+}
+
+
+addNewNote.onclick = function () {
+  addElement();
+}
+
+
+
 function addElement () { 
-  let editorContent = document.querySelector(".ql-editor").textContent;
+  //let editorContent = document.querySelector(".ql-editor").innerHTML;
+  let editorContent=quill.getText();
   console.log(editorContent);
   let currentNote = document.getElementById("innerSideBar"); 
   let child = currentNote.firstChild;
   let newNote = document.createElement("div"); 
   newNote.className = "newNote";
-  newNote.innerHTML = editorContent;  
+  newNote.innerHTML = editorContent;
+  quill.deleteText(0,quill.getLength());
+
 
 //Malin
   // Skapar ett ID och spar i variabel 
   var datumet = Date.now();
   var skapatID = Math.floor(datumet / 1000);
+
+
+
   //ger div(newnote) det skapade ID:t 
   newNote.setAttribute('id', skapatID);
+
+
+  //ger div-noten ett nytt, "mer säkert", id
+  var newId=getOpenId();
+  newNote.setAttribute("testId",newId);
+  //lägger till den i globala listan
+  noteList.push(newNote);
+  //testfunktion, bör tas bort
+  //var t=document.getElementById("TEST");
+  //t.innerHTML=noteList.length;
+  //byter valt element vid klick
+  newNote.setAttribute("onclick","focusElement("+newId+")");
+
+
   //skapa raderaknapp
   var raderaKnapp = document.createElement("button");
   // ger knapp en klass för att kunna styla det 
@@ -37,16 +85,48 @@ function addElement () {
   /* newNote.innerHTML = tinyMCE.get('printableArea').getContent(); */
   currentNote.insertBefore(newNote, child);
 
+  //väjer det senast skapade elementet
+  focusElement(newId);
 
 };
+
+
+function focusElement(newId){
+  var oldNote=selectedNote;
+  selectedNote=Id2Note(newId);
+
+  if (oldNote!=selectedNote){
+   oldNote.textContent=quill.getText();
+   quill.setText(selectedNote.textContent);
+  }
+
+}
 
 //Malin
 //klickfunktionen
 function removeElement(skapatID) {
   // spar anteckningen i en varabel 
   var attRadera = document.getElementById(skapatID);
+
+  //om den borttagna noten är den valda, gör saker
+
+
   //raderar anteckningen
   attRadera.parentNode.removeChild(attRadera);
+
+  //går igenom globala listan och tar bort noten ur listan
+  var i;
+  var index;
+  for (i=0;i<noteList.length;i++){
+    if (noteList[i].skapatID==skapatID){
+      index=i;
+    }
+  }
+  noteList.splice(index,1);
+  //
+
+
+
 }
 
 
