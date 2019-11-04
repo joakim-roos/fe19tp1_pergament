@@ -1,3 +1,5 @@
+// let how =  document.getElementById("how").textContent;
+// window.alert(how);
 
 // Joakim - 'Skapa en anteckning' - Submit-knappen funkar och lägger till en anteckning på innersidebar. Dock går det inte att klicka på den än.
 const addNewNote = document.getElementById("newNoteBtn");
@@ -50,8 +52,8 @@ function addElement () {
 
 //Malin
   // Skapar ett ID och spar i variabel 
-  var datumet = Date.now();
-  var skapatID = Math.floor(datumet / 1000);
+  let datumet = Date.now();
+  let skapatID = Math.floor(datumet / 1000);
 
 
 
@@ -73,13 +75,13 @@ function addElement () {
 
 
   //skapa raderaknapp
-  var raderaKnapp = document.createElement("button");
+  let raderaKnapp = document.createElement("button");
   // ger knapp en klass för att kunna styla det 
   raderaKnapp.className="ta-bort-knappen";
   //ger knapp specifikt ID och kör funktion vid klick 
   raderaKnapp.setAttribute("onclick", "removeElement("+skapatID+")");
   //ger radera knapp ett innehåll 
-  var textRaderaKnapp = document.createTextNode("X");
+  let textRaderaKnapp = document.createTextNode("X");
   //slår ihop knappen med innehållet 
   raderaKnapp.appendChild(textRaderaKnapp);
   //lägger knappen i div (newnote) 
@@ -111,7 +113,7 @@ function focusElement(newId){
 //klickfunktionen
 function removeElement(skapatID) {
   // spar anteckningen i en varabel 
-  var attRadera = document.getElementById(skapatID);
+  let attRadera = document.getElementById(skapatID);
 
   //om den borttagna noten är den valda, gör saker
 
