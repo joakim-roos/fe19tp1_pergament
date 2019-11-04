@@ -2,14 +2,14 @@
 // Joakim - 'Skapa en anteckning' - Submit-knappen funkar och lägger till en anteckning på innersidebar. Dock går det inte att klicka på den än.
 const addNewNote = document.getElementById("newNoteBtn");
 
-//tom lista för notes
+//tom array för samtliga notes
 const noteList=[];
 //global variable för notes
 var Count=-1;
-//global variable för vald note
+//global variable för att markera vald note
 var selectedNote;
-
-//få lägsta öppna id, rätt dålig funktion men fick inte Lambda att fungera i JS
+//var tänkt att få lägsta öppna id, rätt dålig funktion men fick inte Lambda att fungera i JS.
+//istället returnerar funktionen n efter n calls
 function getOpenId(){
   Count++;
   return Count;
@@ -36,14 +36,14 @@ addNewNote.onclick = function () {
 
 function addElement () { 
   //let editorContent = document.querySelector(".ql-editor").innerHTML;
-  let editorContent=quill.getText();
+  let editorContent=quill.getText();  //quill.root.innerHTML
   console.log(editorContent);
   let currentNote = document.getElementById("innerSideBar"); 
   let child = currentNote.firstChild;
   let newNote = document.createElement("div"); 
   newNote.className = "newNote";
   newNote.innerHTML = editorContent;
-  quill.deleteText(0,quill.getLength());
+  quill.deleteText(0,quill.getLength()); //tömmer canvas från symboler
 
 
 //Malin
@@ -65,6 +65,7 @@ function addElement () {
   //testfunktion, bör tas bort
   //var t=document.getElementById("TEST");
   //t.innerHTML=noteList.length;
+  
   //byter valt element vid klick
   newNote.setAttribute("onclick","focusElement("+newId+")");
 
@@ -91,12 +92,13 @@ function addElement () {
 };
 
 
+//flyttar runt markeringen
 function focusElement(newId){
   var oldNote=selectedNote;
   selectedNote=Id2Note(newId);
 
   if (oldNote!=selectedNote){
-   oldNote.textContent=quill.getText();
+   oldNote.textContent=quill.getText(); //antagligen buggar här
    quill.setText(selectedNote.textContent);
   }
 
