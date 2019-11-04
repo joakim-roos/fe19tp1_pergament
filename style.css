@@ -18,6 +18,7 @@ font-family: 'Raleway', sans-serif;
   flex-direction: row;
   margin: 0;
   width: 200px;
+  float: right;
 }
 
 #sideNav{
@@ -41,7 +42,6 @@ font-family: 'Raleway', sans-serif;
   background-color: rgb(252, 246, 229);
   height: 90vh;
   width: 230px;
-  margin-left: 100px;
   overflow: hidden;
   padding-top: 30px;
   border: 1px solid rgb(235, 229, 212);
@@ -61,16 +61,16 @@ font-family: 'Raleway', sans-serif;
 
 }
 
-.fa-cog{
+.fa-bars{
   position: fixed;
   top: 10px;
   z-index: 1;
 }
 
-.fa-cog:hover{
+.fa-bars:hover{
   color: steelblue;
 }
-.fa-cog::after{
+.fa-bars::after{
   display: block;
 }
 
