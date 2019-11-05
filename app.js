@@ -3,11 +3,8 @@
 
 // Joakim - 'Skapa en anteckning' - Submit-knappen funkar och lägger till en anteckning på innersidebar. Dock går det inte att klicka på den än.
 const addNewNote = document.getElementById("newNoteBtn");
-
-
 const noteList=[]; //tom array för samtliga notes
-var Count=-1; //global variable för notes
-   //global variable för att markera vald note
+
 
 
 //var tänkt att få lägsta öppna id, rätt dålig funktion men fick inte Lambda att fungera i JS.
@@ -59,11 +56,8 @@ function addElement () {
 function focusElement(skapatID){  //när man klickar på en note kallas den här funktionen. 
   var selectedNote;
   selectedNote = Id2Note(skapatID);
-  if (quill.root.innerHTML = selectedNote.innerHTML) {
       selectedNote.innerHTML = quill.root.innerHTML;
-  }
-}
-
+};
 
 function Id2Note(int){ // Loopar igenom notelist array genom Malins ID
   var i;
@@ -75,6 +69,8 @@ function Id2Note(int){ // Loopar igenom notelist array genom Malins ID
       }
   }
 }
+
+
 
 //Malin
 //klickfunktionen
