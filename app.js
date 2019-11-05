@@ -144,7 +144,7 @@ window.onclick = function(event) { // When the user clicks anywhere outside of t
 
 // Print-knapp - Malin 
 printDiv = function(divName) {
-  let printContents = document.querySelector(".ql-editor").innerHTML;
+  let printContents = quill.root.innerHTML;
   let originalContents = document.body.innerHTML;
   document.body.innerHTML = printContents;
   window.print();
