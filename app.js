@@ -4,136 +4,94 @@
 // Joakim - 'Skapa en anteckning' - Submit-knappen funkar och lägger till en anteckning på innersidebar. Dock går det inte att klicka på den än.
 const addNewNote = document.getElementById("newNoteBtn");
 
-//tom array för samtliga notes
-const noteList=[];
-//global variable för notes
-var Count=-1;
-//global variable för att markera vald note
-var selectedNote;
+
+const noteList=[]; //tom array för samtliga notes
+var Count=-1; //global variable för notes
+   //global variable för att markera vald note
+
+
 //var tänkt att få lägsta öppna id, rätt dålig funktion men fick inte Lambda att fungera i JS.
 //istället returnerar funktionen n efter n calls
-function getOpenId(){
+/* function getOpenId(){
   Count++;
   return Count;
-}
-
-//en simpel funktion för att konverta från heltal till Note
-function Id2Note(int){
-  var i;
-  var t;
-  for(i=0;i<noteList.length;i++){
-    t=noteList[i].getAttribute("testId");
-    if(int==t){
-      return noteList[i]
-    }
-  }
-}
-
+  console.log(Count);
+} */
 
 addNewNote.onclick = function () {
   addElement();
 }
 
-
-
 function addElement () { 
-  //let editorContent = document.querySelector(".ql-editor").innerHTML;
-  let editorContent=quill.root.innerHTML;
-  //console.log(editorContent);
   let currentNote = document.getElementById("innerSideBar"); 
   let child = currentNote.firstChild;
   let newNote = document.createElement("div"); 
   newNote.className = "newNote";
-  console.log(newNote.innerHTML);
-  newNote.innerHTML = editorContent;
-  console.log(newNote.innerHTML);
+  newNote.innerHTML = quill.root.innerHTML;
   quill.deleteText(0,quill.getLength()); //tömmer canvas från symboler
+  currentNote.insertBefore(newNote, child);
 
-
-//Malin
   // Skapar ett ID och spar i variabel 
   let datumet = Date.now();
   let skapatID = Math.floor(datumet / 1000);
+  newNote.setAttribute('id', skapatID); //ger div(newnote) det skapade ID:t 
 
 
-
-  //ger div(newnote) det skapade ID:t 
-  newNote.setAttribute('id', skapatID);
-
-
-  //ger div-noten ett nytt, "mer säkert", id
-  var newId=getOpenId();
-  newNote.setAttribute("testId",newId);
-  //lägger till den i globala listan
+                //ger div-noten ett nytt, "mer säkert", id
+                //let newId=getOpenId();
+                //newNote.setAttribute("testId",newId);
+                //lägger till den i globala listan
+  newNote.setAttribute("onclick", "focusElement("+skapatID+")"); //byter valt element vid klick
   noteList.push(newNote);
-  //testfunktion, bör tas bort
-  //var t=document.getElementById("TEST");
-  //t.innerHTML=noteList.length;
-  
-  //byter valt element vid klick
-  newNote.setAttribute("onclick","focusElement("+newId+")");
+// det här ovanför ska tas bort. 
 
 
-  //skapa raderaknapp
-  let raderaKnapp = document.createElement("button");
-  // ger knapp en klass för att kunna styla det 
-  raderaKnapp.className="ta-bort-knappen";
-  //ger knapp specifikt ID och kör funktion vid klick 
-  raderaKnapp.setAttribute("onclick", "removeElement("+skapatID+")");
-  //ger radera knapp ett innehåll 
-  let textRaderaKnapp = document.createTextNode("X");
-  //slår ihop knappen med innehållet 
-  raderaKnapp.appendChild(textRaderaKnapp);
-  //lägger knappen i div (newnote) 
-  newNote.appendChild(raderaKnapp);
-
-  /* newNote.innerHTML = tinyMCE.get('printableArea').getContent(); */
-  currentNote.insertBefore(newNote, child);
-
-  //väjer det senast skapade elementet
-  focusElement(newId);
-
+  let raderaKnapp = document.createElement("button");   //skapa raderaknapp
+  raderaKnapp.className="ta-bort-knappen"; // ger knapp en klass för att kunna styla det 
+  raderaKnapp.setAttribute("onclick", "removeElement("+skapatID+")"); //ger knapp specifikt ID och kör funktion vid klick 
+  let textRaderaKnapp = document.createTextNode("X");  //ger radera knapp ett innehåll 
+  raderaKnapp.appendChild(textRaderaKnapp);   //slår ihop knappen med innehållet 
+  newNote.appendChild(raderaKnapp);   //lägger knappen i div (newnote) 
 };
 
 
-//flyttar runt markeringen
-function focusElement(newId){
-  var oldNote=selectedNote;
-  selectedNote=Id2Note(newId);  
+ 
+function focusElement(skapatID){  //när man klickar på en note kallas den här funktionen. 
+  var selectedNote;
+  selectedNote = Id2Note(skapatID);
+  if (quill.root.innerHTML = selectedNote.innerHTML) {
+      selectedNote.innerHTML = quill.root.innerHTML;
+  }
+}
 
-  if (oldNote!=selectedNote && oldNote!=null){
-   console.log(oldNote.innerHTML);
-   oldNote.innerHTML=quill.root.innerHTML; //antagligen buggar här
-   quill.root.innerHTML=(selectedNote.innerHTML);
-   console.log(oldNote.innerHTML);
+
+function Id2Note(int){ // Loopar igenom notelist array genom Malins ID
+  var i;
+  var t;
+  for(i = 0; i < noteList.length; i++){
+    t = noteList[i].getAttribute("id");
+      if(int==t){
+      return noteList[i]
+      }
   }
 }
 
 //Malin
 //klickfunktionen
 function removeElement(skapatID) {
-  // spar anteckningen i en varabel 
-  let attRadera = document.getElementById(skapatID);
+  
+  let attRadera = document.getElementById(skapatID); // spar anteckningen i en varabel 
+  attRadera.parentNode.removeChild(attRadera); //raderar anteckningen
 
-  //om den borttagna noten är den valda, gör saker
 
-
-  //raderar anteckningen
-  attRadera.parentNode.removeChild(attRadera);
-
-  //går igenom globala listan och tar bort noten ur listan
-  var i;
+  var i;    //går igenom globala listan och tar bort noten ur listan
   var index;
-  for (i=0;i<noteList.length;i++){
-    if (noteList[i].skapatID==skapatID){
+  for (i = 0; i < noteList.length; i++){
+    if (noteList[i].skapatID === skapatID){
       index=i;
     }
   }
   noteList.splice(index,1);
-  //
-
-
-
 }
 
 
@@ -153,26 +111,13 @@ function showHideFunction(){
      }
 }
 
-
-  // TINY MCE config. 
-/*   tinymce.init({
-    selector:'textarea',
-    menubar: false,
-    fixed_toolbar_container: '.form',
-    plugins: "autoresize",
-    min_height: 700,
-    max_height: 700,
-    content_css: '/style.css, https://fonts.googleapis.com/css?family=Raleway&display=swap',
-    body_class: 'editorStyling',
-    editor_selector: "editor",
-  }); */
-
   let quill = new Quill('#editor-container', {
     modules: {
       toolbar: [
         [{ header: [1, 2, false] }],
         ['bold', 'italic', 'underline'],
-        ['image', 'code-block']
+        ['image', 'code-block'],
+        [{ 'list': 'ordered'}, {'list': 'bullet' }],
       ]
     },
     placeholder: 'Team Pergament är cool',
