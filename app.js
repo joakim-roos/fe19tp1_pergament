@@ -54,10 +54,10 @@ function addElement () {
 
  
 function focusElement(skapatID){  //när man klickar på en note kallas den här funktionen. 
-  var selectedNote;
-  selectedNote = Id2Note(skapatID);
-      selectedNote.innerHTML = quill.root.innerHTML;
-};
+  var selectedNote = Id2Note(skapatID);
+  quill.root.innerHTML = selectedNote.innerHTML;
+  }
+
 
 function Id2Note(int){ // Loopar igenom notelist array genom Malins ID
   var i;
