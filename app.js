@@ -18,7 +18,6 @@ const noteList = []; //tom array för samtliga notes
 addNewNote.onclick = function () {
   addNote();
 }
-
 function addNote() {
   let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
     id: Date.now(),
@@ -31,27 +30,26 @@ function addNote() {
   let child = allNotes.firstChild;
   let note = document.createElement("div");
   note.className = "note";
+     //malin raderaknapp
+     note.setAttribute('id', notes.id) //ger anteckningen ett ID
+     var deleteButton = document.createElement("button"); //skapar en knapp
+     var txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
+      deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
+      deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
+      deleteButton.setAttribute("onclick", "deleteNote("+notes.id+")") //säger att funktionen ska köras när knappen klickas på
+     
   allNotes.insertBefore(note, child);
-
   notes.data = quill.root.innerHTML;
   quill.deleteText(0, quill.getLength()); //tömmer canvas från symboler
 
   note.addEventListener('click', function (event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
     console.log(event.target)
     quill.root.innerHTML = note.innerHTML; // eller istället för notes.data använd note.innerhtml (samma sak)
-    //malin raderaknapp
-    note.setAttribute('id', notes.id) //ger anteckningen ett ID
-    var deleteButton = document.createElement("button"); //skapar en knapp
-    var txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
-     deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
-     deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
-     note.appendChild(deleteButton); //lägger in knappen i anteckningen 
-     deleteButton.setAttribute("onclick", "deleteNote("+notes.id+")") //säger att funktionen ska köras när knappen klickas på
   });
 
   noteList.push(notes);
- 
   renderNotes();
+  note.appendChild(deleteButton); //lägger in knappen i anteckningen 
 };
 
 function renderNotes() {  // loopar igenom notes och ser till så att rätt anteckning är kopplad till rätt notes objekt.
@@ -84,7 +82,6 @@ function showHideFunction() {
   }
 }
 
-
 // Hjälp knapp - Malin
 let modal = document.getElementById("myModal"); // första diven 
 let btn = document.getElementById("helpBtn"); // Get the button that opens the modal
@@ -110,4 +107,3 @@ printDiv = function (divName) {
   //  document.body.innerHTML = originalContents;
   location.reload();
 }
-
