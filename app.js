@@ -12,10 +12,8 @@ let quill = new Quill('#editor-container', {
   theme: 'snow'  // or 'bubble'
 });
 
-
 const addNewNote = document.getElementById("newNoteBtn");
 const noteList = []; //tom array för samtliga notes
-
 
 addNewNote.onclick = function () {
   addNote();
@@ -38,22 +36,21 @@ function addNote() {
   notes.data = quill.root.innerHTML;
   quill.deleteText(0, quill.getLength()); //tömmer canvas från symboler
 
-  //newNote.setAttribute('id', noteNumberX); //ger div(newnote) det skapade ID:t 
-  //newNote.setAttribute("onclick", "focusElement(" + noteNumberX + ")"); //byter valt element vid klick
-
   note.addEventListener('click', function (event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
     console.log(event.target)
     quill.root.innerHTML = note.innerHTML; // eller istället för notes.data använd note.innerhtml (samma sak)
+    //malin raderaknapp
+    note.setAttribute('id', notes.id) //ger anteckningen ett ID
+    var deleteButton = document.createElement("button"); //skapar en knapp
+    var txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
+     deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
+     deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
+     note.appendChild(deleteButton); //lägger in knappen i anteckningen 
+     deleteButton.setAttribute("onclick", "deleteNote("+notes.id+")") //säger att funktionen ska köras när knappen klickas på
   });
 
   noteList.push(notes);
-
-  /* let deleteButton = document.createElement("button");   //skapa raderaknapp
-  deleteButton.className = "delete-button"; // ger knapp en klass för att kunna styla det 
-  deleteButton.setAttribute("onclick", "removeElement(" + notes.id + ")"); //ger knapp specifikt ID och kör funktion vid klick 
-  let textdeleteButton = document.createTextNode("X");  //ger radera knapp ett innehåll 
-  deleteButton.appendChild(textdeleteButton);   //slår ihop knappen med innehållet 
-  note.appendChild(deleteButton);   //lägger knappen i div (newnote)  */
+ 
   renderNotes();
 };
 
@@ -64,6 +61,12 @@ function renderNotes() {  // loopar igenom notes och ser till så att rätt ante
     console.log(notes)
   })
 };
+//Malin raderafunktion 
+function deleteNote(xxx) {
+  let note = document.querySelector(".note");//hämtar anteckning
+  var attRadera = document.getElementById(xxx);//spar anteckningen i en variabel
+  attRadera.parentNode.removeChild(attRadera);//tar bort anteckningen 
+}
 
 // Fabian
 //Visa/göm SettingsElementet (SideNav) med hjälp av en knapp
@@ -107,3 +110,4 @@ printDiv = function (divName) {
   //  document.body.innerHTML = originalContents;
   location.reload();
 }
+
