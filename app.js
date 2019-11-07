@@ -32,8 +32,8 @@ function addNote() {
   note.className = "note";
      //malin raderaknapp
      note.setAttribute('id', notes.id) //ger anteckningen ett ID
-     var deleteButton = document.createElement("button"); //skapar en knapp
-     var txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
+     let deleteButton = document.createElement("button"); //skapar en knapp
+     let txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
       deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
       deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
       deleteButton.setAttribute("onclick", "deleteNote("+notes.id+")") //säger att funktionen ska köras när knappen klickas på
@@ -62,17 +62,17 @@ function renderNotes() {  // loopar igenom notes och ser till så att rätt ante
 //Malin raderafunktion 
 function deleteNote(xxx) {
   let note = document.querySelector(".note");//hämtar anteckning
-  var attRadera = document.getElementById(xxx);//spar anteckningen i en variabel
-  attRadera.parentNode.removeChild(attRadera);//tar bort anteckningen 
+  let deleteItem = document.getElementById(xxx);//spar anteckningen i en variabel
+  deleteItem.parentNode.removeChild(deleteItem);//tar bort anteckningen 
 }
 
 // Fabian
 //Visa/göm SettingsElementet (SideNav) med hjälp av en knapp
-var showBtn = document.getElementById("showHideBtn");
+let showBtn = document.getElementById("showHideBtn");
 showBtn.onclick = function () { showHideFunction() };
 
 function showHideFunction() {
-  var sideNav = document.querySelector("#sideNav");
+  let sideNav = document.querySelector("#sideNav");
 
   if (sideNav.style.display === "inline-block") {
     sideNav.style.display = "none";

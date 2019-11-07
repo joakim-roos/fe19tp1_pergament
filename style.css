@@ -227,7 +227,9 @@ h1{
     border: none;
     float: right;
   }
-
+  #how {
+    padding: 50px;
+  }
   @media screen and (max-width: 764px) {
 
   }
