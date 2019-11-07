@@ -35,8 +35,8 @@ font-family: 'Raleway', sans-serif;
 .noteSection {
   background-color: whitesmoke;
   display: flex;
-  flex-direction: column  align-content: center;
-}
+  flex-direction: row;
+} 
 
 #innerSideBar{
   background-color: whitesmoke;
@@ -44,9 +44,10 @@ font-family: 'Raleway', sans-serif;
   width: 230px;
   overflow: hidden;
   border: 1px solid rgb(235, 229, 212);
+  margin-top: 40px;
 }
 
-.newNote {
+.note {
   color: black;
   display: block;
   height: 88px;
@@ -60,19 +61,13 @@ font-family: 'Raleway', sans-serif;
 
 }
 
-#searchbar{
-  height: 30px;
-  width: 230px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-column
-  align-content: center;  width: 230px;
+#searchInput{
+  width: 15%; 
+  position: absolute;
+  top: 10px;
 }
 
-.break{
-  flex-basis: 100%;
-  width:0;
-}
+
 
 
 #showHideBtn{
