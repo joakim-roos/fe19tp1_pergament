@@ -17,8 +17,8 @@ font-family: 'Raleway', sans-serif;
   display: flex;
   flex-direction: row;
   margin: 0;
-  width: 200px;
-  float: right;
+  width: 100px;
+  float: left;
 }
 
 #sideNav{
@@ -35,15 +35,14 @@ font-family: 'Raleway', sans-serif;
 .noteSection {
   background-color: whitesmoke;
   display: flex;
-  flex-direction: row;
+  flex-direction: column  align-content: center;
 }
 
 #innerSideBar{
-  background-color: rgb(252, 246, 229);
+  background-color: whitesmoke;
   height: 90vh;
   width: 230px;
   overflow: hidden;
-  padding-top: 30px;
   border: 1px solid rgb(235, 229, 212);
 }
 
@@ -57,22 +56,24 @@ font-family: 'Raleway', sans-serif;
 }
 
 .newNote:hover{
-  background-color: rgb(228, 228, 228);
+  background-color: white;
 
 }
 
-.fa-bars{
-  position: fixed;
-  top: 10px;
-  z-index: 1;
+#searchbar{
+  height: 30px;
+  width: 230px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+column
+  align-content: center;  width: 230px;
 }
 
-.fa-bars:hover{
-  color: steelblue;
+.break{
+  flex-basis: 100%;
+  width:0;
 }
-.fa-bars::after{
-  display: block;
-}
+
 
 #showHideBtn{
   border: none;
@@ -105,35 +106,6 @@ h1{
   width: 70vw;
 }
 
-
-/* #editorForm {
-    background-color: rgb(240, 240, 240);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: 10px;
-    width: 70vw;
-    height: 100vh;
-} */
-
-/* .editorStyling { 
-    background-color: rgb(240, 240, 240) !important; 
-    border: none !important;
-}
-
-.tox-tinymce { 
-    border: none !important;
-    width: 90%;
-}
-
-.tox .tox-edit-area {
-    border: none !important;
-}
-.tox-toolbar {
-  background-color: rgb(240, 240, 240) !important;
-} */
- 
- 
  .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -250,19 +222,19 @@ h1{
     width: 50px;
     border: none;
   }
-
- /*  #newNoteBtn {
-    fill: sandybrown;
-  } */
   
   .circle:hover {
     background-color: whitesmoke;
     cursor: pointer;
   }
 
-  .ta-bort-knappen {
+  .delete-button {
     border: none;
     float: right;
+  }
+
+  @media screen and (max-width: 764px) {
+
   }
 
 

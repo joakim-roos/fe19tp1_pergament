@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, font-src 'self' data:;">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quire</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
@@ -31,20 +31,27 @@
     </nav>
     
     <section class="noteSection">
-        <div id="innerSideBar"> <!-- Alla anteckningar läggs här -->
-            <!-- <div class="newNote" id="0">
-                    <button onclick="removeElement(0)" class="ta-bort-knappen">x</button>
-                    <p>ny anteckning</p>
-            </div>-->
+      
+           
+        <div id="innerSideBar">
+                <div id="searchbar">
+                    <input type="search" name="searchbar" id="search" placeholder="Search">
+                </div>    
+           
+        <!-- Alla anteckningar läggs här -->
+    <!-- <div class="newNote" id="0">
+                <button onclick="removeElement(0)" class="delete-button">x</button>
+                <p>ny anteckning</p>
+        </div>-->
         </div> 
-                                    <!-- <form method="POST" id="editorForm"> --><!-- Tiny MCE Option --> <!-- ANVÄNDS EJ FÖR TILLFÄLLET -->
-            <span>
-                <div id="editor-container" class="printableArea editor"></div> <!-- QUILL JS CONTAINER -->
-            </span>
+        <div class="break"></div>
+        <span class="editor">
+            <div id="editor-container" class="printableArea editor"></div> <!-- QUILL JS CONTAINER -->
+        </span>
 
-            <button class="new-Note-Btn circle">
-                <img src="img/feather-alt-solid.svg" id="newNoteBtn" alt="">
-            </button>
+        <button class="new-Note-Btn circle">
+            <img src="img/feather-alt-solid.svg" id="newNoteBtn" alt="">
+        </button>
         
     </section>
                       <!-- <img id="newNoteBtn" src="img/feather-alt-solid.svg" /> -->
@@ -58,7 +65,11 @@
     <div id="myModal" class="modal">
         <div class="info-text">
             <span class="close">&times;</span>
-            <p id="how">Lorem ipsum</p>
+            <p id="how">To add a new note, push the grey button to the right.
+                To delete a note, click on the X next to the note you wish to delete. 
+                
+                To wiev this information again, go to the menu on your upper right side and chose "Help". 
+                From here you can also Search among your notes, print a note and add you Favourites. </p>
         </div>
     </div> 
 
@@ -66,3 +77,5 @@
 
 </body>
 </html>
+
+
