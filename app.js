@@ -30,41 +30,52 @@ function addNote() {
   let child = allNotes.firstChild;
   let note = document.createElement("div");
   note.className = "note";
-     //malin raderaknapp
-     note.setAttribute('id', notes.id) //ger anteckningen ett ID
-     var deleteButton = document.createElement("button"); //skapar en knapp
-     var txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
-      deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
-      deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
-      deleteButton.setAttribute("onclick", "deleteNote("+notes.id+")") //säger att funktionen ska köras när knappen klickas på
-     
+  //malin raderaknapp
+  note.setAttribute('id', notes.id) //ger anteckningen ett ID
+  var deleteButton = document.createElement("button"); //skapar en knapp
+  var txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
+  deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
+  deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
+  deleteButton.setAttribute("onclick", "deleteNote(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
+
   allNotes.insertBefore(note, child);
   notes.data = quill.root.innerHTML;
   quill.deleteText(0, quill.getLength()); //tömmer canvas från symboler
 
   note.addEventListener('click', function (event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
-    console.log(event.target)
+    console.log(event.target.id);
+    console.log(notes.id);
+
     quill.root.innerHTML = note.innerHTML; // eller istället för notes.data använd note.innerhtml (samma sak)
   });
 
-  noteList.push(notes);
+  noteList.push(notes); //lägger till objectet först i listan
   renderNotes();
-  note.appendChild(deleteButton); //lägger in knappen i anteckningen 
+  note.insertAdjacentElement('afterbegin', deleteButton); //lägger in knappen i anteckningen 
 };
 
 function renderNotes() {  // loopar igenom notes och ser till så att rätt anteckning är kopplad till rätt notes objekt.
   let note = document.querySelector(".note");
   noteList.forEach(function (notes) {
     note.innerHTML = notes.data;
-    console.log(notes)
+    //console.log(notes)
   })
 };
 //Malin raderafunktion 
 function deleteNote(xxx) {
-  let note = document.querySelector(".note");//hämtar anteckning
   var attRadera = document.getElementById(xxx);//spar anteckningen i en variabel
   attRadera.parentNode.removeChild(attRadera);//tar bort anteckningen 
-}
+
+  var i;
+  var index;
+  for (i = 0; i < noteList.length; i++) {
+    if (noteList[i].id == xxx) {
+      index = i;
+      break;
+    }
+  }
+  noteList.splice(index, 1);
+};
 
 // Fabian
 //Visa/göm SettingsElementet (SideNav) med hjälp av en knapp
