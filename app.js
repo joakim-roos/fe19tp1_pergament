@@ -47,8 +47,8 @@ function addNote() {
               // använd getAttribute för att komma åt note.id
                 // skriv ut note.id i paragrafen med hjälp av  quills getContent (  let date = new Date(setDateTime)  )
                   // pDateId.innerHTML = date (??)
-                    // 
-
+                    // quill.Date (?)
+  
 
   allNotes.insertBefore(note, child);
   notes.data = quill.root.innerHTML;
