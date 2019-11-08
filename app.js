@@ -38,6 +38,18 @@ function addNote() {
   deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
   deleteButton.setAttribute("onclick", "deleteNote(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
 
+
+     // (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
+     //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
+        // Skapa ett element där ID:t ska skrivas ut i diven. ex: var pDateId = document.createElement("p")
+          // ge den ett classname (för styling)    pDateId.className = "pDate"
+            // insert adjacent      pDateId.insertAdjacent(note, child)
+              // använd getAttribute för att komma åt note.id
+                // skriv ut note.id i paragrafen med hjälp av  quills getContent (  let date = new Date(setDateTime)  )
+                  // pDateId.innerHTML = date (??)
+                    // 
+
+
   allNotes.insertBefore(note, child);
   notes.data = quill.root.innerHTML;
   quill.deleteText(0, quill.getLength()); //tömmer canvas från symboler
