@@ -45,6 +45,7 @@ font-family: 'Raleway', sans-serif;
   overflow: hidden;
   border: 1px solid rgb(235, 229, 212);
   margin-top: 40px;
+  border-radius: 2px;
 }
 
 .note {
@@ -66,9 +67,6 @@ font-family: 'Raleway', sans-serif;
   position: absolute;
   top: 10px;
 }
-
-
-
 
 #showHideBtn{
   border: none;
@@ -185,6 +183,12 @@ h1{
     color: white;
   }
 
+  /* För att få bort länkar och datum när man skriver ut  */
+  @media print {
+    @page { margin: 0; }
+    body { margin: 1.6cm; }
+  }
+
   #favouriteBtn{
     border: none;
     outline: none;
@@ -232,6 +236,21 @@ h1{
 
   }
 
+  .ql-editor.ql-blank{
+
+    background-color: white;
+  }
+
+  .ql-toolbar.ql-snow{
+
+    background-color: rgb(221, 220, 220);
+    border-radius: 1mm;
+    border-color: lightgray;
+  }
+
+  button{
+    float:right;
+  }
 
 
 
