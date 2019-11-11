@@ -1,4 +1,6 @@
 
+
+
 let quill = new Quill('#editor-container', {
   modules: {
     toolbar: [
@@ -12,10 +14,23 @@ let quill = new Quill('#editor-container', {
   theme: 'snow'  // or 'bubble'
 });
 
+
+quill.on('text-change', update);
+
+function update() {
+  var contents = quill.getContents();
+  if (selectedNote) {
+    selectedNote.contents = contents;
+    selectedNote.preview = quill.getText(0, 50);
+    updatePreview();
+  };
+ }
+
 const addNewNote = document.getElementById("newNoteBtn");
 const noteList = []; //tom array för samtliga notes
-var selectedNote=null;
-var tempCont=document.createElement("div"); //temporär icke-existerande div för quill2HTML
+var selectedNote = null;
+var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
+
 
 function Id2Object(n){
   var i;
@@ -33,9 +48,8 @@ function quill2HTML(input) {
 
 function NoteData2HTML(noteObj){
   var s=('<button class="delete-button" onclick="deleteNote('+noteObj.id+')">X'+'</button>'+
-  //"<h1>DICK</h1>"+
   quill2HTML(noteObj.data));
-  return s
+  return s;
 };
 
 function setActiveNote(targetNote){
@@ -60,8 +74,8 @@ function swapNote (event) {   //click funktion- när man klickar på en anteckni
 
   var targetNote=Id2Object(event.target.id);
   if(typeof targetNote!="undefined"){
-    console.log(selectedNote);
-    console.log(targetNote);
+    // console.log(selectedNote);
+    // console.log(targetNote);
 
 
     if(targetNote!=selectedNote){
@@ -69,7 +83,7 @@ function swapNote (event) {   //click funktion- när man klickar på en anteckni
       quill.setContents(targetNote.data);
 
       var c=document.getElementById(selectedNote.id);
-      c.innerHTML=NoteData2HTML(selectedNote);  //den här raden verkar också ge errors
+      //c.innerHTML=NoteData2HTML(selectedNote);  //den här raden verkar också ge errors
 
       setActiveNote(targetNote);
     
@@ -88,28 +102,46 @@ function swapNote (event) {   //click funktion- när man klickar på en anteckni
 addNewNote.onclick = function () {
   addNote();
 }
+function updatePreview(note) {
+  // hitta rätt div (dvs Där id:t matchar)
+  var i;
+  for (i=0; i<noteList.length; i++){
+    if (noteList[i].id){
+      console.log(noteList[i]);
+      //note.preview = contents;
+      return(noteList[i]);
+    }
+    if (selectedNote.id == noteList[i].id){
+      note.innerHTML += selectedNote.preview;
+      console.log("hej");
+    }
+  };
+  // Skriv över endast diven textnode med note.preview
+  
+}
 function addNote() {
   let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
     id: Date.now(),
     title: "TEST",
-    data: "", //{(quill delta)}, // "<html>",
+    preview: quill.getText(0, 10),
+    data: quill.getContents(),
     favourite: false,
     deleted: false
   };
   let allNotes = document.getElementById("innerSideBar");
   let child = allNotes.firstChild;
   let note = document.createElement("div");
-
   note.className = "note";
-  //malin raderaknapp
   note.setAttribute('id', notes.id) //ger anteckningen ett ID
+  allNotes.insertBefore(note, child);
+  //notes.data = quill.getContents();
 
   var deleteButton = document.createElement("button"); //skapar en knapp
   var txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
   deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
   deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
   deleteButton.setAttribute("onclick", "deleteNote(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
-
+  note.appendChild(deleteButton);
 
      // (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
      //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
@@ -121,24 +153,22 @@ function addNote() {
                   // pDateId.innerHTML = date (??)
                     // quill.Date (?)
   
-
-  allNotes.insertBefore(note, child);
-  //notes.data = quill.root.innerHTML;
-  quill.deleteText(0, quill.getLength()); //tömmer canvas från symboler
-
+  console.log(notes.data);
+  //quill.deleteText(0, quill.getLength()); //tömmer canvas från symboler
+  console.log(notes.preview);
+  note.innerHTML += notes.preview; 
+  
   note.addEventListener('click', swapNote);
-
   noteList.push(notes);
-  renderNotes();
-  note.appendChild(deleteButton); //lägger in knappen i anteckningen 
-
+  //renderNotes();
   setActiveNote(notes); //ny rad för att definera senast skapad note
 };
 
 function renderNotes() {  // loopar igenom notes och ser till så att rätt anteckning är kopplad till rätt notes objekt.
   let note = document.querySelector(".note");
+  note.innerHTML = "";
   noteList.forEach(function (notes) {
-    note.innerHTML = notes.data;
+    note.innerHTML += notes.preview;
     //console.log(notes)
   })
 };
@@ -207,3 +237,6 @@ printDiv = function (divName) {
   //  document.body.innerHTML = originalContents;
   location.reload();
 }
+
+//Search//
+
