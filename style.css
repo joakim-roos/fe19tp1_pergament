@@ -45,6 +45,7 @@ font-family: 'Raleway', sans-serif;
   overflow: hidden;
   border: 1px solid rgb(235, 229, 212);
   margin-top: 40px;
+  overflow-y: scroll;
 }
 
 .note {

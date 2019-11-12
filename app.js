@@ -11,6 +11,35 @@ let quill = new Quill('#editor-container', {
   theme: 'snow'  // or 'bubble'
 });
 
+const addNewNote = document.getElementById("newNoteBtn");
+let noteList = []; //tom array för samtliga notes
+var selectedNote = null;
+var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadNotes();
+  if (noteList.length > 0) {
+    console.log(noteList);
+    noteList.forEach(renderNote);
+    console.log('DOM fully loaded and good to go');
+
+  };
+});
+
+function loadNotes() {
+  let data = localStorage.getItem('note');
+  if (data) {
+    noteList = JSON.parse(data);
+  } else {
+    console.log("localstorage empty")
+  }
+  //return noteList;
+};
+
+function saveNotes() {
+  localStorage.setItem('note', JSON.stringify(noteList));
+};
+
 quill.on('text-change', update);
 
 function update() {
@@ -20,19 +49,15 @@ function update() {
     selectedNote.preview = quill.getText(0, 50);
     //note.innerHTML += selectedNote.preview;
     updatePreview();
+    saveNotes();
   };
 };
 
 function updatePreview(note) {
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
   note.childNodes[1].replaceWith(selectedNote.preview);
-  console.log("note id", selectedNote.id);
+  //console.log("note id", selectedNote.id);
 };
-
-const addNewNote = document.getElementById("newNoteBtn");
-const noteList = []; //tom array för samtliga notes
-var selectedNote = null;
-var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
 
 function Id2Object(n) {
   var i;
@@ -73,8 +98,8 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
   //console.log(Id2Object(event.target.id).data); //samma här,buggar
   var targetNote = Id2Object(event.target.id);
   if (typeof targetNote != "undefined") {
-    console.log(selectedNote);
-    console.log(targetNote);
+    //console.log(selectedNote);
+    //console.log(targetNote);
     if (targetNote != selectedNote) {
       selectedNote.data = quill.getContents();
       //quill.setContents(targetNote.data);
@@ -82,61 +107,51 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
       //c.innerHTML=NoteData2HTML(selectedNote);  //den här raden verkar också ge errors
       setActiveNote(targetNote);
     };
-  } else console.log("For some reason, event was undefined.");
+  } else console.log("For some reason, event was undefined. (Swapnote-function)");
 };
 
 addNewNote.onclick = function () {
   addNote();
-  //quill.deleteText(0, quill.getLength()); //buggar 
 };
 
-function addNote() {
-  let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
-    id: Date.now(),
-    title: "TEST",
-    preview: quill.getText(0, 10),
-    data: quill.getContents(),
-    favourite: false,
-    deleted: false
-  };
+function renderNote(notes) { // obs notes är singular: ett noteobjekt
   let allNotes = document.getElementById("innerSideBar");
   let child = allNotes.firstChild;
   let note = document.createElement("div");
   note.className = "note";
-  note.setAttribute('id', notes.id) //ger anteckningen ett ID
+  note.setAttribute('id', notes.id) //ger elementet ett ID
   allNotes.insertBefore(note, child);
-
   let deleteButton = document.createElement("button"); //skapar en knapp
   let txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
   deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
   deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
   deleteButton.setAttribute("onclick", "deleteNote(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
   note.appendChild(deleteButton);
-
-  console.log(notes.data);
-  //quill.deleteText(0, quill.getLength()); //tömmer canvas från symboler
-  console.log(notes.preview);
   note.innerHTML += notes.preview;
-
   note.addEventListener('click', swapNote);
-  noteList.push(notes);
-  //renderNotes();
   setActiveNote(notes); //ny rad för att definera senast skapad note
 };
 
-// (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
-//DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
-// Skapa ett element där ID:t ska skrivas ut i diven. ex: var pDateId = document.createElement("p")
-// ge den ett classname (för styling)    pDateId.className = "pDate"
-// insert adjacent      pDateId.insertAdjacent(note, child)
-// använd getAttribute för att komma åt note.id
-// skriv ut note.id i paragrafen med hjälp av  quills getContent (  let date = new Date(setDateTime)  )
-// pDateId.innerHTML = date (??)
-// quill.Date (?)
+function addNote() {
+  let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
+    id: Date.now(),
+    title: "TEST",
+    preview: quill.getText(0, 20),
+    data: quill.getContents(),
+    favourite: false,
+    deleted: false
+  };
+  renderNote(notes);
+  note.addEventListener('click', swapNote);
+  noteList.push(notes);
+  quill.deleteText(0, quill.getLength());
+  setActiveNote(notes); //ny rad för att definera senast skapad note 
+  saveNotes(); //sparar i Local Storage
+};
 
 
 //renderNotes is paused at the moment. use with local storage? 
-function renderNotes() {  // loopar igenom notes och ser till så att rätt anteckning är kopplad till rätt notes objekt.
+function renderNotes() {
   let note = document.querySelector(".note");
   note.innerHTML = "";
   noteList.forEach(function (notes) {
@@ -155,15 +170,17 @@ function deleteNote(xxx) {
       break;
     };
   };
+
   noteList.splice(index, 1);
   if (toDelete == document.getElementById(selectedNote.id)) {
     setActiveNote(noteList[noteList.length - 1]); //fixes utifall att du tar bort active note
     console.log("removed selected");
   };
   toDelete.parentNode.removeChild(toDelete);//tar bort anteckningen 
+  saveNotes();
 };
 
-//Visa/göm SettingsElementet (SideNav) med hjälp av en knapp
+
 var showBtn = document.getElementById("showHideBtn");
 showBtn.onclick = function () { showHideFunction() };
 
@@ -192,13 +209,55 @@ window.onclick = function (event) { // When the user clicks anywhere outside of 
   };
 };
 
-// Print-knapp - Malin 
 printDiv = function (divName) {
   let printContents = quill.root.innerHTML;
-  //let originalContents = document.body.innerHTML;
   document.body.innerHTML = printContents;
   window.print();
-  //  document.body.innerHTML = originalContents;
   location.reload();
 };
 
+function toggleFavourite() {
+  // Elin, favouriteknapp. 
+  // stjärn-markera favorit-anteckning. 
+  // 
+};
+
+/* /* listener i toppen */ /* så fort sidan laddas */
+/* window.addEventListener.domcontentloaded function event
+Loadnotes
+if notelistlength for each
+function noteList(foreach)
+ *
+/* savenotes funitoin
+localstorage set item todo json.stringify (notelist) */
+/* localStorage.setItem('note', JSON.stringify(noteList)); */
+
+
+/* function filter notes
+function filternotes(func => true)
+let filtered = noteList.filter(note => func(note)) */
+
+
+/* const Showdeleted = (note) => note.deleted === true;
+const showFavourites = (note) => note.favourite === true;
+const searchText = */
+
+/* function showOnlyFavs () {
+  let foobar = document.querySelector
+  foobar.innerHTML = ""
+  filterNotes.foreach
+  let onlyFavs ? filterNotes(showFavourites);
+  onlyfavs.forEach(function (note)) {
+    renderNote(note)
+  }
+} */
+
+// (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
+//DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
+// Skapa ett element där ID:t ska skrivas ut i diven. ex: var pDateId = document.createElement("p")
+// ge den ett classname (för styling)    pDateId.className = "pDate"
+// insert adjacent      pDateId.insertAdjacent(note, child)
+// använd getAttribute för att komma åt note.id
+// skriv ut note.id i paragrafen med hjälp av  quills getContent (  let date = new Date(setDateTime)  )
+// pDateId.innerHTML = date (??)
+// quill.Date (?)
