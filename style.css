@@ -17,19 +17,23 @@ font-family: 'Raleway', sans-serif;
   display: flex;
   flex-direction: row;
   margin: 0;
-  width: 100px;
-  float: left;
+  float: right;
+  display: none;
 }
 
 #sideNav{
-  display: none;
+  display: flex;
+  flex-direction: column;
   position: fixed;
-  background: red;
-  top: 70px;
-  width: 20vh;
-  height: 100vh;
+  background: #105489;
+  border-radius: 4px;
+  width: 12vh;
+  height: 96vh;
   box-sizing: border-box;
-  z-index: 1;
+}
+
+#sideNav button{
+  margin-top: 60px;
 }
 
 .noteSection {
@@ -41,10 +45,11 @@ font-family: 'Raleway', sans-serif;
 #innerSideBar{
   background-color: whitesmoke;
   height: 90vh;
-  width: 230px;
+  width: 320px;
   overflow: hidden;
   border: 1px solid rgb(235, 229, 212);
   margin-top: 40px;
+  margin-left: 30px;
   border-radius: 2px;
   overflow-y: scroll;
 }
@@ -63,9 +68,14 @@ font-family: 'Raleway', sans-serif;
 }
 
 #searchInput{
-  width: 15%; 
+  width: 15%;
+  height: 25px;
   position: absolute;
-  top: 10px;
+  top: 7px;
+  margin-left: 75px;
+  border-radius: 5px 5px 5px 5px;
+  border: 2px solid;
+  border-color: #105489;
 }
 
 #showHideBtn{
@@ -145,6 +155,14 @@ h1{
     text-decoration: none;
     cursor: pointer;
   }
+
+  #sideNav p{
+    font-size: 50px;
+    padding: 25px;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: white;
+  }
   
   #helpBtn {
     border: none;
@@ -152,23 +170,9 @@ h1{
     background: none;
     font-size: 20px;
     padding: 10px;
-  }
-  
-  #helpBtn:hover {
     color: white;
-    font-size: 20px;
-  }
-
-  #searchBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 10px;
-  }
-
-  #searchBtn:hover{
-    color: white;
+    cursor: pointer;
+    font-weight: lighter;
   }
 
   #printBtn{
@@ -177,10 +181,9 @@ h1{
     background: none;
     font-size: 20px;
     padding: 10px;
-  }
-  
-  #printBtn:hover{
     color: white;
+    cursor: pointer;
+    font-weight: lighter;
   }
 
   /* För att få bort länkar och datum när man skriver ut  */
@@ -193,38 +196,51 @@ h1{
     border: none;
     outline: none;
     background: none;
-    font-size: 15px;
+    font-size: 20px;
     padding: 5px;
     color: white;
-  }
-  
-  #favouriteBtn:hover{
-    color: steelblue;
+    cursor: pointer;
   }
 
   .circle{
     position: absolute;
-    top: 80vh;
+    top: 76vh;
     right: 10vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: grey; 
+    background-color: #105489; 
     height: 110px;
     width: 110px;
     border-radius: 50%;
+    border: solid;
+    border-color:white;
     outline: none;
+    cursor: pointer;
+  }
+
+  .circle:hover{
+    position: fixed;
+    border-color: #105489;
+    background-color: white;
+    cursor: pointer;
+  }
+
+  i.fas.fa-pencil-alt{
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    padding: 40px;
+  }
+
+  i.fas.fa-pencil-alt:hover{
+    color: #105489;
   }
   
   #newNoteBtn {
     height: 50px;
     width: 50px;
     border: none;
-  }
-  
-  .circle:hover {
-    background-color: whitesmoke;
-    cursor: pointer;
   }
 
   .delete-button {
@@ -248,9 +264,7 @@ h1{
     border-color: lightgray;
   }
 
-  button{
-    float:right;
-  }
+  
 
 
 
