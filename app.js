@@ -31,6 +31,10 @@ function loadNotes() {
     noteList = JSON.parse(data);
   } else {
     console.log("localstorage empty")
+	//För att pop up första gången man besöker sidan 
+	localStorage.setItem("note", JSON.stringify(noteList));  
+	let modal = document.getElementById("myModal");  
+	modal.style.display = "block";
   };
 };
 

@@ -121,6 +121,7 @@ h1{
     height: 50vh;
     width: 50vw;
     position: relative;
+	padding-top: 50px;
   }
   
   /* The Close Button */
