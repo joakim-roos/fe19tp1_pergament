@@ -22,7 +22,6 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log(noteList);
     noteList.forEach(renderNote);
     console.log('DOM fully loaded and good to go');
-
   };
 });
 
@@ -32,8 +31,7 @@ function loadNotes() {
     noteList = JSON.parse(data);
   } else {
     console.log("localstorage empty")
-  }
-  //return noteList;
+  };
 };
 
 function saveNotes() {
@@ -142,35 +140,22 @@ function addNote() {
     deleted: false
   };
   renderNote(notes);
-  note.addEventListener('click', swapNote);
   noteList.push(notes);
   quill.deleteText(0, quill.getLength());
   setActiveNote(notes); //ny rad för att definera senast skapad note 
   saveNotes(); //sparar i Local Storage
 };
 
-
-//renderNotes is paused at the moment. use with local storage? 
-function renderNotes() {
-  let note = document.querySelector(".note");
-  note.innerHTML = "";
-  noteList.forEach(function (notes) {
-    note.innerHTML += notes.preview;
-    //console.log(notes)
-  });
-};
-
-function deleteNote(xxx) {
-  var toDelete = document.getElementById(xxx);//spar anteckningen i en variabel
+function deleteNote(id) {
+  var toDelete = document.getElementById(id);//spar anteckningen i en variabel
   var i;
   var index;
   for (i = 0; i < noteList.length; i++) {
-    if (noteList[i].id == xxx) {
+    if (noteList[i].id == id) {
       index = i;
       break;
     };
   };
-
   noteList.splice(index, 1);
   if (toDelete == document.getElementById(selectedNote.id)) {
     setActiveNote(noteList[noteList.length - 1]); //fixes utifall att du tar bort active note
@@ -183,7 +168,6 @@ function deleteNote(xxx) {
 
 var showBtn = document.getElementById("showHideBtn");
 showBtn.onclick = function () { showHideFunction() };
-
 function showHideFunction() {
   var sideNav = document.querySelector("#sideNav");
 
@@ -216,10 +200,11 @@ printDiv = function (divName) {
   location.reload();
 };
 
-function toggleFavourite() {
-  // Elin, favouriteknapp. 
-  // stjärn-markera favorit-anteckning. 
-  // 
+function toggleFavourite() { //funktion som endast visar anteckningar som har favourite.true. 
+  //variabel som kopplar till favourite-knappen. document.querySelector. 
+  //if statement (kollar om favourite: true;)
+  //om favourite: true!  kalla på funktion som endast visar favorit-markerade i innersidebar. 
+
 };
 
 /* /* listener i toppen */ /* så fort sidan laddas */
