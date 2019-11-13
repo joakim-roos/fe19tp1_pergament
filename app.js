@@ -143,11 +143,14 @@ function addNote() {
     favourite: false,
     deleted: false
   };
+  
   renderNote(notes);
   noteList.push(notes);
+  displayDate(); // visar datum och tid i anteckningen
   quill.deleteText(0, quill.getLength());
   setActiveNote(notes); //ny rad för att definera senast skapad note 
   saveNotes(); //sparar i Local Storage
+  
 };
 
 function deleteNote(id) {
@@ -204,6 +207,27 @@ printDiv = function (divName) {
   location.reload();
 };
 
+  // (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
+  //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
+function displayDate(){
+  let allNotes = document.querySelector(".note");
+  let child =  allNotes.firstChild;
+  var d = new Date();
+  let date = d.toGMTString();
+  // Skapa ett element där ID:t ska skrivas ut i diven. ex: var pDateId = document.createElement("p")
+  var pDateId = document.createElement("p");
+  allNotes.appendChild(pDateId);
+  // ge den ett classname (för styling)
+  pDateId.className = "pDate";
+  pDateId.style.backgroundColor = "red";
+  pDateId.style.position = "top";
+  pDateId.style.width = "200px";
+  pDateId.style.height = "20px";
+  pDateId.style.color = "black";
+  pDateId.innerHTML = date;
+  saveNotes();
+}
+
 function toggleFavourite() { //funktion som endast visar anteckningar som har favourite.true. 
   //variabel som kopplar till favourite-knappen. document.querySelector. 
   //if statement (kollar om favourite: true;)
@@ -241,12 +265,7 @@ const searchText = */
   }
 } */
 
-// (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
-//DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
-// Skapa ett element där ID:t ska skrivas ut i diven. ex: var pDateId = document.createElement("p")
-// ge den ett classname (för styling)    pDateId.className = "pDate"
-// insert adjacent      pDateId.insertAdjacent(note, child)
-// använd getAttribute för att komma åt note.id
-// skriv ut note.id i paragrafen med hjälp av  quills getContent (  let date = new Date(setDateTime)  )
-// pDateId.innerHTML = date (??)
-// quill.Date (?)
+
+
+
+
