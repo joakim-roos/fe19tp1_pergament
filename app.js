@@ -148,7 +148,7 @@ function addNote() {
   renderNote(notes);
   noteList.push(notes);
   quill.deleteText(0, quill.getLength());
-  setActiveNote(notes); //ny rad för att definera senast skapad note 
+  setActiveNote(notes); //ny rad för att definera senast skapad note
   saveNotes(); //sparar i Local Storage
   
 };
@@ -231,40 +231,32 @@ function toggleFavourite() { //funktion som endast visar anteckningar som har fa
   //variabel som kopplar till favourite-knappen. document.querySelector. 
   //if statement (kollar om favourite: true;)
   //om favourite: true!  kalla på funktion som endast visar favorit-markerade i innersidebar. 
-
 };
 
-/* /* listener i toppen */ /* så fort sidan laddas */
-/* window.addEventListener.domcontentloaded function event
-Loadnotes
-if notelistlength for each
-function noteList(foreach)
- *
-/* savenotes funitoin
-localstorage set item todo json.stringify (notelist) */
-/* localStorage.setItem('note', JSON.stringify(noteList)); */
 
+/////////
+const showFavourites = (notes) => notes.favourite === true; //arrow function
+favouriteButton = document.querySelector("#favouriteBtn");
+// favouriteButton.onclick() = showOnlyFavs();
+favouriteButton.addEventListener('click', showOnlyFavs());
 
-/* function filter notes
-function filternotes(func => true)
-let filtered = noteList.filter(note => func(note)) */
+//const showDeleted = (note) => note.deleted === true;
+function showOnlyFavs() {
+  console.log("1");
+  let note = document.querySelector('.note');
+  //note.innerHTML = "";
+  let onlyFavs = filterNotes(showFavourites);
+  onlyFavs.forEach(function (notes) {
+    renderNote(notes);
+    console.log("2");
+  });
 
-
-/* const Showdeleted = (note) => note.deleted === true;
-const showFavourites = (note) => note.favourite === true;
-const searchText = */
-
-/* function showOnlyFavs () {
-  let foobar = document.querySelector
-  foobar.innerHTML = ""
-  filterNotes.foreach
-  let onlyFavs ? filterNotes(showFavourites);
-  onlyfavs.forEach(function (note)) {
-    renderNote(note)
-  }
-} */
-
-
-
-
+  function filterNotes(func = () => true) {
+    //console.log(func(1));
+    let filtered = noteList.filter(func)
+    return filtered;
+    console.log(filtered);
+  };
+}
+//////////
 
