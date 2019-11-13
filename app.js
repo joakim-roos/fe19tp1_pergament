@@ -48,7 +48,7 @@ function update() {
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
-    selectedNote.preview = quill.getText(0, 50);
+    selectedNote.preview = quill.getText(0, 20);
     //note.innerHTML += selectedNote.preview;
     updatePreview();
     saveNotes();
@@ -129,8 +129,9 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt
   deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
   deleteButton.setAttribute("onclick", "deleteNote(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
   note.appendChild(deleteButton);
-  note.innerHTML += notes.preview;
   note.addEventListener('click', swapNote);
+  note.innerHTML += notes.preview;
+  displayDate(notes); // visar datum och tid i anteckningen
   setActiveNote(notes); //ny rad för att definera senast skapad note
 };
 
@@ -146,7 +147,6 @@ function addNote() {
   
   renderNote(notes);
   noteList.push(notes);
-  displayDate(); // visar datum och tid i anteckningen
   quill.deleteText(0, quill.getLength());
   setActiveNote(notes); //ny rad för att definera senast skapad note 
   saveNotes(); //sparar i Local Storage
@@ -207,26 +207,25 @@ printDiv = function (divName) {
   location.reload();
 };
 
-  // (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
   //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
-function displayDate(){
-  let allNotes = document.querySelector(".note");
-  let child =  allNotes.firstChild;
-  var d = new Date();
-  let date = d.toGMTString();
-  // Skapa ett element där ID:t ska skrivas ut i diven. ex: var pDateId = document.createElement("p")
+function displayDate(notes){
+  let note = document.querySelector(".note");
+  // let child = allNotes.firstChild;
+  var d = new Date(notes.id);
+  var date = d.toDateString();
+  // Skapa ett element där ID:t ska skrivas ut i diven
   var pDateId = document.createElement("p");
-  allNotes.appendChild(pDateId);
+  note.appendChild(pDateId); 
   // ge den ett classname (för styling)
   pDateId.className = "pDate";
-  pDateId.style.backgroundColor = "red";
-  pDateId.style.position = "top";
-  pDateId.style.width = "200px";
-  pDateId.style.height = "20px";
-  pDateId.style.color = "black";
+  //random styling
+  
+
+  //displayar tiden i det skapade elementet
   pDateId.innerHTML = date;
-  saveNotes();
-}
+  //TODO: få datumet att displayas högst upp i diven
+  
+};
 
 function toggleFavourite() { //funktion som endast visar anteckningar som har favourite.true. 
   //variabel som kopplar till favourite-knappen. document.querySelector. 
