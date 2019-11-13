@@ -248,10 +248,16 @@ h1{
   z-index: 1;
   }
 
-  @media (min-width: 750px) {
+/* .heartImage { 
+  height: 22px;
+} */
 
-  }
-
+/* .favouriteButton {
+  position: absolute;
+  border: none;
+  background-color: whitesmoke;
+}
+ */
   @media print {
     @page { margin: 0; }
     body { margin: 1.6cm; }
