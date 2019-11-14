@@ -255,10 +255,10 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
 const showFavourites = (notes) => notes.favourite === true; //arrow function
 favouriteButton = document.querySelector("#favouriteBtn");
 // favouriteButton.onclick() = showOnlyFavs();
-favouriteButton.addEventListener('click', showFavourites);
+favouriteButton.addEventListener('click', showOnlyFavourites);
 
 //const showDeleted = (note) => note.deleted === true;
-function showFavourites() {
+function showOnlyFavourites() {
   console.log();
   let allNotes = document.querySelector('#innerSideBar');
   allNotes.innerHTML = "";
