@@ -22,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log(noteList);
     noteList.forEach(renderNote);
     console.log('DOM fully loaded and good to go');
+	createQuillTemplate();
   };
 });
 
@@ -275,4 +276,24 @@ function showOnlyFavourites() {
   };
 };
 //////////
+  function createQuillTemplate() {
+    let toolbar = document.getElementsByClassName("ql-toolbar")[0]
+    let template = document.createElement("span");
+    template.className = "ql-formats";
+    var templateButton = document.createElement("button");
+    templateButton.textContent = "Mall2";
+    template.appendChild(templateButton);
+    templateButton.className="ql-picker-label";
+    toolbar.appendChild(template);
+    templateButton.addEventListener('click', formTemplate)
+  };
 
+function formTemplate() {
+ quill.setSelection(0, quill.getLength());
+ quill.format('underline', true);
+ quill.format('align', 'center');
+ quill.format( 'color', 'red');
+ quill.format('list', 'ordered');
+ quill.format('size', 'large');
+ quill.format('backgroundcolor', 'beige');
+  }
