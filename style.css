@@ -3,55 +3,136 @@
     padding: 0;
 }
 
-/* body,html{
-  overflow:hidden
-} */
-
 body {
 background-color: white;
 margin: 0;
 font-family: 'Raleway', sans-serif;
 }
 
+#editor-container {
+  padding-top: 20px;
+  padding-left: 120px;
+  padding-right: 120px;
+  height: 100vh;
+  width: 65vw;
+}
+
+.ql-editor::before {
+   padding-left: 120px;
+} 
+
 .sideBar{
   display: flex;
   flex-direction: row;
   margin: 0;
-  width: 100px;
+  width: 115px;
   float: left;
 }
 
 #sideNav{
-  display: none;
-  position: fixed;
-  background: red;
-  top: 70px;
-  width: 20vh;
+  display: block;
+  background:lightblue;
   height: 100vh;
-  box-sizing: border-box;
+  width: 115px;
   z-index: 1;
 }
+.quireLogo {
+  display: flex;
+  justify-content: space-around;
+}
+.quireLogoSvg {
+  height: 82px;
+}
+
+.sidenavbuttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+#helpBtn {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue; 
+    width: 115px;
+  }
+  
+  #helpBtn:hover {
+    background-color: darkcyan;
+  }
+
+
+ #searchBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue;
+    width: 115px; 
+  }
+
+  #searchBtn:hover{
+    background-color: darkcyan;
+  }
+
+  #printBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue; 
+    width: 115px;
+
+  }
+  
+  #printBtn:hover{
+    background-color: darkcyan;  
+  }
+
+  #favouriteBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue; 
+    width: 115px;
+  }
+  
+  #favouriteBtn:hover{
+    background-color: darkcyan;
+  }
+  .favActive {
+    background-color: darkcyan;
+  }
 
 .noteSection {
   background-color: whitesmoke;
   display: flex;
   flex-direction: row;
+  margin-left: 115px;
 } 
 
 #innerSideBar{
+  display: flex;
+  flex-direction: column;
   background-color: whitesmoke;
-  height: 90vh;
-  width: 230px;
-  overflow: hidden;
+  height: 100vh;
+  width: 250px;
+  /* overflow: hidden; */
   border: 1px solid rgb(235, 229, 212);
-  margin-top: 40px;
+  /* margin-top: 44px; */
   overflow-y: scroll;
 }
 
 .note {
   color: black;
   display: block;
-  height: 88px;
+  height: 100px;
   background-color: whitesmoke;
   border: 1px solid rgb(235, 229, 212);
   overflow: hidden;
@@ -61,21 +142,47 @@ font-family: 'Raleway', sans-serif;
   user-select: none;
 }
 
-.note:hover{
-  background-color: white;
+
+.searchNotes {
+  display: flex;
+  flex-direction: row;
+  height: 44px;
+  width: 130px;
 }
 
 #searchInput{
-  width: 15%; 
-  position: absolute;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
   top: 10px;
+  width: 160px; 
+  height: 25px;
+  border-radius: 6px;
+  /* position: absolute; */
+  margin-left: 16px;
+  padding-left: 10px;
+  border: 1px solid rgb(107, 107, 107); 
+  font-size: 13px;
 }
 
+.addNote {
+  border: none;
+  position: relative; 
+  height: 28px;
+}
+.addNoteSvg {
+  height: 28px;
+}
+
+
+
 #showHideBtn{
+  position: absolute;
   border: none;
   outline: none;
   background: none;
   font-size: 40px;
+  z-index: 3; /* temporär för att visa hamburgaren vid datorskärm */
 }
 
 #showHideBtn::after{
@@ -86,21 +193,16 @@ font-family: 'Raleway', sans-serif;
   background: red;
 }
 
-.show{
+/* .show{
     display: block;
     border: none;
     padding: none;
-}
+} */
 
-h1{
+/* h1{
     margin-top: 5px;
     width: 100vh;
-}
-
-#editor-container {
-  height: 90vh;
-  width: 70vw;
-}
+} */
 
  .modal {
     display: none; /* Hidden by default */
@@ -148,56 +250,6 @@ h1{
     color: #000;
     text-decoration: none;
     cursor: pointer;
-  }
-  
-  #helpBtn {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 10px;
-  }
-  
-  #helpBtn:hover {
-    color: white;
-    font-size: 20px;
-  }
-
-  #searchBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 10px;
-  }
-
-  #searchBtn:hover{
-    color: white;
-  }
-
-  #printBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 10px;
-  }
-  
-  #printBtn:hover{
-    color: white;
-  }
-
-  #favouriteBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 15px;
-    padding: 5px;
-    color: white;
-  }
-  
-  #favouriteBtn:hover{
-    color: steelblue;
   }
 
   .circle{
@@ -263,5 +315,9 @@ h1{
     body { margin: 1.6cm; }
   }
 
-
+@media only screen and (max-width: 764) {
+ #showHideBtn {
+   display: inline-block;
+ }
+}
 

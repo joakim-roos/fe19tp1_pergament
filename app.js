@@ -5,6 +5,7 @@ let quill = new Quill('#editor-container', {
       ['bold', 'italic', 'underline'],
       ['image', 'code-block'],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
     ]
   },
   placeholder: 'Team Pergament är cool',
@@ -21,30 +22,34 @@ window.addEventListener('DOMContentLoaded', () => {
   if (noteList.length > 0) {
     console.log(noteList);
     noteList.forEach(renderNote);
-    console.log('DOM fully loaded and good to go');
+    setActiveNote(noteList[noteList.length - 1]);
+    console.log('DOM fully loaded');
+    //createQuillTemplate();
+
+    // läs senast laddade ID fårn localstorage, använd array.find på notelist, hitta id som matchar, sätt actrivenote utifrån detta
   };
 });
 
-function loadNotes() {
+function loadNotes() { // laddar local storage. 
   let data = localStorage.getItem('note');
   if (data) {
     noteList = JSON.parse(data);
   } else {
     console.log("localstorage empty")
     //För att pop up första gången man besöker sidan 
-    localStorage.setItem("note", JSON.stringify(noteList));
+    localStorage.setItem("note", JSON.stringify(noteList)); //borde vara en separat funktion som kallas i loadnotes med en if-statement. 
     let modal = document.getElementById("myModal");
     modal.style.display = "block";
   };
 };
 
-function saveNotes() {
+function saveNotes() { // sparar i local Storage
   localStorage.setItem('note', JSON.stringify(noteList));
 };
 
 quill.on('text-change', update);
 
-function update() {
+function update() { //uppdaterar selectedNote på text-change. 
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
@@ -55,7 +60,7 @@ function update() {
   };
 };
 
-function updatePreview(note) {
+function updatePreview(note) { //uppdaterar objektets preview. 
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
   note.childNodes[1].replaceWith(selectedNote.preview);
   //console.log("note id", selectedNote.id);
@@ -70,12 +75,12 @@ function Id2Object(n) {
   };
 };
 
-function quill2HTML(input) {
+function quill2HTML(input) { //används ej, men radera inte!
   (new Quill(tempCont)).setContents(input);
   return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
 };
 
-function NoteData2HTML(noteObj) {
+function NoteData2HTML(noteObj) { //används ej, men radera inte!
   var s = ('<button class="delete-button" onclick="deleteNote(' + noteObj.id + ')">X' + '</button>' +
     quill2HTML(noteObj.data));
   return s;
@@ -98,10 +103,8 @@ function setActiveNote(targetNote) {
 function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
   //console.log(document.getElementById(event.target.id).innerHTML); //de här raderna har buggar
   //console.log(Id2Object(event.target.id).data); //samma här,buggar
-  var targetNote = Id2Object(event.target.id);
+  var targetNote = Id2Object(event.target.closest("div").id);
   if (typeof targetNote != "undefined") {
-    //console.log(selectedNote);
-    //console.log(targetNote);
     if (targetNote != selectedNote) {
       selectedNote.data = quill.getContents();
       //quill.setContents(targetNote.data);
@@ -116,7 +119,7 @@ addNewNote.onclick = function () {
   addNote();
 };
 
-function renderNote(notes) { // obs notes är singular: ett noteobjekt
+function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById("innerSideBar");
   let child = allNotes.firstChild;
   let note = document.createElement("div");
@@ -135,11 +138,17 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt
 
   note.innerHTML += notes.preview;
   displayDate(notes); // visar datum och tid i anteckningen
-  //createFavourite(note);
-  setActiveNote(notes); //ny rad för att definera senast skapad note
 };
 
-function createFavourite(note) { //funktion som skapar en favorit-knapp. Kallas i renderNotes.
+function renderAllNotes() {
+  let allNotes = document.querySelector('#innerSideBar');
+  allNotes.innerHTML = "";
+  if (noteList.length > 0) {
+    noteList.forEach(renderNote);
+  };
+};
+
+function createFavourite(note) { //funktion som skapar en favorit-knapp. Kallas i renderNote.
   note = document.querySelector('.note');
   let button = document.createElement('button');
   let img = document.createElement('img');
@@ -159,13 +168,11 @@ function addNote() {
     favourite: false,
     deleted: false
   };
-
   renderNote(notes);
   noteList.push(notes);
-  quill.deleteText(0, quill.getLength());
+  quill.deleteText(0, quill.getLength()); //tömmer editorn på text när man trycker på add note. 
   setActiveNote(notes); //ny rad för att definera senast skapad note
   saveNotes(); //sparar i Local Storage
-
 };
 
 function deleteNote(id) {
@@ -189,14 +196,13 @@ function deleteNote(id) {
 
 
 var showBtn = document.getElementById("showHideBtn");
-showBtn.onclick = function () { showHideFunction() };
+//showBtn.onclick = function () { showHideFunction() };
 function showHideFunction() {
   var sideNav = document.querySelector("#sideNav");
-
-  if (sideNav.style.display === "inline-block") {
+  if (sideNav.style.display === "block") {
     sideNav.style.display = "none";
   } else {
-    sideNav.style.display = "inline-block";
+    sideNav.style.display = "block";
   };
 };
 
@@ -215,7 +221,7 @@ window.onclick = function (event) { // When the user clicks anywhere outside of 
   };
 };
 
-printDiv = function (divName) {
+printDiv = function () {
   let printContents = quill.root.innerHTML;
   document.body.innerHTML = printContents;
   window.print();
@@ -234,45 +240,64 @@ function displayDate(notes) {
   // ge den ett classname (för styling)
   pDateId.className = "pDate";
   //random styling
-
-
   //displayar tiden i det skapade elementet
   pDateId.innerHTML = date;
   //TODO: få datumet att displayas högst upp i diven
-
 };
+
+
+
+////////// FAVOURITE BUTTON ////////////
+
+favouriteButton = document.querySelector("#favouriteBtn");
+favouriteButton.addEventListener('click', toggleFavouriteButton);
 
 function toggleFavouriteButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
-  if (favouriteButton.classList.contains('inActive')) {
-    favouriteButton.classList.replace('inActive', 'active');
+  favouriteButton.classList.toggle("favActive");
+  if (favouriteButton.classList.contains('favActive')) {
+    showOnlyFavourites();
   } else {
-    favouriteButton.classList.replace('active', 'inActive');
-  };
+    renderAllNotes();
+  }
 };
 
+const showFavourites = (note) => note.favourite === true;
 
-/////////
-const showFavourites = (notes) => notes.favourite === true; //arrow function
-favouriteButton = document.querySelector("#favouriteBtn");
-// favouriteButton.onclick() = showOnlyFavs();
-favouriteButton.addEventListener('click', showOnlyFavourites);
-
-//const showDeleted = (note) => note.deleted === true;
 function showOnlyFavourites() {
-  console.log();
   let allNotes = document.querySelector('#innerSideBar');
   allNotes.innerHTML = "";
   let onlyFavs = filterNotes(showFavourites);
   onlyFavs.forEach(function (note) {
     renderNote(note);
-    //setActiveNote(targetNote);
   });
 
-  function filterNotes(func = () => true) {
+  function filterNotes(func = () => true) { //function som return true
     //console.log(func(1));
     let filtered = noteList.filter(func)
     return filtered;
   };
 };
-//////////
 
+//////////////////////
+
+//Mall i quill (Malin)
+/* function createQuillTemplate() {
+  let toolbar = document.getElementsByClassName("ql-toolbar")[0]
+  let template = document.createElement("span");
+  template.className = "ql-formats";
+  var templateButton = document.createElement("button");
+  templateButton.textContent = "Mall2";
+  template.appendChild(templateButton);
+  templateButton.className = "ql-picker-label";
+  toolbar.appendChild(template);
+  templateButton.addEventListener('click', formTemplate)
+}; */
+
+/* function formTemplate() {
+  quill.setSelection(0, quill.getLength());
+  quill.format('underline', true);
+  quill.format('align', 'center');
+  quill.format('color', 'red');
+  quill.format('list', 'ordered');
+  quill.format('size', 'large');
+} */

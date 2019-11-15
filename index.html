@@ -16,23 +16,33 @@
 
 <body>
     <nav class="sideBar">
-        <button id="showHideBtn" onclick="showHideFunction()">
+
+        <button id="showHideBtn">
             <i class="fas fa-bars"></i>
         </button>
 
         <div id="sideNav">
+            <div class="quireLogo">
+                <img src="img/quire-logo.svg" class="quireLogoSvg" alt="Quire Logo">
+            </div>
+
             <!-- En "container" till vänster för de olika knapparna -->
-            <button id="helpBtn"> <i class="fas fa-question"></i> Help </button>
-            <button id="searchBtn"> <i class="fas fa-search"></i> Search </button>
-            <button id="printBtn" onclick="printDiv('.printableArea')"><i class="fas fa-print"></i> Print</button>
-            <button id="favouriteBtn" form="search"> <i class="far fa-star"> </i> Favourites </button>
+            <div class="sidenavbuttons">
+                <button id="favouriteBtn" form="search"><i class="far fa-star"> </i> Favourites</button>
+                <button id="helpBtn"><i class="fas fa-question"></i> Help</button>
+                <button id="printBtn" onclick="printDiv('.printableArea')"><i class="fas fa-print"></i> Print</button>
+            </div>
+
         </div>
     </nav>
 
     <section class="noteSection">
-        <div id="innerSideBar"> 
+        <div id="innerSideBar">
             <div class="searchNotes">
-                <input type="search" name="searchNote" id="searchInput" placeholder="Search Notes">
+                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+                <button class="addNote">
+                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+                </button>
             </div>
         </div>
 
