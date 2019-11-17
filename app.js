@@ -117,17 +117,20 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
 };
 
-addNewNote.onclick = function () {
+let addNoteButton = document.querySelector('.addNote');
+addNoteButton.onclick = function () {
   addNote();
 };
 
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById("innerSideBar");
-  let child = allNotes.firstChild;
+  console.log(allNotes);
+  let topOfList = allNotes.childNodes[3];
+  console.log(topOfList);
   let note = document.createElement("div");
   note.className = "note";
   note.setAttribute('id', notes.id) //ger elementet ett ID
-  allNotes.insertBefore(note, child);
+  allNotes.insertBefore(note, topOfList); //.nextsibling
   let deleteButton = document.createElement("button"); //skapar en knapp
   let txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
 
@@ -232,7 +235,7 @@ printDiv = function () {
 
 //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
 function displayDate(notes) {
-  let note = document.querySelector(".note");
+  let note = document.querySelector(`div[id = "${notes.id}"]`);
   // let child = allNotes.firstChild;
   var d = new Date(notes.id);
   var date = d.toDateString();
