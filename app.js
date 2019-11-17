@@ -12,6 +12,7 @@ let quill = new Quill('#editor-container', {
   theme: 'snow'  // or 'bubble'
 });
 
+
 const addNewNote = document.getElementById("newNoteBtn");
 let noteList = []; //tom array för samtliga notes
 var selectedNote = null;
@@ -24,7 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
     noteList.forEach(renderNote);
     setActiveNote(noteList[noteList.length - 1]);
     console.log('DOM fully loaded');
-    //createQuillTemplate();
+    createQuillTemplate();
 
     // läs senast laddade ID fårn localstorage, använd array.find på notelist, hitta id som matchar, sätt actrivenote utifrån detta
   };
@@ -36,6 +37,7 @@ function loadNotes() { // laddar local storage.
     noteList = JSON.parse(data);
   } else {
     console.log("localstorage empty")
+    createQuillTemplate();
     //För att pop up första gången man besöker sidan 
     localStorage.setItem("note", JSON.stringify(noteList)); //borde vara en separat funktion som kallas i loadnotes med en if-statement. 
     let modal = document.getElementById("myModal");
@@ -281,7 +283,7 @@ function showOnlyFavourites() {
 //////////////////////
 
 //Mall i quill (Malin)
-/* function createQuillTemplate() {
+function createQuillTemplate() {
   let toolbar = document.getElementsByClassName("ql-toolbar")[0]
   let template = document.createElement("span");
   template.className = "ql-formats";
@@ -291,13 +293,14 @@ function showOnlyFavourites() {
   templateButton.className = "ql-picker-label";
   toolbar.appendChild(template);
   templateButton.addEventListener('click', formTemplate)
-}; */
+};
 
-/* function formTemplate() {
+function formTemplate() {
   quill.setSelection(0, quill.getLength());
   quill.format('underline', true);
   quill.format('align', 'center');
   quill.format('color', 'red');
   quill.format('list', 'ordered');
   quill.format('size', 'large');
-} */
+  quill.format('backgroundcolor', 'beige');
+}
