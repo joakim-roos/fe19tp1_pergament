@@ -200,7 +200,22 @@ printDiv = function (divName) {
   location.reload();
 };
 
-function toggleFavourite() { //funktion som endast visar anteckningar som har favourite.true. 
+//favorit-knapp//
+
+document.getElementById("addToFavourite").addEventListener("click", toggleFavourite);
+
+
+function toggleFavourite() { 
+
+  let addFavourite = document.querySelector('addToFavourite');
+  
+
+
+
+
+
+  
+  //funktion som endast visar anteckningar som har favourite.true. 
   //variabel som kopplar till favourite-knappen. document.querySelector. 
   //if statement (kollar om favourite: true;)
   //om favourite: true!  kalla på funktion som endast visar favorit-markerade i innersidebar. 

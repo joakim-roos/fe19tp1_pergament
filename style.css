@@ -52,6 +52,7 @@ font-family: 'Raleway', sans-serif;
   margin-left: 30px;
   border-radius: 2px;
   overflow-y: scroll;
+  margin-left: 5px;
 }
 
 .note {
@@ -83,6 +84,7 @@ font-family: 'Raleway', sans-serif;
   outline: none;
   background: none;
   font-size: 40px;
+  display: none;
 }
 
 #showHideBtn::after{
@@ -107,6 +109,12 @@ h1{
 #editor-container {
   height: 90vh;
   width: 70vw;
+  position: relative;
+}
+
+.editor{
+  border-radius: 4px;
+  border: solid lightblue ;
 }
 
  .modal {
@@ -236,11 +244,21 @@ h1{
   i.fas.fa-pencil-alt:hover{
     color: #105489;
   }
+
+  button#newNoteBtn{
+    padding: 5px;
+    background-color: whitesmoke;
+    margin-top: 5px ;
+  }
   
   #newNoteBtn {
-    height: 50px;
-    width: 50px;
+    font-size: 20px;
+    padding: 0;
     border: none;
+    font-weight: bold;
+    position: fixed;
+    z-index: 1;
+    margin-left: 80%;
   }
 
   .delete-button {
@@ -265,6 +283,7 @@ h1{
   }
 
   
+
 
 
 

@@ -23,7 +23,7 @@
     </div>
     
 <body>
-    <nav class="sideBar">
+
         <button id="showHideBtn" onclick="showHideFunction()">
             <i class="fas fa-bars"></i>
         </button>
@@ -39,11 +39,11 @@
         <span class="editor">
             <div id="editor-container" class="printableArea editor"></div> <!-- QUILL JS CONTAINER -->
         </span>
-        <button class="new-Note-Btn circle">
-            <img src="img/feather-alt-solid.svg" id="newNoteBtn" alt="">
-        </button>
+        <button id="newNoteBtn"><i class="fas fa-pencil-alt"></i></button>
+        <button id="favourite" onclick="favourite()">like button</button>
     </section>
 
+    
     <div id="myModal" class="modal">
         <div class="info-text">
             <span class="close">&times;</span>
