@@ -8,7 +8,7 @@ let quill = new Quill('#editor-container', {
       [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
     ]
   },
-  placeholder: 'Team Pergament är cool',
+  placeholder: 'Write your note here..',
   theme: 'snow'  // or 'bubble'
 });
 
@@ -42,11 +42,13 @@ function loadNotes() { // laddar local storage.
     localStorage.setItem("note", JSON.stringify(noteList)); //borde vara en separat funktion som kallas i loadnotes med en if-statement. 
     let modal = document.getElementById("myModal");
     modal.style.display = "block";
+    body.classList.toggle("backgroundBlur");
   };
 };
 
 function saveNotes() { // sparar i local Storage
   localStorage.setItem('note', JSON.stringify(noteList));
+  
 };
 
 quill.on('text-change', update);
@@ -262,9 +264,12 @@ function displayDate(notes) {
 
 favouriteButton = document.querySelector("#favouriteBtn");
 favouriteButton.addEventListener('click', toggleFavouriteButton);
+var star = document.querySelector(".fa-star");
+
 
 function toggleFavouriteButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
   favouriteButton.classList.toggle("favActive");
+  star.classList.toggle("starActive");
   if (favouriteButton.classList.contains('favActive')) {
     showOnlyFavourites();
   } else {
@@ -273,10 +278,16 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
 };
 
 const showFavourites = (note) => note.favourite === true;
+// const showDeleted = (note) => note.deleted === true; 
 
 function showOnlyFavourites() {
   let allNotes = document.querySelector('#innerSideBar');
+  let oldNotes = document.getElementsByClassName('.note');
+  //allNotes.removeChild(oldNotes);
   allNotes.innerHTML = "";
+  /* while (oldNotes.length > 0) {
+    oldNotes[0].allNotes.removeChild(oldNotes[0]);
+  }; */
   let onlyFavs = filterNotes(showFavourites);
   onlyFavs.forEach(function (note) {
     renderNote(note);
