@@ -222,7 +222,7 @@ font-family: 'Raleway', sans-serif;
  .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    /* z-index: 1; */ /* Sit on top */
+    /* z-index: 1; Sit on top */
     padding-top: 100px; /* Location of the box */
     top: 0;
     left: 0;
@@ -334,5 +334,9 @@ font-family: 'Raleway', sans-serif;
  #showHideBtn {
    display: inline-block;
  }
+}
+
+.backgroundBlur > *:not(#myModal) {
+  filter: blur(4px);
 }
 
