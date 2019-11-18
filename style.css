@@ -242,7 +242,9 @@ font-family: 'Raleway', sans-serif;
     height: 50vh;
     width: 50vw;
     position: relative;
-	padding-top: 50px;
+    padding-top: 50px;
+    border-radius: 10px;
+    
   }
   
   /* The Close Button */
