@@ -15,17 +15,21 @@
 </head>
 
 <body>
-    <nav class="sideBar">
+
         <button id="showHideBtn" onclick="showHideFunction()">
-            <i class="fas fa-bars"></i>
-        </button>
+                <i class="fas fa-bars"></i>
+            </button>
+            
+    <nav class="sideBar">
+        
 
         <div id="sideNav">
+            <p>Q</p>
             <!-- En "container" till vänster för de olika knapparna -->
-            <button id="helpBtn"> <i class="fas fa-question"></i> Help </button>
-            <button id="searchBtn"> <i class="fas fa-search"></i> Search </button>
-            <button id="printBtn" onclick="printDiv('.printableArea')"><i class="fas fa-print"></i> Print</button>
-            <button id="favouriteBtn" form="search"> <i class="far fa-star"> </i> Favourites </button>
+            <button id="helpBtn"> <i class="fas fa-question"></i></button>
+            <button id="searchBtn"> <i class="fas fa-search"></i></button>
+            <button id="printBtn" onclick="printDiv('.printableArea')"><i class="fas fa-print"></i></button>
+            <button id="favouriteBtn" form="search"> <i class="far fa-star"> </i></button>
         </div>
     </nav>
 
@@ -39,11 +43,11 @@
         <span class="editor">
             <div id="editor-container" class="printableArea editor"></div> <!-- QUILL JS CONTAINER -->
         </span>
-        <button class="new-Note-Btn circle">
-            <img src="img/feather-alt-solid.svg" id="newNoteBtn" alt="">
-        </button>
+        <button id="newNoteBtn"><i class="fas fa-pencil-alt"></i></button>
+        <button id="favourite" onclick="favourite()">like button</button>
     </section>
 
+    
     <div id="myModal" class="modal">
         <div class="info-text">
             <span class="close">&times;</span>
