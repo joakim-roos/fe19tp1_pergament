@@ -48,7 +48,7 @@ function loadNotes() { // laddar local storage.
 
 function saveNotes() { // sparar i local Storage
   localStorage.setItem('note', JSON.stringify(noteList));
-  
+
 };
 
 quill.on('text-change', update);
@@ -79,7 +79,7 @@ function Id2Object(n) {
   };
 };
 
-function quill2HTML(input) { //används ej, men radera inte!
+/* function quill2HTML(input) { //används ej, men radera inte!
   (new Quill(tempCont)).setContents(input);
   return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
 };
@@ -88,7 +88,7 @@ function NoteData2HTML(noteObj) { //används ej, men radera inte!
   var s = ('<button class="delete-button" onclick="deleteNote(' + noteObj.id + ')">X' + '</button>' +
     quill2HTML(noteObj.data));
   return s;
-};
+}; */
 
 function setActiveNote(targetNote) {
   if (selectedNote != null && typeof selectedNote != "undefined") {
@@ -149,7 +149,16 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
 
 function renderAllNotes() {
   let allNotes = document.querySelector('#innerSideBar');
-  allNotes.innerHTML = "";
+  allNotes.innerHTML = `<div class="searchNotes">
+                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+                <button class="addNote">
+                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+                </button>
+            </div>`;
+  let addNoteButton = document.querySelector('.addNote');
+  addNoteButton.onclick = function () {
+    addNote();
+  };
   if (noteList.length > 0) {
     noteList.forEach(renderNote);
   };
@@ -284,7 +293,16 @@ function showOnlyFavourites() {
   let allNotes = document.querySelector('#innerSideBar');
   let oldNotes = document.getElementsByClassName('.note');
   //allNotes.removeChild(oldNotes);
-  allNotes.innerHTML = "";
+  allNotes.innerHTML = `<div class="searchNotes">
+                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+                <button class="addNote">
+                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+                </button>
+            </div>`;
+  let addNoteButton = document.querySelector('.addNote');
+  addNoteButton.onclick = function () {
+    addNote();
+  };
   /* while (oldNotes.length > 0) {
     oldNotes[0].allNotes.removeChild(oldNotes[0]);
   }; */
