@@ -61,7 +61,8 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
     font-size: 13px;
     padding: 10px;
     background-color: lightblue; 
-    width: 115px;
+     /* width: 115px; */
+     padding-right: 45px;
   }
   
   #helpBtn:hover {
@@ -90,7 +91,8 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
     font-size: 13px;
     padding: 10px;
     background-color: lightblue; 
-    width: 115px;
+   /* width: 115px; */
+   padding-right: 45px;
   }
   
   #printBtn:hover{
@@ -112,7 +114,7 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
     font-size: 13px;
     padding: 10px;
     background-color: lightblue; 
-    width: 115px;
+    width: 115px; 
   }
 
   #favouriteBtn:hover{
@@ -352,5 +354,8 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
   filter: blur(3px);
   transition: 0.3s ease;
 }
-
+.icons {
+  height: 15px;
+  
+}
 
