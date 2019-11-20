@@ -17,6 +17,9 @@ const addNewNote = document.getElementById("newNoteBtn");
 let noteList = []; //tom array för samtliga notes
 var selectedNote = null;
 var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
+/* sideBar = document.addEventListener('click', (event.target) => {
+  //if statements for each button in innersidebar, event.target.contains('knappis')
+}); */
 
 window.addEventListener('DOMContentLoaded', () => {
   loadNotes();
@@ -186,9 +189,16 @@ function addNote() {
   };
   renderNote(notes);
   noteList.push(notes);
-  quill.deleteText(0, quill.getLength()); //tömmer editorn på text när man trycker på add note. 
+  //tömmer editorn på text när man trycker på add note. 
   setActiveNote(notes); //ny rad för att definera senast skapad note
+  firstNote();
   saveNotes(); //sparar i Local Storage
+};
+
+function firstNote() {
+  if (noteList.length !== 1) {
+    quill.deleteText(0, quill.getLength());
+  };
 };
 
 function deleteNote(id) {
@@ -268,7 +278,6 @@ function displayDate(notes) {
 };
 
 
-
 ////////// FAVOURITE BUTTON ////////////
 
 favouriteButton = document.querySelector("#favouriteBtn");
@@ -303,9 +312,6 @@ function showOnlyFavourites() {
   addNoteButton.onclick = function () {
     addNote();
   };
-  /* while (oldNotes.length > 0) {
-    oldNotes[0].allNotes.removeChild(oldNotes[0]);
-  }; */
   let onlyFavs = filterNotes(showFavourites);
   onlyFavs.forEach(function (note) {
     renderNote(note);
