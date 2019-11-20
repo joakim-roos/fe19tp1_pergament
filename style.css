@@ -1,11 +1,8 @@
-* {
+*{
     margin: 0; 
     padding: 0;
+    
 }
-
-/* body,html{
-  overflow:hidden
-} */
 
 body {
 background-color: white;
@@ -13,78 +10,207 @@ margin: 0;
 font-family: 'Raleway', sans-serif;
 }
 
+#editor-container {
+  padding-top: 20px;
+  padding-left: 120px;
+  padding-right: 120px;
+  height: 100vh;
+  width: 65vw;
+
+background: #ECE9E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.ql-editor::before {
+   padding-left: 120px;
+} 
+
 .sideBar{
   display: flex;
   flex-direction: row;
   margin: 0;
-  float: right;
-  display: none;
+  width: 115px;
+  float: left;
 }
 
 #sideNav{
+  display: block;
+  background:lightblue;
+  height: 100vh;
+  width: 115px;
+  z-index: 1;
+}
+.quireLogo {
   display: flex;
-  flex-direction: column;
-  position: fixed;
-  background: #105489;
-  border-radius: 4px;
-  width: 12vh;
-  height: 96vh;
-  box-sizing: border-box;
+  justify-content: space-around;
+}
+.quireLogoSvg {
+  height: 82px;
 }
 
-#sideNav button{
-  margin-top: 60px;
+.sidenavbuttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
 }
+#helpBtn {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue; 
+     /* width: 115px; */
+     padding-right: 45px;
+  }
+  
+  #helpBtn:hover {
+    background-color: darkcyan;
+  }
+
+
+ #searchBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue;
+    width: 115px; 
+  }
+
+  #searchBtn:hover{
+    background-color: darkcyan;
+  }
+
+  #printBtn{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue; 
+   /* width: 115px; */
+   padding-right: 45px;
+  }
+  
+  #printBtn:hover{
+    background-color: darkcyan;  
+  }
+
+  .favActive {
+    background-color: darkcyan !important;
+  }
+
+  .starActive{
+    background-color: gold !important;
+  }
+    
+  #favouriteBtn {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    background-color: lightblue; 
+    width: 115px; 
+  }
+
+  #favouriteBtn:hover{
+    background-color: darkcyan;
+  }
 
 .noteSection {
   background-color: whitesmoke;
   display: flex;
   flex-direction: row;
+  margin-left: 115px;
+  height: 100vh;
 } 
 
 #innerSideBar{
+  display: flex;
+  flex-direction: column;
   background-color: whitesmoke;
-  height: 90vh;
-  width: 320px;
-  overflow: hidden;
+  height: 100vh;
+  width: 250px;
+  /* overflow: hidden; */
   border: 1px solid rgb(235, 229, 212);
-  margin-top: 40px;
-  margin-left: 30px;
-  border-radius: 2px;
+  /* margin-top: 44px; */
   overflow-y: scroll;
-  margin-left: 5px;
+
+  /* From uiGradients */
+  background: #ED4264;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #FFEDBC, #ED4264);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #FFEDBC, #ED4264); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .note {
+  flex-shrink: 0;
   color: black;
   display: block;
-  height: 88px;
+  height: 100px;
   background-color: whitesmoke;
   border: 1px solid rgb(235, 229, 212);
   overflow: hidden;
+  /* display: flex;
+  flex-direction: row-reverse; */
+  /* flex-wrap: wrap; */
+  user-select: none;
+  transition: background-color 100ms linear;
 }
 
-.note:hover{
-  background-color: white;
+.searchNotes {
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  width: 252px;
 }
 
 #searchInput{
-  width: 15%;
-  height: 25px;
-  position: absolute;
-  top: 7px;
-  margin-left: 75px;
-  border-radius: 5px 5px 5px 5px;
-  border: 2px solid;
-  border-color: #105489;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 173px;
+  height: 26px;
+  border-radius: 5px;
+  /* position: absolute; */
+  margin-left: 17px;
+  margin-top: 8px;
+  padding-left: 15px;
+  padding-right: 6px;
+  border: 1px solid rgb(107, 107, 107); 
+  font-size: 12px;
+  outline: none;
+}
+
+.addNote {
+  border: none;
+  position: relative; 
+  height: 23px;
+  margin-top: 7px;
+  margin-left: 17px;
+  outline: none;
+  background-color: whitesmoke;
+}
+.addNoteSvg {
+  height: 23px;
+  transition: filter 0.07s ease-in-out;
+  
+}
+.addNoteSvg:active {
+  
+  filter: invert(.5) sepia(1) saturate(5) hue-rotate(175deg);
 }
 
 #showHideBtn{
+  position: absolute;
   border: none;
   outline: none;
   background: none;
   font-size: 40px;
-  display: none;
+  z-index: 3; /* temporär för att visa hamburgaren vid datorskärm */
 }
 
 #showHideBtn::after{
@@ -95,32 +221,21 @@ font-family: 'Raleway', sans-serif;
   background: red;
 }
 
-.show{
+/* .show{
     display: block;
     border: none;
     padding: none;
-}
+} */
 
-h1{
+/* h1{
     margin-top: 5px;
     width: 100vh;
-}
-
-#editor-container {
-  height: 90vh;
-  width: 70vw;
-  position: relative;
-}
-
-.editor{
-  border-radius: 4px;
-  border: solid lightblue ;
-}
+} */
 
  .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    /* z-index: 1; */ /* Sit on top */
+    /* z-index: 1; Sit on top */
     padding-top: 100px; /* Location of the box */
     top: 0;
     left: 0;
@@ -128,7 +243,6 @@ h1{
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0,0,0,0.4);
-  
   }
   /* Modal Content i själva lådan andra diven  */
   .info-text {
@@ -140,6 +254,8 @@ h1{
     height: 50vh;
     width: 50vw;
     position: relative;
+    padding-top: 50px;
+    border-radius: 10px;    
   }
   
   /* The Close Button */
@@ -164,127 +280,83 @@ h1{
     cursor: pointer;
   }
 
-  #sideNav p{
-    font-size: 50px;
-    padding: 25px;
-    font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    color: white;
-  }
+  /* .circle{
+    position: absolute;
+    top: 80vh;
+    right: 10vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: grey; 
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    outline: none;
+  } */
   
-  #helpBtn {
+  /* #newNoteBtn {
+    height: 50px;
+    width: 50px;
     border: none;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 10px;
-    color: white;
+  } */
+  
+  /* .circle:hover {
+    background-color: whitesmoke;
     cursor: pointer;
-    font-weight: lighter;
+  } */
+
+  .delete-button {
+    border: none;
+    float: right;
+    order: 0;
+    z-index: 1;
+    position: relative;
+    top: 0;
   }
 
-  #printBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-    font-weight: lighter;
+  .pDate{
+  text-decoration: underline;
+  font-weight: 100;
+  font-size: 12px;
+  opacity: 0.8;
+  position: relative; 
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  height: 20px;
+  color: black;
+  order: 2; /* funkar ej */
+  z-index: 1;
   }
 
-  /* För att få bort länkar och datum när man skriver ut  */
+/* .heartImage { 
+  height: 22px;
+} */
+
+/* .favouriteButton {
+  position: absolute;
+  border: none;
+  background-color: whitesmoke;
+}
+ */
   @media print {
     @page { margin: 0; }
     body { margin: 1.6cm; }
   }
 
-  #favouriteBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 20px;
-    padding: 5px;
-    color: white;
-    cursor: pointer;
-  }
+@media only screen and (max-width: 764) {
+ #showHideBtn {
+   display: inline-block;
+ }
+}
 
-  .circle{
-    position: absolute;
-    top: 76vh;
-    right: 10vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #105489; 
-    height: 110px;
-    width: 110px;
-    border-radius: 50%;
-    border: solid;
-    border-color:white;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .circle:hover{
-    position: fixed;
-    border-color: #105489;
-    background-color: white;
-    cursor: pointer;
-  }
-
-  i.fas.fa-pencil-alt{
-    font-size: 30px;
-    color: white;
-    font-weight: bold;
-    padding: 40px;
-  }
-
-  i.fas.fa-pencil-alt:hover{
-    color: #105489;
-  }
-
-  button#newNoteBtn{
-    padding: 5px;
-    background-color: whitesmoke;
-    margin-top: 5px ;
-  }
+.backgroundBlur > *:not(#myModal) { /* selecting whole document except #myModal */
+  filter: blur(3px);
+  transition: 0.3s ease;
+}
+.icons {
+  height: 15px;
   
-  #newNoteBtn {
-    font-size: 20px;
-    padding: 0;
-    border: none;
-    font-weight: bold;
-    position: fixed;
-    z-index: 1;
-    margin-left: 80%;
-  }
-
-  .delete-button {
-    border: none;
-    float: right;
-  }
-
-  @media (min-width: 750px) {
-
-  }
-
-  .ql-editor.ql-blank{
-
-    background-color: white;
-  }
-
-  .ql-toolbar.ql-snow{
-
-    background-color: rgb(221, 220, 220);
-    border-radius: 1mm;
-    border-color: lightgray;
-  }
-
-  
-
-
-
+}
 
 
