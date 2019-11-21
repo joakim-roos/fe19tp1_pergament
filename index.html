@@ -30,9 +30,11 @@
             <div class="sidenavbuttons">
                 <button id="favouriteBtn" form="search">
                     <img src="star.svg" class="icons" alt="Favourites"> Favourites</button>
+                <button id="deletedBtn" form="search">
+                    <img src="star.svg" class="icons" alt="Deleted"> Deleted</button>
                 <button id="helpBtn"> <img src="question.svg" class="icons" alt="Help"> Help</button>
-                <button id="printBtn" onclick="printDiv('.printableArea')"> <img src="print.svg" class="icons"
-                        alt="Print"> Print</button>
+                <button id="printBtn" onclick="printDiv('.printableArea')">
+                    <img src="print.svg" class="icons" alt="Print"> Print</button>
             </div>
         </div>
     </nav>
@@ -40,7 +42,7 @@
     <section class="noteSection">
         <div id="innerSideBar">
             <div class="searchNotes">
-                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+                <input type="text" name="searchNote" id="searchInput" placeholder="search notes..">
                 <button class="addNote">
                     <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
                 </button>

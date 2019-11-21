@@ -63,7 +63,7 @@ function loadNotes() { // laddar local storage.
   } else {
     console.log("localstorage empty")
     createQuillTemplate();
-    firstPopup(); //So the Help-section only pops up when Notelist is completely empty. 
+    firstPopup(); //so the help popup only auto-renders when notelist is empty. 
   };
 };
 
@@ -167,24 +167,23 @@ function renderAllNotes() {
   addNoteButton.onclick = function () {
     addNote();
   };
-  textSearch = document.querySelector('#searchInput');
-  textSearch.addEventListener('keydown', () => {
-    searchString = textSearch.value.toLowerCase();
-    console.log(searchString)
-  });
-  /*   loadNotes();
-    if (noteList.length > 0) {
-      noteList.forEach(renderNote);
-      
-    }; */
 
   for (let i = 0; i < noteList.length; i++) {
-    //if (noteList[i].data.ops[0].insert.toLowerCase().includes(searchString)) {
-    renderNote(noteList[i]);
-    //console.log(noteList[i]);
+    if (noteList[i].data.ops[0].insert.toLowerCase().includes(searchString)) {
+      //console.log(noteList[i].data.ops[0].insert.toLowerCase().includes(searchString));
+      renderNote(noteList[i]);
+      //console.log(noteList[i]);
+    }
   }
   setActiveNote(noteList[noteList.length - 1]);
 };
+
+textSearch = document.querySelector('#searchInput');
+textSearch.addEventListener('keyup', (event) => {
+  searchString = textSearch.value.toLowerCase();
+  console.log(searchString)
+  //renderAllNotes();
+});
 
 /* function createFavourite(note) { //funktion som skapar en favorit-knapp. Kallas i renderNote.
   note = document.querySelector('.note');
@@ -352,27 +351,6 @@ function showOnlyFavourites() {
 // const showDeleted = (note) => note.deleted === true; 
 
 //////////////////////
-
-
-
-////////// SEARCH FUNCTION ////////////
-
-//searchNote = document.querySelector('#searchNote')
-
-textSearch = document.querySelector('#searchInput');
-textSearch.addEventListener('keydown', (event) => {
-  searchString = textSearch.value.toLowerCase();
-  console.log(searchString)
-  //renderAllNotes(); Funkar ej
-});
-
-
-/*   for (i = 0, noteList.length > 0) {
-     if (noteList[i].includes("str") {
-       renderNote();
-     }
-   }; */
-///////////////////////
 
 
 //Mall i quill (Malin)

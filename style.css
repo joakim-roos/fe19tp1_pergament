@@ -121,6 +121,21 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
     background-color: darkcyan;
   }
 
+  #deletedBtn {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 13px;
+    padding: 10px;
+    padding-right: 25px;
+    background-color: lightblue; 
+    width: 115px; 
+  }
+
+  #deletedBtn:hover{
+    background-color: darkcyan;
+  }
+
 .noteSection {
   background-color: whitesmoke;
   display: flex;
@@ -172,7 +187,7 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  width: 173px;
+  width: 150px;
   height: 26px;
   border-radius: 5px;
   /* position: absolute; */
