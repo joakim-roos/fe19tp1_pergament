@@ -63,17 +63,23 @@ function loadNotes() { // laddar local storage.
   } else {
     console.log("localstorage empty")
     createQuillTemplate();
-    //För att pop up första gången man besöker sidan 
-    /*    localStorage.setItem("note", JSON.stringify(noteList)); //borde vara en separat funktion eller något
-       let modal = document.getElementById("myModal");
-       modal.style.display = "block";
-       body.classList.toggle("backgroundBlur"); */
+    firstPopup(); //So the Help-section only pops up when Notelist is completely empty. 
   };
 };
+
+function firstPopup() {
+  if (noteList.length !== 1) {
+    let modal = document.getElementById("myModal");
+    modal.style.display = "block";
+    body.classList.toggle("backgroundBlur");
+  };
+};
+
 
 function saveNotes() { // sparar i local Storage
   localStorage.setItem('note', JSON.stringify(noteList));
 };
+
 
 quill.on('text-change', update);
 
