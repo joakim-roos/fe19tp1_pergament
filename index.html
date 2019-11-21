@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, font-src 'self' data:;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quire</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
@@ -28,10 +28,11 @@
 
             <!-- En "container" till vänster för de olika knapparna -->
             <div class="sidenavbuttons">
-                <button id="favouriteBtn" form="search"> 
-                <img src="star.svg" class="icons" alt="Favourites"> Favourites</button>
+                <button id="favouriteBtn" form="search">
+                    <img src="star.svg" class="icons" alt="Favourites"> Favourites</button>
                 <button id="helpBtn"> <img src="question.svg" class="icons" alt="Help"> Help</button>
-                <button id="printBtn" onclick="printDiv('.printableArea')"> <img src="print.svg" class="icons"  alt="Print"> Print</button>
+                <button id="printBtn" onclick="printDiv('.printableArea')"> <img src="print.svg" class="icons"
+                        alt="Print"> Print</button>
             </div>
         </div>
     </nav>
@@ -45,7 +46,6 @@
                 </button>
             </div>
         </div>
-
         <span class="editor">
             <div id="editor-container" class="printableArea editor"></div> <!-- QUILL JS CONTAINER -->
         </span>
@@ -53,7 +53,6 @@
             <img src="img/feather-alt-solid.svg" id="newNoteBtn" alt="">
         </button>
     </section>
-
     <div id="myModal" class="modal">
         <div class="info-text">
             <span class="close">&times;</span>
