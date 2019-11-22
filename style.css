@@ -5,7 +5,7 @@
 }
 
 body {
-background-color: white;
+background-color: rgb(240, 240, 240);
 margin: 0;
 font-family: 'Raleway', sans-serif;
 }
@@ -16,10 +16,11 @@ font-family: 'Raleway', sans-serif;
   padding-right: 120px;
   height: 100vh;
   width: 65vw;
+  background-color: rgb(240, 240, 240);
 
-background: #ECE9E6;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* background: #ECE9E6; */  /* fallback for old browsers */
+/* background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6); */  /* Chrome 10-25, Safari 5.1-6 */
+/* background: linear-gradient(to left, #FFFFFF, #ECE9E6); */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .ql-editor::before {
@@ -36,7 +37,7 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
 
 #sideNav{
   display: block;
-  background:lightblue;
+  background: rgb(59, 60, 65);
   height: 100vh;
   width: 115px;
   z-index: 1;
@@ -49,95 +50,101 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
   height: 82px;
 }
 
+
+
 .sidenavbuttons {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
 }
 #helpBtn {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 13px;
-    padding: 10px;
-    background-color: lightblue; 
-     /* width: 115px; */
-     padding-right: 45px;
-  }
-  
-  #helpBtn:hover {
-    background-color: darkcyan;
-  }
-
-
- #searchBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 13px;
-    padding: 10px;
-    background-color: lightblue;
-    width: 115px; 
-  }
-
-  #searchBtn:hover{
-    background-color: darkcyan;
-  }
-
-  #printBtn{
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 13px;
-    padding: 10px;
-    background-color: lightblue; 
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 13px;
+  padding: 10px 45px 10px 0px;
+  /* background-color: lightblue;  */
    /* width: 115px; */
-   padding-right: 45px;
   }
-  
-  #printBtn:hover{
-    background-color: darkcyan;  
-  }
+#helpBtn:hover {
+  background-color: darkcyan;
+}
+.help-icon {
+  height: 16px;
+}
 
-  .favActive {
-    background-color: darkcyan !important;
-  }
 
-  .starActive{
-    background-color: gold !important;
-  }
-    
-  #favouriteBtn {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 13px;
-    padding: 10px;
-    background-color: lightblue; 
-    width: 115px; 
-  }
+#printBtn{
+  height: 39px;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 13px;
+  padding: 10px 45px 10px 3px;
+  /* background-color: lightblue; */ 
+  /* width: 115px; */
+}
+#printBtn:hover{
+  background-color: darkcyan;  
+}
+.print-icon {
+  height: 20px;
+}
+.print-self-text {
+  padding-top: 2px;
+}
 
-  #favouriteBtn:hover{
-    background-color: darkcyan;
-  }
+#favouriteBtn {
+  border: none;
+  outline: none;
+  background: none;
+  padding: 10px 10px 10px 0px;
+  /* background-color: lightblue; */ 
+  width: 115px;
+  font-size: 13px;
+}
 
-  #deletedBtn {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 13px;
-    padding: 10px;
-    padding-right: 25px;
-    background-color: lightblue; 
-    width: 115px; 
-  }
+#favouriteBtn:hover{
+  background-color: darkcyan;
+}
+.fav-icon {
+  height: 16px;
+}
+.favActive {
+  background-color: darkcyan !important;
+}
+.button-text {
+  float: right;
+  margin-right: 6px;
+  height: 20px;
+  color: rgb(223, 219, 219);
+}
 
-  #deletedBtn:hover{
-    background-color: darkcyan;
-  }
+#deletedBtn {
+  height: 39px;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 13px;
+  padding: 10px 25px 10px 0px;
+  /* background-color: lightblue; */ 
+  width: 115px; 
+}
+#deletedBtn:hover{
+  background-color: darkcyan;
+}
+.del-icon {
+  height: 20px;
+}
+.delActive {
+  background-color: darkcyan !important;
+}
+.del-self-text {
+  margin-top: 2px;
+}
 
 .noteSection {
-  background-color: whitesmoke;
+  background-color: rgb(240, 240, 240);
   display: flex;
   flex-direction: row;
   margin-left: 115px;
@@ -147,18 +154,18 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
 #innerSideBar{
   display: flex;
   flex-direction: column;
-  background-color: whitesmoke;
+  background-color: rgb(240, 240, 240);
   height: 100vh;
   width: 250px;
   /* overflow: hidden; */
-  border: 1px solid rgb(235, 229, 212);
+  border: none;
   /* margin-top: 44px; */
   overflow-y: scroll;
 
   /* From uiGradients */
-  background: #ED4264;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #FFEDBC, #ED4264);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #FFEDBC, #ED4264); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: #ED4264; */  /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(to bottom, #FFEDBC, #ED4264); */  /* Chrome 10-25, Safari 5.1-6 */
+  /* background: linear-gradient(to bottom, #FFEDBC, #ED4264); */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .note {
@@ -166,12 +173,9 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
   color: black;
   display: block;
   height: 100px;
-  background-color: whitesmoke;
-  border: 1px solid rgb(235, 229, 212);
+  background-color: rgb(233, 233, 233);
+  border-left: 7px solid rgb(233, 233, 233);
   overflow: hidden;
-  /* display: flex;
-  flex-direction: row-reverse; */
-  /* flex-wrap: wrap; */
   user-select: none;
   transition: background-color 100ms linear;
 }
@@ -190,7 +194,6 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
   width: 150px;
   height: 26px;
   border-radius: 5px;
-  /* position: absolute; */
   margin-left: 17px;
   margin-top: 8px;
   padding-left: 15px;
@@ -212,6 +215,7 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
 .addNoteSvg {
   height: 23px;
   transition: filter 0.07s ease-in-out;
+  opacity: 0.8;
   
 }
 .addNoteSvg:active {
@@ -295,32 +299,6 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
     cursor: pointer;
   }
 
-  /* .circle{
-    position: absolute;
-    top: 80vh;
-    right: 10vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: grey; 
-    height: 110px;
-    width: 110px;
-    border-radius: 50%;
-    outline: none;
-  } */
-  
-  /* #newNoteBtn {
-    height: 50px;
-    width: 50px;
-    border: none;
-  } */
-  
-  /* .circle:hover {
-    background-color: whitesmoke;
-    cursor: pointer;
-  } */
-
-
   .delete-button {
     border: none;
     float: right;
@@ -328,48 +306,53 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
   }
 
   .pDate{
-  /* text-decoration: underline; */
-  /* font-weight: 100; */
   font-size: 13px;
   opacity: 0.5;
-  /* position: relative;  */
   width: 200px;
-  /* height: 20px; */
   color: black;
   order: 2; /* funkar ej */
   margin-bottom: 0px;
-  padding: 2px 1px 1px 10px;
-  /* z-index: 1; */
+  padding: 2px 1px 1px 14px;
   }
 
   .noteTitle {
     width: 220px;
     height: 20px;
-    padding: 5px 0px 0px 10px;
+    padding: 5px 0px 0px 16px;
     font-size: 17px;
     font-weight: bold;
     overflow: hidden;
   }
   .notePreview {
     width: 200px;
-    height: 50px;
-    padding: 3px 0px 0px 16px;
+    height: 40px;
+    padding: 10px 0px 0px 20px;
     font-size: 14px;
     opacity: 0.6;
     line-height: 1.2;
     overflow: hidden;
   }
 
-/* .heartImage { 
-  height: 22px;
-} */
-
-/* .favouriteButton {
-  position: absolute;
-  border: none;
-  background-color: whitesmoke;
+.backgroundBlur > *:not(#myModal) { /* selecting whole document except #myModal */
+  filter: blur(3px);
+  transition: 0.3s ease;
 }
- */
+
+
+.del-icon-note {
+  border: none;
+  height: 21px;
+  opacity: 0.8
+}
+.delete-note {
+  border:none;
+  float: right;
+  bottom: 10px;
+  background: rgba(76, 175, 80, 0.0);
+  height: 21px;
+}
+
+
   @media print {
     @page { margin: 0; }
     body { margin: 1.6cm; }
@@ -380,13 +363,3 @@ background: linear-gradient(to left, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Fi
    display: inline-block;
  }
 }
-
-.backgroundBlur > *:not(#myModal) { /* selecting whole document except #myModal */
-  filter: blur(3px);
-  transition: 0.3s ease;
-}
-.icons {
-  height: 15px;
-  
-}
-

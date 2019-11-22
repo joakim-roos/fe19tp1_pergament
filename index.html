@@ -29,12 +29,21 @@
             <!-- En "container" till vänster för de olika knapparna -->
             <div class="sidenavbuttons">
                 <button id="favouriteBtn" form="search">
-                    <img src="star.svg" class="icons" alt="Favourites"> Favourites</button>
+                    <img src="img/star.svg" class="fav-icon" alt="Favourites">
+                    <div class="button-text">Favourites</div>
+                </button>
                 <button id="deletedBtn" form="search">
-                    <img src="star.svg" class="icons" alt="Deleted"> Deleted</button>
-                <button id="helpBtn"> <img src="question.svg" class="icons" alt="Help"> Help</button>
+                    <img src="img/delete_outline-24px.svg" class="del-icon" alt="Deleted">
+                    <div class="button-text del-self-text">Deleted</div>
+                </button>
+                <button id="helpBtn">
+                    <img src="img/question.svg" class="help-icon" alt="Help">
+                    <div class="button-text">Help</div>
+                </button>
                 <button id="printBtn" onclick="printDiv('.printableArea')">
-                    <img src="print.svg" class="icons" alt="Print"> Print</button>
+                    <img src="img/print.svg" class="print-icon" alt="Print">
+                    <div class="button-text print-self-text">Print</div>
+                </button>
             </div>
         </div>
     </nav>

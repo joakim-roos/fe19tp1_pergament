@@ -30,37 +30,46 @@ window.addEventListener('DOMContentLoaded', () => {
     setActiveNote(noteList[noteList.length - 1]);
     console.log('DOM fully loaded');
     createQuillTemplate();
-
-    // läs senast laddade ID fårn localstorage, använd array.find på notelist, hitta id som matchar, sätt actrivenote utifrån detta
   };
 });
 
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById('innerSideBar');
   let note = document.createElement('div');
-  let deleteButton = document.createElement('button');
+  //let deleteButton = document.createElement('button');
   let title = document.createElement('p');
   let preview = document.createElement('p');
-  let txtDeleteBtn = document.createTextNode('X');
+  //let txtDeleteBtn = document.createTextNode('X');
   let topOfList = allNotes.children[1];
   note.className = 'note';
-  deleteButton.className = 'delete-button';
+  //deleteButton.className = 'delete-button';
   title.className = 'noteTitle';
   preview.className = 'notePreview';
   note.setAttribute('id', notes.id) //ger elementet ett ID
-  deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
-  deleteButton.setAttribute('onclick', 'deleteNote(' + notes.id + ')') //säger att funktionen ska köras när knappen klickas på
-  note.appendChild(deleteButton);
-  note.insertBefore(preview, deleteButton);
+  //deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
+  //deleteButton.setAttribute('onclick', 'deleteNote(' + notes.id + ')') //säger att funktionen ska köras när knappen klickas på
+  //note.appendChild(deleteButton);
+  note.appendChild(preview);
   note.insertBefore(title, preview);
-
   note.addEventListener('click', swapNote);
   console.log(allNotes.children[1]);
-
   title.innerHTML += notes.title;
   preview.innerHTML += notes.preview;
   allNotes.insertBefore(note, topOfList); //.nextsibling
   displayDate(notes); // visar datum och tid i anteckningen
+  createDeletedButton(note, notes);
+};
+
+function createDeletedButton(note, notes) { //funktion som skapar en delete-knapp. Kallas i renderNote.
+  let button = document.createElement('button');
+  let date = document.querySelector('.pDate')
+  let img = document.createElement('img');
+  button.className = 'delete-note';
+  button.setAttribute('onclick', 'deleteNote(' + notes.id + ')');
+  img.src = 'img/delete_note.svg';
+  img.className = 'del-icon-note';
+  note.insertBefore(button, date);
+  button.appendChild(img);
 };
 
 function loadNotes() { // laddar local storage. 
@@ -94,7 +103,7 @@ function update() { //uppdaterar selectedNote på text-change.
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
-    selectedNote.preview = quill.getText(25, 80);
+    selectedNote.preview = quill.getText(25, 60);
     selectedNote.title = quill.getText(0, 25);
     //note.innerHTML += selectedNote.preview;
     updatePreview();
@@ -108,14 +117,13 @@ function updatePreview(note) { //uppdaterar objektets preview.
   let dots = "..."
   console.log(note.childNodes)
   note.childNodes[1].innerHTML = selectedNote.preview + dots;
-  //console.log("note id", selectedNote.id);
 };
 
 function updateTitle(note) { //uppdaterar titlen
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
   let dots = "..."
   note.childNodes[0].innerHTML = selectedNote.title + dots;
-}
+};
 
 function Id2Object(n) {
   var i;
@@ -138,15 +146,18 @@ function NoteData2HTML(noteObj) { //används ej, men radera inte!
 }; */
 
 function setActiveNote(targetNote) {
-  if (selectedNote != null && typeof selectedNote != "undefined") {
-    document.getElementById(selectedNote.id).style.backgroundColor = "whitesmoke"; //återställ styling på fd vald note
+  if (selectedNote !== null && typeof selectedNote !== "undefined") {
+    document.getElementById(selectedNote.id).style.backgroundColor = "rgb(233, 233, 233)"; //återställ styling på fd vald note
+    document.getElementById(selectedNote.id).style.borderLeft = "7px solid rgb(233, 233, 233)";
   };
   selectedNote = targetNote;
   if (typeof selectedNote != "undefined") {
     var noteDiv = document.getElementById(selectedNote.id);
     if (noteDiv != null) {
-      noteDiv.style.backgroundColor = "grey"; //styling så du ser vilken du valt, bör ändras
+      noteDiv.style.backgroundColor = "whitesmoke"; //styling så du ser vilken du valt, bör ändras
+      noteDiv.style.borderLeft = "7px solid darkcyan";
       quill.setContents(selectedNote.data);
+      console.log("TJENA")
     };
   };
 };
@@ -172,7 +183,6 @@ addNoteButton.onclick = function () {
 };
 
 function renderAllNotes() {
-  console.log("renderallnotes ran")
   let innerSideBar = document.querySelector('#innerSideBar');
   innerSideBar.innerHTML = `<div class="searchNotes">
                     <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
@@ -181,14 +191,13 @@ function renderAllNotes() {
                     </button>
                 </div>`;
   enableSearch();
-
   let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();
   };
 
+  /* noteList.forEach(renderNote); */
   for (let i = 0; i < noteList.length; i++) {
-    //console.log(noteList[i].data.ops[0].insert.toLowerCase().includes(searchString));
     renderNote(noteList[i]);
     //console.log(noteList[i]);
   }
@@ -198,7 +207,7 @@ function renderAllNotes() {
 function renderSearchedNotes() {
   let innerSideBar = document.querySelector('#innerSideBar');
   innerSideBar.innerHTML = `<div class="searchNotes">
-                    <input type="search" name="searchNote" id="searchInput" value="${searchString}" onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
+                    <input type="search" name="searchNote" placeholder="search notes..." id="searchInput" value="${searchString}" onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
                     <button class="addNote">
                         <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
                     </button>
@@ -238,17 +247,6 @@ function enableSearch() {
 };
 enableSearch();
 
-
-/* function createFavourite(note) { //funktion som skapar en favorit-knapp. Kallas i renderNote.
-  note = document.querySelector('.note');
-  let button = document.createElement('button');
-  let img = document.createElement('img');
-  button.className = 'favouriteButton';
-  img.className = 'heartImage';
-  img.src = 'img/heart-regular.svg';
-  note.appendChild(button);
-  button.appendChild(img);
-}; */
 
 function addNote() {
   let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
@@ -351,6 +349,7 @@ function displayDate(notes) {
 
 favouriteButton = document.querySelector("#favouriteBtn");
 favouriteButton.addEventListener('click', toggleFavouriteButton);
+const showFavourites = (note) => note.favourite === true;
 //var star = document.querySelector(".fa-star");
 
 
@@ -363,8 +362,6 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
     renderAllNotes();
   }
 };
-
-const showFavourites = (note) => note.favourite === true;
 
 function showOnlyFavourites() {
   let allNotes = document.querySelector('#innerSideBar');
@@ -379,11 +376,7 @@ function showOnlyFavourites() {
     addNote();
   };
 
-  textSearch = document.querySelector('#searchInput');
-  textSearch.addEventListener('keydown', (event) => {
-    searchString = textSearch.value.toLowerCase();
-    console.log(searchString)
-  });
+  enableSearch()
 
   let onlyFavs = filterNotes(showFavourites);
   onlyFavs.forEach(function (note) {
@@ -395,13 +388,53 @@ function showOnlyFavourites() {
     let filtered = noteList.filter(func)
     return filtered;
   };
+  setActiveNote(noteList[noteList.length - 1]);
 };
 
 //////////////////////
 
 ////////// DELETED BUTTON ////////////
+deletedButton = document.querySelector("#deletedBtn");
+deletedButton.addEventListener('click', toggleDeletedButton);
+const showDeleted = (note) => note.deleted === true;
 
-// const showDeleted = (note) => note.deleted === true; 
+function toggleDeletedButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
+  deletedButton.classList.toggle("delActive");
+  //star.classList.toggle("starActive");
+  if (deletedButton.classList.contains('delActive')) {
+    showOnlyDeleted();
+  } else {
+    renderAllNotes();
+  }
+};
+
+function showOnlyDeleted() {
+  let allNotes = document.querySelector('#innerSideBar');
+  allNotes.innerHTML = `<div class="searchNotes">
+                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+                <button class="addNote">
+                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+                </button>
+            </div>`;
+  let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
+  addNoteButton.onclick = function () {
+    addNote();
+  };
+
+  enableSearch()
+
+  let onlyDeleted = filterNotes(showDeleted);
+  onlyDeleted.forEach(function (note) {
+    renderNote(note);
+  });
+
+  function filterNotes(func = () => true) { //function som return true
+    //console.log(func(1));
+    let filtered = noteList.filter(func)
+    return filtered;
+  };
+  setActiveNote(noteList[noteList.length - 1]);
+};
 
 //////////////////////
 
