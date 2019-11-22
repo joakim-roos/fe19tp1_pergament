@@ -36,22 +36,29 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
-  let allNotes = document.getElementById("innerSideBar");
-  let note = document.createElement("div");
-  let deleteButton = document.createElement("button");
-  let txtDeleteBtn = document.createTextNode("X");
-  note.className = "note";
+  let allNotes = document.getElementById('innerSideBar');
+  let note = document.createElement('div');
+  let deleteButton = document.createElement('button');
+  let title = document.createElement('p');
+  let preview = document.createElement('p');
+  let txtDeleteBtn = document.createTextNode('X');
+  let topOfList = allNotes.children[1];
+  note.className = 'note';
+  deleteButton.className = 'delete-button';
+  title.className = 'noteTitle';
+  preview.className = 'notePreview';
   note.setAttribute('id', notes.id) //ger elementet ett ID
-  let topOfList = allNotes.children[1]; ///////den här buggar när man klickar på toggle favourite
-
   deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
-  deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
-  deleteButton.setAttribute("onclick", "deleteNote(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
+  deleteButton.setAttribute('onclick', 'deleteNote(' + notes.id + ')') //säger att funktionen ska köras när knappen klickas på
   note.appendChild(deleteButton);
+  note.insertBefore(preview, deleteButton);
+  note.insertBefore(title, preview);
 
   note.addEventListener('click', swapNote);
   console.log(allNotes.children[1]);
-  note.innerHTML += notes.preview;
+
+  title.innerHTML += notes.title;
+  preview.innerHTML += notes.preview;
   allNotes.insertBefore(note, topOfList); //.nextsibling
   displayDate(notes); // visar datum och tid i anteckningen
 };
@@ -61,7 +68,7 @@ function loadNotes() { // laddar local storage.
   if (data) {
     noteList = JSON.parse(data);
   } else {
-    console.log("localstorage empty")
+    console.log('localstorage empty')
     createQuillTemplate();
     firstPopup(); //so the help popup only auto-renders when notelist is empty. 
   };
@@ -87,18 +94,28 @@ function update() { //uppdaterar selectedNote på text-change.
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
-    selectedNote.preview = quill.getText(0, 20);
+    selectedNote.preview = quill.getText(25, 80);
+    selectedNote.title = quill.getText(0, 25);
     //note.innerHTML += selectedNote.preview;
     updatePreview();
+    updateTitle()
     saveNotes();
   };
 };
 
 function updatePreview(note) { //uppdaterar objektets preview. 
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
-  note.childNodes[1].replaceWith(selectedNote.preview);
+  let dots = "..."
+  console.log(note.childNodes)
+  note.childNodes[1].innerHTML = selectedNote.preview + dots;
   //console.log("note id", selectedNote.id);
 };
+
+function updateTitle(note) { //uppdaterar titlen
+  note = document.querySelector(`div[id="${selectedNote.id}"]`);
+  let dots = "..."
+  note.childNodes[0].innerHTML = selectedNote.title + dots;
+}
 
 function Id2Object(n) {
   var i;
@@ -155,6 +172,7 @@ addNoteButton.onclick = function () {
 };
 
 function renderAllNotes() {
+  console.log("renderallnotes ran")
   let innerSideBar = document.querySelector('#innerSideBar');
   innerSideBar.innerHTML = `<div class="searchNotes">
                     <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
@@ -162,6 +180,7 @@ function renderAllNotes() {
                         <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
                     </button>
                 </div>`;
+  enableSearch();
 
   let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
@@ -169,21 +188,56 @@ function renderAllNotes() {
   };
 
   for (let i = 0; i < noteList.length; i++) {
-    if (noteList[i].data.ops[0].insert.toLowerCase().includes(searchString)) {
-      //console.log(noteList[i].data.ops[0].insert.toLowerCase().includes(searchString));
-      renderNote(noteList[i]);
-      //console.log(noteList[i]);
-    }
+    //console.log(noteList[i].data.ops[0].insert.toLowerCase().includes(searchString));
+    renderNote(noteList[i]);
+    //console.log(noteList[i]);
   }
   setActiveNote(noteList[noteList.length - 1]);
 };
 
-textSearch = document.querySelector('#searchInput');
-textSearch.addEventListener('keyup', (event) => {
-  searchString = textSearch.value.toLowerCase();
-  console.log(searchString)
-  //renderAllNotes();
-});
+function renderSearchedNotes() {
+  let innerSideBar = document.querySelector('#innerSideBar');
+  innerSideBar.innerHTML = `<div class="searchNotes">
+                    <input type="search" name="searchNote" id="searchInput" value="${searchString}" onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
+                    <button class="addNote">
+                        <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+                    </button>
+                </div>`;
+  enableSearch();
+
+  let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
+  addNoteButton.onclick = function () {
+    addNote();
+  };
+
+  for (let i = 0; i < noteList.length; i++) {
+    console.log(noteList[i].data.ops) //
+    let ops = noteList[i].data.ops;
+    for (let j = 0; j < ops.length; j++) {
+      if (ops[j].insert.toLowerCase().includes(searchString)) {
+        //console.log(noteList[i].data.ops[0].insert.toLowerCase().includes(searchString));
+        console.log("match found" + noteList[i].id)
+        renderNote(noteList[i]);
+        break;
+        //console.log(noteList[i]);
+      }
+    }
+  }
+  //setActiveNote(noteList[noteList.length - 1]);
+};
+
+function enableSearch() {
+  textSearch = document.querySelector('#searchInput');
+  textSearch.addEventListener('keyup', (event) => {
+    searchString = textSearch.value.toLowerCase();
+    renderSearchedNotes();
+    console.log(searchString)
+    //renderAllNotes(); Doesn't work. Seems to render once and then stops. eventlisterner 'keyup' stops as well. 
+  });
+  textSearch.focus();
+};
+enableSearch();
+
 
 /* function createFavourite(note) { //funktion som skapar en favorit-knapp. Kallas i renderNote.
   note = document.querySelector('.note');
@@ -200,7 +254,7 @@ function addNote() {
   let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
     id: Date.now(),
     title: "",
-    preview: quill.getText(0, 20),
+    preview: "",
     data: quill.getContents(),
     favourite: false,
     deleted: false
@@ -211,7 +265,6 @@ function addNote() {
   setActiveNote(notes); //ny rad för att definera senast skapad note
   firstNote();
   saveNotes(); //sparar i Local Storage
-
 };
 
 function firstNote() {
