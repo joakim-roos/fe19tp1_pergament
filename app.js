@@ -5,53 +5,69 @@ let quill = new Quill('#editor-container', {
       ['bold', 'italic', 'underline'],
       ['image', 'code-block'],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
     ]
   },
-  placeholder: 'Team Pergament är cool',
+  placeholder: 'Write your note here..',
   theme: 'snow'  // or 'bubble'
 });
+
 
 const addNewNote = document.getElementById("newNoteBtn");
 let noteList = []; //tom array för samtliga notes
 var selectedNote = null;
 var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
+/* sideBar = document.addEventListener('click', (event.target) => {
+  //if statements for each button in innersidebar, event.target.contains('knappis')
+}); */
 
 window.addEventListener('DOMContentLoaded', () => {
   loadNotes();
   if (noteList.length > 0) {
     console.log(noteList);
     noteList.forEach(renderNote);
-    console.log('DOM fully loaded and good to go');
+    setActiveNote(noteList[noteList.length - 1]);
+    console.log('DOM fully loaded');
+    createQuillTemplate();
+
+    // läs senast laddade ID fårn localstorage, använd array.find på notelist, hitta id som matchar, sätt actrivenote utifrån detta
   };
 });
 
-function loadNotes() {
+function loadNotes() { // laddar local storage. 
   let data = localStorage.getItem('note');
   if (data) {
     noteList = JSON.parse(data);
   } else {
     console.log("localstorage empty")
+    createQuillTemplate();
+    //För att pop up första gången man besöker sidan 
+    localStorage.setItem("note", JSON.stringify(noteList)); //borde vara en separat funktion som kallas i loadnotes med en if-statement. 
+    let modal = document.getElementById("myModal");
+    modal.style.display = "block";
+    body.classList.toggle("backgroundBlur");
   };
 };
 
-function saveNotes() {
+function saveNotes() { // sparar i local Storage
   localStorage.setItem('note', JSON.stringify(noteList));
+
 };
 
 quill.on('text-change', update);
 
-function update() {
+function update() { //uppdaterar selectedNote på text-change. 
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
-    selectedNote.preview = quill.getText(0, 50);
+    selectedNote.preview = quill.getText(0, 20);
     //note.innerHTML += selectedNote.preview;
     updatePreview();
     saveNotes();
   };
 };
 
-function updatePreview(note) {
+function updatePreview(note) { //uppdaterar objektets preview. 
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
   note.childNodes[1].replaceWith(selectedNote.preview);
   //console.log("note id", selectedNote.id);
@@ -66,16 +82,16 @@ function Id2Object(n) {
   };
 };
 
-function quill2HTML(input) {
+/* function quill2HTML(input) { //används ej, men radera inte!
   (new Quill(tempCont)).setContents(input);
   return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
 };
 
-function NoteData2HTML(noteObj) {
+function NoteData2HTML(noteObj) { //används ej, men radera inte!
   var s = ('<button class="delete-button" onclick="deleteNote(' + noteObj.id + ')">X' + '</button>' +
     quill2HTML(noteObj.data));
   return s;
-};
+}; */
 
 function setActiveNote(targetNote) {
   if (selectedNote != null && typeof selectedNote != "undefined") {
@@ -94,10 +110,8 @@ function setActiveNote(targetNote) {
 function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
   //console.log(document.getElementById(event.target.id).innerHTML); //de här raderna har buggar
   //console.log(Id2Object(event.target.id).data); //samma här,buggar
-  var targetNote = Id2Object(event.target.id);
+  var targetNote = Id2Object(event.target.closest("div").id);
   if (typeof targetNote != "undefined") {
-    //console.log(selectedNote);
-    //console.log(targetNote);
     if (targetNote != selectedNote) {
       selectedNote.data = quill.getContents();
       //quill.setContents(targetNote.data);
@@ -108,32 +122,74 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
 };
 
-addNewNote.onclick = function () {
+let addNoteButton = document.querySelector('.addNote');
+addNoteButton.onclick = function () {
   addNote();
 };
 
-function renderNote(notes) { // obs notes är singular: ett noteobjekt
+function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById("innerSideBar");
-  let child = allNotes.firstChild;
+  console.log(allNotes);
+  let topOfList = allNotes.childNodes[3];
+  console.log(topOfList);
   let note = document.createElement("div");
   note.className = "note";
   note.setAttribute('id', notes.id) //ger elementet ett ID
-  allNotes.insertBefore(note, child);
+  allNotes.insertBefore(note, topOfList); //.nextsibling
   let deleteButton = document.createElement("button"); //skapar en knapp
   let txtDeleteBtn = document.createTextNode("X"); // döper knappen till X
+
   deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
   deleteButton.className = "delete-button"; //ger knappen en klass för styling i css
   deleteButton.setAttribute("onclick", "deleteNote(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
   note.appendChild(deleteButton);
-  note.innerHTML += notes.preview;
+
   note.addEventListener('click', swapNote);
-  setActiveNote(notes); //ny rad för att definera senast skapad note
+
+  note.innerHTML += notes.preview;
+  displayDate(notes); // visar datum och tid i anteckningen
+
+  let favoriteButton = document.createElement("button"); //skapar en knapp
+  let addFavoriteBtn = document.createTextNode("☆"); // döper knappen till X
+
+  favoriteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
+  favoriteButton.className = "delete-button"; //ger knappen en klass för styling i css
+  favoriteButton.setAttribute("onclick", "addFavorite(" + notes.id + ")") //säger att funktionen ska köras när knappen klickas på
+  note.appendChild(FavoriteButton);
+};
+
+function renderAllNotes() {
+  let allNotes = document.querySelector('#innerSideBar');
+  allNotes.innerHTML = `<div class="searchNotes">
+                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+                <button class="addNote">
+                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+                </button>
+            </div>`;
+  let addNoteButton = document.querySelector('.addNote');
+  addNoteButton.onclick = function () {
+    addNote();
+  };
+  if (noteList.length > 0) {
+    noteList.forEach(renderNote);
+  };
+};
+
+function createFavourite(note) { //funktion som skapar en favorit-knapp. Kallas i renderNote.
+  note = document.querySelector('.note');
+  let button = document.createElement('button');
+  let img = document.createElement('img');
+  button.className = 'favouriteButton';
+  img.className = 'heartImage';
+  img.src = 'img/heart-regular.svg';
+  note.appendChild(button);
+  button.appendChild(img);
 };
 
 function addNote() {
   let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
     id: Date.now(),
-    title: "TEST",
+    title: "",
     preview: quill.getText(0, 20),
     data: quill.getContents(),
     favourite: false,
@@ -141,9 +197,16 @@ function addNote() {
   };
   renderNote(notes);
   noteList.push(notes);
-  quill.deleteText(0, quill.getLength());
-  setActiveNote(notes); //ny rad för att definera senast skapad note 
+  //tömmer editorn på text när man trycker på add note. 
+  setActiveNote(notes); //ny rad för att definera senast skapad note
+  firstNote();
   saveNotes(); //sparar i Local Storage
+};
+
+function firstNote() {
+  if (noteList.length !== 1) {
+    quill.deleteText(0, quill.getLength());
+  };
 };
 
 function deleteNote(id) {
@@ -167,97 +230,129 @@ function deleteNote(id) {
 
 
 var showBtn = document.getElementById("showHideBtn");
-showBtn.onclick = function () { showHideFunction() };
+//showBtn.onclick = function () { showHideFunction() };
 function showHideFunction() {
   var sideNav = document.querySelector("#sideNav");
-
-  if (sideNav.style.display === "inline-block") {
+  if (sideNav.style.display === "block") {
     sideNav.style.display = "none";
   } else {
-    sideNav.style.display = "inline-block";
+    sideNav.style.display = "block";
   };
 };
 
 let modal = document.getElementById("myModal"); // första diven 
 let btn = document.getElementById("helpBtn"); // Get the button that opens the modal
 let span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
+let body = document.body;
 btn.onclick = function () {  // When the user clicks the button, open the modal 
   modal.style.display = "block";
+  body.classList.toggle("backgroundBlur");
 };
 span.onclick = function () { // When the user clicks on <span> (x), close the modal
   modal.style.display = "none";
+  body.classList.toggle("backgroundBlur");
+
 };
 window.onclick = function (event) { // When the user clicks anywhere outside of the modal, close it
   if (event.target == modal) {
     modal.style.display = "none";
+    body.classList.toggle("backgroundBlur");
+
   };
 };
 
-printDiv = function (divName) {
+printDiv = function () {
   let printContents = quill.root.innerHTML;
   document.body.innerHTML = printContents;
   window.print();
   location.reload();
 };
 
-//favorit-knapp//
-
-document.getElementById("addToFavourite").addEventListener("click", toggleFavourite);
-
-
-function toggleFavourite() { 
-
-  let addFavourite = document.querySelector('addToFavourite');
-  
-
-
-
-
-
-  
-  //funktion som endast visar anteckningar som har favourite.true. 
-  //variabel som kopplar till favourite-knappen. document.querySelector. 
-  //if statement (kollar om favourite: true;)
-  //om favourite: true!  kalla på funktion som endast visar favorit-markerade i innersidebar. 
-
+//DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
+function displayDate(notes) {
+  let note = document.querySelector(`div[id = "${notes.id}"]`);
+  // let child = allNotes.firstChild;
+  var d = new Date(notes.id);
+  var date = d.toDateString();
+  // Skapa ett element där ID:t ska skrivas ut i diven
+  var pDateId = document.createElement("p");
+  note.appendChild(pDateId);
+  // ge den ett classname (för styling)
+  pDateId.className = "pDate";
+  //random styling
+  //displayar tiden i det skapade elementet
+  pDateId.innerHTML = date;
+  //TODO: få datumet att displayas högst upp i diven
 };
 
-/* /* listener i toppen */ /* så fort sidan laddas */
-/* window.addEventListener.domcontentloaded function event
-Loadnotes
-if notelistlength for each
-function noteList(foreach)
- *
-/* savenotes funitoin
-localstorage set item todo json.stringify (notelist) */
-/* localStorage.setItem('note', JSON.stringify(noteList)); */
+
+////////// FAVOURITE BUTTON ////////////
+
+favouriteButton = document.querySelector("#favouriteBtn");
+favouriteButton.addEventListener('click', toggleFavouriteButton);
+var star = document.querySelector(".fa-star");
 
 
-/* function filter notes
-function filternotes(func => true)
-let filtered = noteList.filter(note => func(note)) */
-
-
-/* const Showdeleted = (note) => note.deleted === true;
-const showFavourites = (note) => note.favourite === true;
-const searchText = */
-
-/* function showOnlyFavs () {
-  let foobar = document.querySelector
-  foobar.innerHTML = ""
-  filterNotes.foreach
-  let onlyFavs ? filterNotes(showFavourites);
-  onlyfavs.forEach(function (note)) {
-    renderNote(note)
+function toggleFavouriteButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
+  favouriteButton.classList.toggle("favActive");
+  star.classList.toggle("starActive");
+  if (favouriteButton.classList.contains('favActive')) {
+    showOnlyFavourites();
+  } else {
+    renderAllNotes();
   }
-} */
+};
 
-// (Fabian) TODO: Använd en egen funktion som deklareras någon annan stans. Kalla på funktionen i addNote()
-//DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
-// Skapa ett element där ID:t ska skrivas ut i diven. ex: var pDateId = document.createElement("p")
-// ge den ett classname (för styling)    pDateId.className = "pDate"
-// insert adjacent      pDateId.insertAdjacent(note, child)
-// använd getAttribute för att komma åt note.id
-// skriv ut note.id i paragrafen med hjälp av  quills getContent (  let date = new Date(setDateTime)  )
-// pDateId.innerHTML = date (??)
-// quill.Date (?)
+const showFavourites = (note) => note.favourite === true;
+// const showDeleted = (note) => note.deleted === true; 
+
+function showOnlyFavourites() {
+  let allNotes = document.querySelector('#innerSideBar');
+  let oldNotes = document.getElementsByClassName('.note');
+  //allNotes.removeChild(oldNotes);
+  allNotes.innerHTML = `<div class="searchNotes">
+                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+                <button class="addNote">
+                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+                </button>
+            </div>`;
+  let addNoteButton = document.querySelector('.addNote');
+  addNoteButton.onclick = function () {
+    addNote();
+  };
+  let onlyFavs = filterNotes(showFavourites);
+  onlyFavs.forEach(function (note) {
+    renderNote(note);
+  });
+
+  function filterNotes(func = () => true) { //function som return true
+    //console.log(func(1));
+    let filtered = noteList.filter(func)
+    return filtered;
+  };
+};
+
+//////////////////////
+
+//Mall i quill (Malin)
+function createQuillTemplate() {
+  let toolbar = document.getElementsByClassName("ql-toolbar")[0]
+  let template = document.createElement("span");
+  template.className = "ql-formats";
+  var templateButton = document.createElement("button");
+  templateButton.textContent = "Mall2";
+  template.appendChild(templateButton);
+  templateButton.className = "ql-picker-label";
+  toolbar.appendChild(template);
+  templateButton.addEventListener('click', formTemplate)
+};
+
+function formTemplate() {
+  quill.setSelection(0, quill.getLength());
+  quill.format('underline', true);
+  quill.format('align', 'center');
+  quill.format('color', 'red');
+  quill.format('list', 'ordered');
+  quill.format('size', 'large');
+  quill.format('backgroundcolor', 'beige');
+}
