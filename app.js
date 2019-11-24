@@ -58,6 +58,7 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   allNotes.insertBefore(note, topOfList); //.nextsibling
   displayDate(notes); // visar datum och tid i anteckningen
   createDeletedButton(note, notes);
+  createFavoriteButton(note,notes);
 };
 
 function createDeletedButton(note, notes) { //funktion som skapar en delete-knapp. Kallas i renderNote.
@@ -70,6 +71,20 @@ function createDeletedButton(note, notes) { //funktion som skapar en delete-knap
   img.className = 'del-icon-note';
   note.insertBefore(button, date);
   button.appendChild(img);
+};
+
+function createFavoriteButton(note, notes) { //funktion som skapar en favorite-knapp. Kallas i renderNote.
+  let button = document.createElement('button');
+  let date = document.querySelector('.pDate')
+  let img = document.createElement('img');
+  button.className = 'favorite-button';
+  button.setAttribute('onclick', 'favourite(' + notes.id + ')');
+  img.src = 'img/star.svg';
+  img.className = 'fav-icon';
+  note.insertBefore(button, date);
+  button.appendChild(img);
+  
+ 
 };
 
 function loadNotes() { // laddar local storage. 
@@ -346,7 +361,6 @@ function displayDate(notes) {
 
 
 ////////// FAVOURITE BUTTON ////////////
-
 favouriteButton = document.querySelector("#favouriteBtn");
 favouriteButton.addEventListener('click', toggleFavouriteButton);
 const showFavourites = (note) => note.favourite === true;
@@ -390,6 +404,7 @@ function showOnlyFavourites() {
   };
   setActiveNote(noteList[noteList.length - 1]);
 };
+
 
 //////////////////////
 

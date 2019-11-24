@@ -305,6 +305,17 @@ font-family: 'Raleway', sans-serif;
     z-index: 1;
   }
 
+  .fav-icon{
+    background-color: black;
+  }
+
+  .favorite-button{
+    background: none;
+    border: none;
+    float: right;
+    z-index: 1;
+  }
+
   .pDate{
   font-size: 13px;
   opacity: 0.5;
