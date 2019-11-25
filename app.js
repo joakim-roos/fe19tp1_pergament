@@ -3,7 +3,7 @@ let quill = new Quill('#editor-container', {
     toolbar: [
       [{ header: [1, 2, false] }],
       ['bold', 'italic', 'underline'],
-      ['image', 'code-block'],
+      ['image'],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
       [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
     ]
@@ -58,7 +58,7 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   allNotes.insertBefore(note, topOfList); //.nextsibling
   displayDate(notes); // visar datum och tid i anteckningen
   createDeletedButton(note, notes);
-  createFavoriteButton(note,notes);
+  createFavoriteButton(note, notes);
 };
 
 function createDeletedButton(note, notes) { //funktion som skapar en delete-knapp. Kallas i renderNote.
@@ -79,12 +79,10 @@ function createFavoriteButton(note, notes) { //funktion som skapar en favorite-k
   let img = document.createElement('img');
   button.className = 'favorite-button';
   button.setAttribute('onclick', 'favourite(' + notes.id + ')');
-  img.src = 'img/star.svg';
-  img.className = 'fav-icon';
+  img.src = 'img/star-note.svg';
+  img.className = 'fav-icon-note';
   note.insertBefore(button, date);
   button.appendChild(img);
-  
- 
 };
 
 function loadNotes() { // laddar local storage. 
@@ -172,7 +170,7 @@ function setActiveNote(targetNote) {
       noteDiv.style.backgroundColor = "whitesmoke"; //styling så du ser vilken du valt, bör ändras
       noteDiv.style.borderLeft = "7px solid darkcyan";
       quill.setContents(selectedNote.data);
-      console.log("TJENA")
+      console.log("SetactiveNote ran")
     };
   };
 };
@@ -347,7 +345,7 @@ function displayDate(notes) {
   let note = document.querySelector(`div[id = "${notes.id}"]`);
   // let child = allNotes.firstChild;
   var d = new Date(notes.id);
-  var date = d.toDateString();
+  var date = d.toLocaleString();
   // Skapa ett element där ID:t ska skrivas ut i diven
   var pDateId = document.createElement("p");
   note.appendChild(pDateId);
