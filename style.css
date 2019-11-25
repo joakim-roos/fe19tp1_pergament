@@ -1,6 +1,6 @@
 *{
-    margin: 0; 
-    padding: 0;
+  margin: 0; 
+  padding: 0;
 
 }
 
@@ -9,15 +9,16 @@ background-color: rgb(240, 240, 240);
 margin: 0;
 font-family: 'Raleway', sans-serif;
 overflow-y: hidden;
+display: flex;
 }
 
 #editor-container {
-  padding-top: 20px;
-  padding-left: 120px;
-  padding-right: 120px ;
-  height: 100vh;
-  width: 75vw;
-  background-color: rgb(240, 240, 240);
+padding-top: 20px;
+padding-left: 120px;
+padding-right: 120px ;
+height: 100vh;
+width: 75vw;
+background-color: rgb(240, 240, 240);
 }
 
 /* background: #ECE9E6; */  /* fallback for old browsers */
@@ -25,353 +26,352 @@ overflow-y: hidden;
 /* background: linear-gradient(to left, #FFFFFF, #ECE9E6); */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 .ql-editor::before {
-   padding-left: 120px;
+ padding-left: 120px;
 } 
 
 
 .sideBar{
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  width: 115px;
-  float: left;
+display: flex;
+flex-direction: row;
+margin: 0;
+width: 115px;
+float: left;
 }
 
 #sideNav{
-  display: block;
-  background: rgb(59, 60, 65);
-  height: 100vh;
-  width: 115px;
-  z-index: 1;
+display: block;
+background: rgb(59, 60, 65);
+height: 100vh;
+width: 115px;
+z-index: 1;
 }
 .quireLogo {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 12px;
+display: flex;
+justify-content: space-around;
+padding-top: 12px;
 }
 .quireLogoSvg {
-  height: 82px;
+height: 82px;
 }
 
 
 
 .sidenavbuttons {
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
+display: flex;
+flex-direction: column;
+margin-top: 50px;
 }
 #helpBtn {
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 13px;
-  padding: 10px 45px 10px 0px;
-  /* background-color: lightblue;  */
-   /* width: 115px; */
-  }
+border: none;
+outline: none;
+background: none;
+font-size: 13px;
+padding: 10px 45px 10px 0px;
+/* background-color: lightblue;  */
+ /* width: 115px; */
+}
 #helpBtn:hover {
-  background-color: darkcyan;
+background-color: darkcyan;
 }
 .help-icon {
-  height: 16px;
+height: 16px;
 }
 
 
 #printBtn{
-  height: 39px;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 13px;
-  padding: 10px 45px 10px 3px;
-  /* background-color: lightblue; */ 
-  /* width: 115px; */
+height: 39px;
+border: none;
+outline: none;
+background: none;
+font-size: 13px;
+padding: 10px 45px 10px 3px;
+/* background-color: lightblue; */ 
+/* width: 115px; */
 }
 #printBtn:hover{
-  background-color: darkcyan;  
+background-color: darkcyan;  
 }
 .print-icon {
-  height: 20px;
+height: 20px;
 }
 .print-self-text {
-  padding-top: 2px;
+padding-top: 2px;
 }
 
 #favouriteBtn {
-  border: none;
-  outline: none;
-  background: none;
-  padding: 10px 10px 10px 0px;
-  /* background-color: lightblue; */ 
-  width: 115px;
-  font-size: 13px;
+border: none;
+outline: none;
+background: none;
+padding: 10px 10px 10px 0px;
+/* background-color: lightblue; */ 
+width: 115px;
+font-size: 13px;
 }
 
 #favouriteBtn:hover{
-  background-color: darkcyan;
+background-color: darkcyan;
 }
 .fav-icon {
-  height: 16px;
+height: 16px;
 }
 .favActive {
-  background-color: darkcyan !important;
+background-color: darkcyan !important;
 }
 .button-text {
-  float: right;
-  margin-right: 6px;
-  height: 20px;
-  color: rgb(223, 219, 219);
+float: right;
+margin-right: 6px;
+height: 20px;
+color: rgb(223, 219, 219);
 }
 
 #deletedBtn {
-  height: 39px;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 13px;
-  padding: 10px 25px 10px 0px;
-  /* background-color: lightblue; */ 
-  width: 115px; 
+height: 39px;
+border: none;
+outline: none;
+background: none;
+font-size: 13px;
+padding: 10px 25px 10px 0px;
+/* background-color: lightblue; */ 
+width: 115px; 
 }
 #deletedBtn:hover{
-  background-color: darkcyan;
+background-color: darkcyan;
 }
 .del-icon {
-  height: 20px;
+height: 20px;
 }
 .delActive {
-  background-color: darkcyan !important;
+background-color: darkcyan !important;
 }
 .del-self-text {
-  margin-top: 2px;
+margin-top: 2px;
 }
 
 .noteSection {
-  background-color: rgb(240, 240, 240);
-  display: flex;
-  flex-direction: row;
-  margin-left: 115px;
-  height: 100vh;
+background-color: rgb(240, 240, 240);
+display: flex;
+flex-direction: row;
+
+height: 100vh;
 } 
 
 #innerSideBar{
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(240, 240, 240);
-  height: 100vh;
-  width: 300px;
-  /* overflow: hidden; */
-  border: none;
-  /* margin-top: 44px; */
-  overflow-y: scroll;
-  overflow-x: hidden;
+display: flex;
+flex-direction: column;
+background-color: rgb(240, 240, 240);
+height: 100vh;
+width: 300px;
+/* overflow: hidden; */
+border: none;
+/* margin-top: 44px; */
+overflow-y: scroll;
+overflow-x: hidden;
 
-  /* From uiGradients */
-  /* background: #ED4264; */  /* fallback for old browsers */
-  /* background: -webkit-linear-gradient(to bottom, #FFEDBC, #ED4264); */  /* Chrome 10-25, Safari 5.1-6 */
-  /* background: linear-gradient(to bottom, #FFEDBC, #ED4264); */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* From uiGradients */
+/* background: #ED4264; */  /* fallback for old browsers */
+/* background: -webkit-linear-gradient(to bottom, #FFEDBC, #ED4264); */  /* Chrome 10-25, Safari 5.1-6 */
+/* background: linear-gradient(to bottom, #FFEDBC, #ED4264); */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .note {
-  flex-shrink: 0;
-  color: black;
-  display: block;
-  height: 100px;
-  background-color: rgb(233, 233, 233);
-  border-left: 7px solid rgb(233, 233, 233);
-  overflow: hidden;
-  user-select: none;
-  transition: background-color 100ms linear;
-  border-bottom: 1px solid grey;
+flex-shrink: 0;
+color: black;
+display: block;
+height: 100px;
+background-color: rgb(233, 233, 233);
+border-left: 7px solid rgb(233, 233, 233);
+overflow: hidden;
+user-select: none;
+transition: background-color 100ms linear;
+border-bottom: 1px solid grey;
 }
 
 .searchNotes {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 40px;
-  width: 252px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+height: 40px;
+width: 252px;
 }
 
 #searchInput{
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  width: 160px;
-  height: 26px;
-  border-radius: 5px;
-  margin-left: 24px;
-  margin-top: 8px;
-  padding-left: 15px;
-  padding-right: 6px;
-  border: 1px solid rgb(107, 107, 107); 
-  font-size: 12px;
-  outline: none;
+-moz-appearance: none;
+-webkit-appearance: none;
+appearance: none;
+width: 160px;
+height: 26px;
+border-radius: 5px;
+margin-left: 24px;
+margin-top: 8px;
+padding-left: 15px;
+padding-right: 6px;
+border: 1px solid rgb(107, 107, 107); 
+font-size: 12px;
+outline: none;
 }
 
 .addNote {
-  border: none;
-  position: relative; 
-  height: 23px;
-  margin-top: 7px;
-  margin-right: 22px;
-  outline: none;
-  background-color: whitesmoke;
+border: none;
+position: relative; 
+height: 23px;
+margin-top: 7px;
+margin-right: 22px;
+outline: none;
+background-color: whitesmoke;
 }
 .addNoteSvg {
-  height: 23px;
-  transition: filter 0.07s ease-in-out;
-  opacity: 0.8;
-  margin-top: 2px;
-  
+height: 23px;
+transition: filter 0.07s ease-in-out;
+opacity: 0.8;
+margin-top: 2px;
+
 }
 .addNoteSvg:active {
-  
-  filter: invert(.5) sepia(1) saturate(5) hue-rotate(175deg);
+
+filter: invert(.5) sepia(1) saturate(5) hue-rotate(175deg);
 }
 
 #showHideBtn{
-  display: none;
-  position: absolute;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 40px;
-  z-index: 3; /* temporär för att visa hamburgaren vid datorskärm */
+display: none;
+position: absolute;
+border: none;
+outline: none;
+background: none;
+font-size: 40px;
+z-index: 3; /* temporär för att visa hamburgaren vid datorskärm */
 }
 
 #showHideBtn::after{
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 40px;
-  background: red;
+border: none;
+outline: none;
+background: none;
+font-size: 40px;
+background: red;
 }
 
 /* .show{
-    display: block;
-    border: none;
-    padding: none;
+  display: block;
+  border: none;
+  padding: none;
 } */
 
 /* h1{
-    margin-top: 5px;
-    width: 100vh;
+  margin-top: 5px;
+  width: 100vh;
 } */
 
- .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    /* z-index: 1; Sit on top */
-    padding-top: 100px; /* Location of the box */
-    top: 0;
-    left: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4);
-  }
-  /* Modal Content i själva lådan andra diven  */
-  .info-text {
-    color: black;
-    text-align: center;
-    background-color: whitesmoke;
-    margin: auto;
-    border: 2px solid black;
-    height: 50vh;
-    width: 50vw;
-    position: relative;
-    padding-top: 50px;
-    border-radius: 10px;    
-  }
-  
-  
-  .tox .tox-notification {
-    display: none !important; 
-  }
-  .tox .tox-notification--in{
-    opacity: 0 !important;
-    display: none !important;
-  }
-
-  /* .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  } */
-
-  .delete-button {
-    border: none;
-    float: right;
-    z-index: 1;
-  }
-
-  .favorite-button{
-    background: none;
-    border: none;
-    float: right;
-    z-index: 1;
-  }
-
-  .pDate{
-  font-size: 13px;
-  opacity: 0.5;
-  width: 170px;
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  /* z-index: 1; Sit on top */
+  padding-top: 100px; /* Location of the box */
+  top: 0;
+  left: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4);
+}
+/* Modal Content i själva lådan andra diven  */
+.info-text {
   color: black;
-  order: 2; /* funkar ej */
-  margin-bottom: 0px;
-  padding: 2px 1px 1px 14px;
-  }
+  text-align: center;
+  background-color: whitesmoke;
+  margin: auto;
+  border: 2px solid black;
+  height: 50vh;
+  width: 50vw;
+  position: relative;
+  border-radius: 10px;    
+}
+.info-text #info-text-text {
+  padding: 40px;
+  font-size: 10px;
+}
 
-  .noteTitle {
-    width: 220px;
-    height: 20px;
-    padding: 5px 0px 0px 16px;
-    font-size: 17px;
-    font-weight: bold;
-    overflow: hidden;
-  }
-  .notePreview {
-    width: 200px;
-    height: 40px;
-    padding: 10px 0px 0px 20px;
-    font-size: 14px;
-    opacity: 0.6;
-    line-height: 1.2;
-    overflow: hidden;
-  }
+.tox .tox-notification {
+  display: none !important; 
+}
+.tox .tox-notification--in{
+  opacity: 0 !important;
+  display: none !important;
+}
+
+.delete-button {
+  border: none;
+  float: right;
+  z-index: 1;
+}
+
+.favorite-button{
+  background: none;
+  border: none;
+  float: right;
+  z-index: 1;
+}
+
+.pDate{
+font-size: 13px;
+opacity: 0.5;
+width: 170px;
+color: black;
+order: 2; /* funkar ej */
+margin-bottom: 0px;
+padding: 2px 1px 1px 14px;
+}
+
+.noteTitle {
+  width: 220px;
+  height: 20px;
+  padding: 5px 0px 0px 16px;
+  font-size: 17px;
+  font-weight: bold;
+  overflow: hidden;
+}
+.notePreview {
+  width: 200px;
+  height: 40px;
+  padding: 10px 0px 0px 20px;
+  font-size: 14px;
+  opacity: 0.6;
+  line-height: 1.2;
+  overflow: hidden;
+}
 
 .backgroundBlur > *:not(#myModal) { /* selecting whole document except #myModal */
-  filter: blur(3px);
-  transition: 0.3s ease;
+filter: blur(3px);
+transition: 0.3s ease;
 }
 
 
 .del-icon-note {
-  border: none;
-  height: 21px;
-  margin-bottom: 6px;
-  opacity: 0.8;
+border: none;
+height: 21px;
+margin-bottom: 6px;
+opacity: 0.5;
 }
 .delete-note {
-  border:none;
-  float: right;
-  bottom: 10px;
-  background: rgba(76, 175, 80, 0.0);
-  height: 21px;
+border:none;
+float: right;
+bottom: 10px;
+background: rgba(76, 175, 80, 0.0);
+height: 21px;
 }
 
 .fav-icon-note {
-  height: 16px;
+height: 16px;
+opacity: 0.5;
 }
 
 
-  @media print {
-  }
+@media print {
+}
 
-@media only screen and (max-width: 764) {
- #showHideBtn {
-   display: inline-block;
- }
+@media only screen and (max-width: 764px) {
+  #showHideBtn {
+    display: inline-block;
+  }
+  .sideBar {
+        display: none;
+    }
 }

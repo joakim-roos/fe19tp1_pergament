@@ -151,7 +151,6 @@ function Id2Object(n) {
   (new Quill(tempCont)).setContents(input);
   return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
 };
-
 function NoteData2HTML(noteObj) { //används ej, men radera inte!
   var s = ('<button class="delete-button" onclick="deleteNote(' + noteObj.id + ')">X' + '</button>' +
     quill2HTML(noteObj.data));
@@ -322,16 +321,12 @@ btn.onclick = function () {  // When the user clicks the button, open the modal
   modal.style.display = "block";
   body.classList.toggle("backgroundBlur");
 };
-span.onclick = function () { // When the user clicks on <span> (x), close the modal
+window.addEventListener("click", function(event) {
+  if (event.target == modal) {
   modal.style.display = "none";
   body.classList.toggle("backgroundBlur");
-};
-window.onclick = function (event) { // When the user clicks anywhere outside of the modal, close it
-  if (event.target == modal) {
-    modal.style.display = "none";
-    body.classList.toggle("backgroundBlur");
-  };
-};
+}});
+
 
 printDiv = function () {
   let printContents = quill.root.innerHTML;
