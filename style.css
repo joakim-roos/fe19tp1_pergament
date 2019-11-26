@@ -131,9 +131,9 @@ outline: none;
 background: none;
 font-size: 13px;
 padding: 10px 25px 10px 0px;
-/* background-color: lightblue; */ 
 width: 115px; 
 }
+
 #deletedBtn:hover{
 background-color: darkcyan;
 }
@@ -160,17 +160,11 @@ display: flex;
 flex-direction: column;
 background-color: rgb(240, 240, 240);
 height: 100vh;
-width: 300px;
-/* overflow: hidden; */
+width: 250px;
 border: none;
-/* margin-top: 44px; */
 overflow-y: scroll;
 overflow-x: hidden;
 
-/* From uiGradients */
-/* background: #ED4264; */  /* fallback for old browsers */
-/* background: -webkit-linear-gradient(to bottom, #FFEDBC, #ED4264); */  /* Chrome 10-25, Safari 5.1-6 */
-/* background: linear-gradient(to bottom, #FFEDBC, #ED4264); */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .note {
@@ -249,17 +243,6 @@ font-size: 40px;
 background: red;
 }
 
-/* .show{
-  display: block;
-  border: none;
-  padding: none;
-} */
-
-/* h1{
-  margin-top: 5px;
-  width: 100vh;
-} */
-
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -272,7 +255,8 @@ background: red;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgba(0,0,0,0.4);
 }
-/* Modal Content i själva lådan andra diven  */
+
+
 .info-text {
   color: black;
   text-align: center;
@@ -303,11 +287,12 @@ background: red;
   z-index: 1;
 }
 
-.favorite-button{
+#fav-button-note{
   background: none;
   border: none;
   float: right;
   z-index: 1;
+  outline: none;
 }
 
 .pDate{
@@ -350,19 +335,20 @@ height: 21px;
 margin-bottom: 6px;
 opacity: 0.5;
 }
-.delete-note {
+
+.del-button-note {
 border:none;
 float: right;
 bottom: 10px;
 background: rgba(76, 175, 80, 0.0);
 height: 21px;
+outline: none;
 }
 
 .fav-icon-note {
 height: 16px;
 opacity: 0.5;
 }
-
 
 @media print {
 }

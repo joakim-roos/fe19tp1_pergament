@@ -17,6 +17,7 @@ const addNewNote = document.getElementById("newNoteBtn");
 let noteList = []; //tom array för samtliga notes
 var selectedNote = null;
 let searchString = "";
+var favouriteMode = false;
 var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
 /* sideBar = document.addEventListener('click', (event.target) => {
   //if statements for each button in innersidebar, event.target.contains('knappis')
@@ -36,19 +37,13 @@ window.addEventListener('DOMContentLoaded', () => {
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById('innerSideBar');
   let note = document.createElement('div');
-  //let deleteButton = document.createElement('button');
   let title = document.createElement('p');
   let preview = document.createElement('p');
-  //let txtDeleteBtn = document.createTextNode('X');
   let topOfList = allNotes.children[1];
   note.className = 'note';
-  //deleteButton.className = 'delete-button';
   title.className = 'noteTitle';
   preview.className = 'notePreview';
-  note.setAttribute('id', notes.id) //ger elementet ett ID
-  //deleteButton.appendChild(txtDeleteBtn); //lägger ihop X:et med knappen
-  //deleteButton.setAttribute('onclick', 'deleteNote(' + notes.id + ')') //säger att funktionen ska köras när knappen klickas på
-  //note.appendChild(deleteButton);
+  note.setAttribute('id', notes.id)
   note.appendChild(preview);
   note.insertBefore(title, preview);
   note.addEventListener('click', swapNote);
@@ -57,17 +52,17 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   preview.innerHTML += notes.preview;
   allNotes.insertBefore(note, topOfList); //.nextsibling
   displayDate(notes); // visar datum och tid i anteckningen
-  createDeletedButton(note, notes);
   createFavoriteButton(note, notes);
+  createDeletedButton(note, notes);
 };
 
 function createDeletedButton(note, notes) { //funktion som skapar en delete-knapp. Kallas i renderNote.
   let button = document.createElement('button');
   let date = document.querySelector('.pDate')
   let img = document.createElement('img');
-  button.className = 'delete-note';
+  button.className = 'del-button-note';
   button.setAttribute('onclick', 'deleteNote(' + notes.id + ')');
-  img.src = 'img/delete_note.svg';
+  img.src = 'img/delete-note.svg';
   img.className = 'del-icon-note';
   note.insertBefore(button, date);
   button.appendChild(img);
@@ -77,9 +72,14 @@ function createFavoriteButton(note, notes) { //funktion som skapar en favorite-k
   let button = document.createElement('button');
   let date = document.querySelector('.pDate')
   let img = document.createElement('img');
-  button.className = 'favorite-button';
-  button.setAttribute('onclick', 'favourite(' + notes.id + ')');
-  img.src = 'img/star-note.svg';
+  button.id = 'fav-button-note';
+  button.setAttribute('onclick', 'favouriteNote(' + notes.id + ')');
+  if (notes.favourite == true) {
+    img.src = "img/star-fill.svg";
+  } else {
+    img.src = 'img/star-note.svg';
+  };
+
   img.className = 'fav-icon-note';
   note.insertBefore(button, date);
   button.appendChild(img);
@@ -157,11 +157,7 @@ function NoteData2HTML(noteObj) { //används ej, men radera inte!
   return s;
 }; */
 
-function setActiveNote(targetNote) {
-  if (selectedNote !== null && typeof selectedNote !== "undefined") {
-    document.getElementById(selectedNote.id).style.backgroundColor = "rgb(233, 233, 233)"; //återställ styling på fd vald note
-    document.getElementById(selectedNote.id).style.borderLeft = "7px solid rgb(233, 233, 233)";
-  };
+function activeNote(targetNote) {
   selectedNote = targetNote;
   if (typeof selectedNote != "undefined") {
     var noteDiv = document.getElementById(selectedNote.id);
@@ -169,9 +165,18 @@ function setActiveNote(targetNote) {
       noteDiv.style.backgroundColor = "whitesmoke"; //styling så du ser vilken du valt, bör ändras
       noteDiv.style.borderLeft = "7px solid darkcyan";
       quill.setContents(selectedNote.data);
-      console.log("SetactiveNote ran")
+      console.log("AactiveNote ran")
     };
   };
+};
+
+
+function setActiveNote(targetNote) {
+  if (selectedNote !== null && typeof selectedNote !== "undefined") {
+    document.getElementById(selectedNote.id).style.backgroundColor = "rgb(233, 233, 233)"; //återställ styling på fd vald note
+    document.getElementById(selectedNote.id).style.borderLeft = "7px solid rgb(233, 233, 233)";
+  };
+  activeNote(targetNote);
 };
 
 function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
@@ -266,13 +271,14 @@ function addNote() {
     title: "",
     preview: "",
     data: quill.getContents(),
-    favourite: false,
+    favourite: favouriteMode,
     deleted: false
   };
   renderNote(notes);
   noteList.push(notes);
   //tömmer editorn på text när man trycker på add note. 
-  setActiveNote(notes); //ny rad för att definera senast skapad note
+  try { setActiveNote(notes); }
+  catch { activeNote(notes); }
   firstNote();
   saveNotes(); //sparar i Local Storage
 };
@@ -283,7 +289,7 @@ function firstNote() {
   };
 };
 
-function deleteNote(id) {
+function deleteSelectedNote(id) {
   var toDelete = document.getElementById(id);//spar anteckningen i en variabel
   var i;
   var index;
@@ -321,16 +327,19 @@ btn.onclick = function () {  // When the user clicks the button, open the modal
   modal.style.display = "block";
   body.classList.toggle("backgroundBlur");
 };
-window.addEventListener("click", function(event) {
+window.addEventListener("click", function (event) {
   if (event.target == modal) {
-  modal.style.display = "none";
-  body.classList.toggle("backgroundBlur");
-}});
+    modal.style.display = "none";
+    body.classList.toggle("backgroundBlur");
+  }
+});
 
 
 printDiv = function () {
   let printContents = quill.root.innerHTML;
+  console.log(printContents);
   document.body.innerHTML = printContents;
+  (console.log(document.body.innerHTML));
   window.print();
   location.reload();
 };
@@ -353,15 +362,38 @@ function displayDate(notes) {
 };
 
 
-////////// FAVOURITE BUTTON ////////////
+////////// FAVOURITE BUTTONS ////////////
 favouriteButton = document.querySelector("#favouriteBtn");
 favouriteButton.addEventListener('click', toggleFavouriteButton);
-const showFavourites = (note) => note.favourite === true;
-//var star = document.querySelector(".fa-star");
 
+const showFavourites = (note) => note.favourite === true;
+
+function favouriteNote(id) {
+  //let button = document.querySelector('#fav-button-note');
+  let img = event.target;
+  let note = Id2Object(id);
+  note.favourite = !note.favourite;
+  if (note.favourite == true) {
+    img.src = "img/star-fill.svg";
+  } else {
+    img.src = "img/star-note.svg"
+    if (favouriteMode == true) {
+      showOnlyFavourites();
+      let favArray = favouriteArray();
+      console.log(favArray);
+      if (favArray.length > 0) {
+        console.log("xxxxxxxxxxxx");
+        activeNote(favArray[favArray.length - 1]);
+
+      }
+    }
+  }
+  saveNotes();
+};
 
 function toggleFavouriteButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
   favouriteButton.classList.toggle("favActive");
+  favouriteMode = !favouriteMode;
   //star.classList.toggle("starActive");
   if (favouriteButton.classList.contains('favActive')) {
     showOnlyFavourites();
@@ -384,20 +416,30 @@ function showOnlyFavourites() {
   };
 
   enableSearch()
-
   let onlyFavs = filterNotes(showFavourites);
   onlyFavs.forEach(function (note) {
     renderNote(note);
   });
-
   function filterNotes(func = () => true) { //function som return true
     //console.log(func(1));
     let filtered = noteList.filter(func)
     return filtered;
   };
-  setActiveNote(noteList[noteList.length - 1]);
+  favArray = favouriteArray();
+  if (favArray.length > 0) {
+    activeNote(favArray[favArray.length - 1]);
+  }
 };
 
+function favouriteArray() {
+  favArray = [];
+  noteList.forEach(function (fav) {
+    if (fav.favourite == true) {
+      favArray.push(fav);
+    }
+  });
+  return favArray;
+};
 
 //////////////////////
 
@@ -405,6 +447,19 @@ function showOnlyFavourites() {
 deletedButton = document.querySelector("#deletedBtn");
 deletedButton.addEventListener('click', toggleDeletedButton);
 const showDeleted = (note) => note.deleted === true;
+
+function deleteNote(id) {
+  //let button = document.querySelector('#fav-button-note');
+  let img = event.target;
+  let note = Id2Object(id);
+  note.deleted = !note.deleted;
+  if (note.deleted == true) {
+    img.src = "img/delete-fill.svg";
+  } else {
+    img.src = "img/delete-note.svg"
+  }
+  saveNotes();
+};
 
 function toggleDeletedButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
   deletedButton.classList.toggle("delActive");
