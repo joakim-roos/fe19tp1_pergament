@@ -128,7 +128,7 @@ function update() { //uppdaterar selectedNote på text-change.
 function updatePreview(note) { //uppdaterar objektets preview. 
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
   let dots = "..."
-  console.log(note.childNodes)
+  //console.log(note.childNodes)
   note.childNodes[1].innerHTML = selectedNote.preview + dots;
 };
 
@@ -165,7 +165,7 @@ function activeNote(targetNote) {
       noteDiv.style.backgroundColor = "whitesmoke"; //styling så du ser vilken du valt, bör ändras
       noteDiv.style.borderLeft = "7px solid darkcyan";
       quill.setContents(selectedNote.data);
-      console.log("AactiveNote ran")
+      console.log("ActiveNote ran")
     };
   };
 };
@@ -182,6 +182,7 @@ function setActiveNote(targetNote) {
 function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
   //console.log(document.getElementById(event.target.id).innerHTML); //de här raderna har buggar
   //console.log(Id2Object(event.target.id).data); //samma här,buggar
+
   var targetNote = Id2Object(event.target.closest("div").id);
   if (typeof targetNote != "undefined") {
     if (targetNote != selectedNote) {
@@ -189,7 +190,12 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
       //quill.setContents(targetNote.data);
       //var c=document.getElementById(selectedNote.id);
       //c.innerHTML=NoteData2HTML(selectedNote);  //den här raden verkar också ge errors
-      setActiveNote(targetNote);
+      if (favouriteMode==true && favouriteArray().indexOf(targetNote)==-1){
+        //foo()
+      }
+      else{
+        setActiveNote(targetNote);
+      }
     };
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
 };
@@ -380,11 +386,8 @@ function favouriteNote(id) {
     if (favouriteMode == true) {
       showOnlyFavourites();
       let favArray = favouriteArray();
-      console.log(favArray);
       if (favArray.length > 0) {
-        console.log("xxxxxxxxxxxx");
         activeNote(favArray[favArray.length - 1]);
-
       }
     }
   }
