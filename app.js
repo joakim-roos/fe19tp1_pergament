@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
   loadNotes();
   if (noteList.length > 0) {
     //console.log(noteList);
-    noteList.forEach(renderNote);
+    noteList.filter(note => !note.deleted).forEach(renderNote);
     setActiveNote(noteList[noteList.length - 1]);
     console.log('DOM fully loaded');
     createQuillTemplate();
@@ -46,11 +46,12 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   note.setAttribute('id', notes.id)
   note.appendChild(preview);
   note.insertBefore(title, preview);
-  note.addEventListener('click', swapNote);
-  console.log(allNotes.children[1]);
+  //note.addEventListener('click', swapNote);
   title.innerHTML += notes.title;
   preview.innerHTML += notes.preview;
   allNotes.insertBefore(note, topOfList); //.nextsibling
+  console.log(allNotes.children[1]);
+  note.addEventListener('click', swapNote);
   displayDate(notes); // visar datum och tid i anteckningen
   createFavoriteButton(note, notes);
   createDeletedButton(note, notes);
@@ -79,7 +80,6 @@ function createFavoriteButton(note, notes) { //funktion som skapar en favorite-k
   } else {
     img.src = 'img/star-note.svg';
   };
-
   img.className = 'fav-icon-note';
   note.insertBefore(button, date);
   button.appendChild(img);
@@ -165,16 +165,15 @@ function activeNote(targetNote) {
       noteDiv.style.backgroundColor = "whitesmoke"; //styling så du ser vilken du valt, bör ändras
       noteDiv.style.borderLeft = "7px solid darkcyan";
       quill.setContents(selectedNote.data);
-      console.log("ActiveNote ran")
     };
   };
 };
-
 
 function setActiveNote(targetNote) {
   if (selectedNote !== null && typeof selectedNote !== "undefined") {
     document.getElementById(selectedNote.id).style.backgroundColor = "rgb(233, 233, 233)"; //återställ styling på fd vald note
     document.getElementById(selectedNote.id).style.borderLeft = "7px solid rgb(233, 233, 233)";
+    console.log("setActiveNote Ran 1")
   };
   activeNote(targetNote);
 };
@@ -182,21 +181,23 @@ function setActiveNote(targetNote) {
 function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
   //console.log(document.getElementById(event.target.id).innerHTML); //de här raderna har buggar
   //console.log(Id2Object(event.target.id).data); //samma här,buggar
-
   var targetNote = Id2Object(event.target.closest("div").id);
+  /*   let deleted = document.querySelector('.del-icon-note');
+    // if event.target.contains('del-note' eller fav-note)
+    if (event.target.contains(deleted)) {
+      console.log("deletedbutton pressed")
+    }; */
   if (typeof targetNote != "undefined") {
     if (targetNote != selectedNote) {
       selectedNote.data = quill.getContents();
-      //quill.setContents(targetNote.data);
-      //var c=document.getElementById(selectedNote.id);
-      //c.innerHTML=NoteData2HTML(selectedNote);  //den här raden verkar också ge errors
-      if (favouriteMode==true && favouriteArray().indexOf(targetNote)==-1){
+
+      if (favouriteMode == true && favouriteArray().indexOf(targetNote) == -1) {
         //foo()
+      } else {
+        try { setActiveNote(targetNote); }
+        catch { activeNote(targetNote); }
       }
-      else{
-        setActiveNote(targetNote);
-      }
-    };
+    }
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
 };
 
@@ -243,24 +244,24 @@ function renderSearchedNotes() {
   };
 
   for (let i = 0; i < noteList.length; i++) {
-    console.log(noteList[i].data.ops) //
+    //console.log(noteList[i].data.ops)
     let ops = noteList[i].data.ops;
     for (let j = 0; j < ops.length; j++) {
       if (ops[j].insert.toLowerCase().includes(searchString)) {
-        //console.log(noteList[i].data.ops[0].insert.toLowerCase().includes(searchString));
-        console.log("match found" + noteList[i].id)
+        //console.log("match found" + noteList[i].id)
         renderNote(noteList[i]);
         break;
         //console.log(noteList[i]);
       }
     }
   }
-  //setActiveNote(noteList[noteList.length - 1]);
+  activeNote(event);
 };
 
 function enableSearch() {
   textSearch = document.querySelector('#searchInput');
-  textSearch.addEventListener('keyup', (event) => {
+  textSearch.addEventListener('input', (event) => {
+    console.log("yo")
     searchString = textSearch.value.toLowerCase();
     renderSearchedNotes();
     console.log(searchString)
@@ -419,12 +420,12 @@ function showOnlyFavourites() {
   };
 
   enableSearch()
+
   let onlyFavs = filterNotes(showFavourites);
   onlyFavs.forEach(function (note) {
     renderNote(note);
   });
   function filterNotes(func = () => true) { //function som return true
-    //console.log(func(1));
     let filtered = noteList.filter(func)
     return filtered;
   };
