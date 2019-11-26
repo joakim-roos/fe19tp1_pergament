@@ -63,7 +63,11 @@ function createDeletedButton(note, notes) { //funktion som skapar en delete-knap
   let img = document.createElement('img');
   button.className = 'del-button-note';
   button.setAttribute('onclick', 'deleteNote(' + notes.id + ')');
-  img.src = 'img/delete-note.svg';
+  if (notes.deleted == true) {
+    img.src = 'img/delete-fill.svg';
+  } else {
+    img.src = 'img/delete-note.svg';
+  };
   img.className = 'del-icon-note';
   note.insertBefore(button, date);
   button.appendChild(img);
@@ -182,11 +186,12 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
   //console.log(document.getElementById(event.target.id).innerHTML); //de här raderna har buggar
   //console.log(Id2Object(event.target.id).data); //samma här,buggar
   var targetNote = Id2Object(event.target.closest("div").id);
-  /*   let deleted = document.querySelector('.del-icon-note');
-    // if event.target.contains('del-note' eller fav-note)
-    if (event.target.contains(deleted)) {
-      console.log("deletedbutton pressed")
-    }; */
+
+  if (event.target.classList.contains('del-icon-note')) {
+    console.log(event.target)
+    event.target.closest('div').remove();
+  };
+
   if (typeof targetNote != "undefined") {
     if (targetNote != selectedNote) {
       selectedNote.data = quill.getContents();
@@ -222,7 +227,8 @@ function renderAllNotes() {
 
   /* noteList.forEach(renderNote); */
   for (let i = 0; i < noteList.length; i++) {
-    renderNote(noteList[i]);
+    if (noteList[i].deleted === false)
+      renderNote(noteList[i]);
     //console.log(noteList[i]);
   }
   setActiveNote(noteList[noteList.length - 1]);
@@ -265,7 +271,6 @@ function enableSearch() {
     searchString = textSearch.value.toLowerCase();
     renderSearchedNotes();
     console.log(searchString)
-    //renderAllNotes(); Doesn't work. Seems to render once and then stops. eventlisterner 'keyup' stops as well. 
   });
   textSearch.focus();
 };
@@ -283,11 +288,10 @@ function addNote() {
   };
   renderNote(notes);
   noteList.push(notes);
-  //tömmer editorn på text när man trycker på add note. 
   try { setActiveNote(notes); }
   catch { activeNote(notes); }
   firstNote();
-  saveNotes(); //sparar i Local Storage
+  saveNotes();
 };
 
 function firstNote() {
@@ -354,18 +358,12 @@ printDiv = function () {
 //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
 function displayDate(notes) {
   let note = document.querySelector(`div[id = "${notes.id}"]`);
-  // let child = allNotes.firstChild;
   var d = new Date(notes.id);
   var date = d.toLocaleString();
-  // Skapa ett element där ID:t ska skrivas ut i diven
   var pDateId = document.createElement("p");
   note.appendChild(pDateId);
-  // ge den ett classname (för styling)
   pDateId.className = "pDate";
-  //random styling
-  //displayar tiden i det skapade elementet
   pDateId.innerHTML = date;
-  //TODO: få datumet att displayas högst upp i diven
 };
 
 
@@ -398,10 +396,11 @@ function favouriteNote(id) {
 function toggleFavouriteButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
   favouriteButton.classList.toggle("favActive");
   favouriteMode = !favouriteMode;
-  //star.classList.toggle("starActive");
   if (favouriteButton.classList.contains('favActive')) {
     showOnlyFavourites();
   } else {
+    //noteList.filter(note => note.favourite === false && note.deleted === false).forEach(renderNote);
+    //noteList.filter(note => !note.deleted).forEach(renderNote);
     renderAllNotes();
   }
 };
@@ -421,18 +420,20 @@ function showOnlyFavourites() {
 
   enableSearch()
 
-  let onlyFavs = filterNotes(showFavourites);
-  onlyFavs.forEach(function (note) {
-    renderNote(note);
-  });
-  function filterNotes(func = () => true) { //function som return true
-    let filtered = noteList.filter(func)
-    return filtered;
-  };
-  favArray = favouriteArray();
-  if (favArray.length > 0) {
-    activeNote(favArray[favArray.length - 1]);
-  }
+  noteList.filter(note => note.favourite === true).forEach(renderNote);
+
+  /*   let onlyFavs = filterNotes(showFavourites);
+    onlyFavs.forEach(function (note) {
+      renderNote(note);
+    });
+    function filterNotes(func = () => true) { //function som return true
+      let filtered = noteList.filter(func)
+      return filtered;
+    };
+    favArray = favouriteArray();
+    if (favArray.length > 0) {
+      activeNote(favArray[favArray.length - 1]);
+    } */
 };
 
 function favouriteArray() {
@@ -471,8 +472,11 @@ function toggleDeletedButton() { //funktion som endast visar anteckningar som ha
   if (deletedButton.classList.contains('delActive')) {
     showOnlyDeleted();
   } else {
+    //console.log(noteList.forEach(noteList.deleted));
+    //noteList.filter(note => note.favourite === false && note.deleted === false).forEach(renderNote);
+    //noteList.filter(note => note.deleted === false).forEach(renderNote);
     renderAllNotes();
-  }
+  };
 };
 
 function showOnlyDeleted() {
@@ -489,18 +493,20 @@ function showOnlyDeleted() {
   };
 
   enableSearch()
+  noteList.filter(note => note.deleted === true).forEach(renderNote);
+  /* 
+    let onlyDeleted = filterNotes(showDeleted);
+    onlyDeleted.forEach(function (note) {
+      renderNote(note);
+    });
+  
+    function filterNotes(func = () => true) { //function som return true
+      //console.log(func(1));
+      let filtered = noteList.filter(func)
+      return filtered;
+    }; */
 
-  let onlyDeleted = filterNotes(showDeleted);
-  onlyDeleted.forEach(function (note) {
-    renderNote(note);
-  });
-
-  function filterNotes(func = () => true) { //function som return true
-    //console.log(func(1));
-    let filtered = noteList.filter(func)
-    return filtered;
-  };
-  setActiveNote(noteList[noteList.length - 1]);
+  //setActiveNote(noteList[noteList.length - 1]);
 };
 
 //////////////////////

@@ -174,7 +174,6 @@ display: block;
 height: 100px;
 background-color: rgb(233, 233, 233);
 border-left: 7px solid rgb(233, 233, 233);
-overflow: hidden;
 user-select: none;
 transition: background-color 100ms linear;
 border-bottom: 1px solid grey;
@@ -287,14 +286,6 @@ background: red;
   z-index: 1;
 }
 
-#fav-button-note{
-  background: none;
-  border: none;
-  float: right;
-  z-index: 1;
-  outline: none;
-}
-
 .pDate{
 font-size: 13px;
 opacity: 0.5;
@@ -306,7 +297,7 @@ padding: 2px 1px 1px 14px;
 }
 
 .noteTitle {
-  width: 220px;
+  width: 210px;
   height: 20px;
   padding: 5px 0px 0px 16px;
   font-size: 17px;
@@ -328,27 +319,38 @@ filter: blur(3px);
 transition: 0.3s ease;
 }
 
+.fav-icon-note {
+height: 17px;
+opacity: 0.5;
+margin: 0px 4px 2px 0px;
+}
+
+#fav-button-note{
+  height: 23px;
+  background: none;
+  border: none;
+  float: right;
+  z-index: 1;
+  outline: none;
+}
+
 
 .del-icon-note {
 border: none;
 height: 21px;
-margin-bottom: 6px;
 opacity: 0.5;
+margin: 0px 2px 7px 0px;
 }
 
 .del-button-note {
 border:none;
 float: right;
-bottom: 10px;
-background: rgba(76, 175, 80, 0.0);
-height: 21px;
+background: rgba(0, 0, 0, 0.0);
+height: 29px;
 outline: none;
 }
 
-.fav-icon-note {
-height: 16px;
-opacity: 0.5;
-}
+
 
 @media print {
 }
