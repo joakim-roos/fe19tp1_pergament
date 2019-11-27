@@ -321,10 +321,10 @@ window.onclick = function (event) { // When the user clicks anywhere outside of 
 };
 
 printDiv = function () {
-  let printContents = quill.root.innerHTML;
-  document.body.innerHTML = printContents;
+ // let printContents = quill.root.innerHTML;
+ // document.body.innerHTML = printContents;
   window.print();
-  location.reload();
+ // location.reload();
 };
 
 //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
