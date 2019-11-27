@@ -462,12 +462,10 @@ window.addEventListener("click", function (event) {
 
 
 printDiv = function () {
-  let printContents = quill.root.innerHTML;
-  console.log(printContents);
-  document.body.innerHTML = printContents;
-  (console.log(document.body.innerHTML));
+ // let printContents = quill.root.innerHTML;
+ // document.body.innerHTML = printContents;
   window.print();
-  location.reload();
+ // location.reload();
 };
 
 //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
