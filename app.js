@@ -94,6 +94,7 @@ function firstPopup() {
 
 function saveNotes() { // sparar i local Storage
   localStorage.setItem('note', JSON.stringify(noteList));
+
 };
 
 
@@ -321,13 +322,8 @@ window.onclick = function (event) { // When the user clicks anywhere outside of 
 };
 
 printDiv = function () {
- // let printContents = quill.root.innerHTML;
  // document.body.innerHTML = printContents;
   window.print();
- // location.reload();
-};
-
-//DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
 function displayDate(notes) {
   let note = document.querySelector(`div[id = "${notes.id}"]`);
   // let child = allNotes.firstChild;
@@ -437,7 +433,6 @@ function showOnlyDeleted() {
 };
 
 //////////////////////
-
 
 //Mall i quill (Malin)
 function createQuillTemplate() {

@@ -402,6 +402,9 @@ overflow-x: hidden;
     }
 }
 
+/* .heartImage { 
+  height: 22px;
+} */
 
 @media print {
   @page { margin: 2cm }
