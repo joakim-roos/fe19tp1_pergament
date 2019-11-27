@@ -6,6 +6,8 @@ let quill = new Quill('#editor-container', {
       ['image'],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
       [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
+      [{ 'font': [] }],
+      ['clean']
     ]
   },
   placeholder: 'Write your note here..',
@@ -91,7 +93,7 @@ window.addEventListener('DOMContentLoaded', () => {
     noteList.filter(note => !note.deleted).forEach(renderNote);
     setActiveNote(noteList[noteList.length - 1]);
     console.log('DOM fully loaded');
-    createQuillTemplate();
+    //  createQuillTemplate();
   };
 });
 
@@ -156,7 +158,7 @@ function loadNotes() { // laddar local storage.
     noteList = JSON.parse(data);
   } else {
     console.log('localstorage empty')
-    createQuillTemplate();
+    //  createQuillTemplate();
     firstPopup(); //so the help popup only auto-renders when notelist is empty. 
   };
 };
@@ -177,18 +179,18 @@ function saveNotes() { // sparar i local Storage
 
 quill.on('text-change', autoUpdate);
 
-function textUpdate(note){
+function textUpdate(note) {
   noteDiv = document.querySelector(`div[id="${note.id}"]`);
 
-  let tempTitle=note.title;
-  if(tempTitle.length>18){
-    tempTitle=tempTitle.substring(0,18)+"...";
+  let tempTitle = note.title;
+  if (tempTitle.length > 18) {
+    tempTitle = tempTitle.substring(0, 18) + "...";
   }
   noteDiv.childNodes[0].innerHTML = tempTitle;
 
-  let tempPre=note.preview;
-  if(tempPre.length>18){
-    tempPre=tempPre.substring(0,18)+"...";
+  let tempPre = note.preview;
+  if (tempPre.length > 18) {
+    tempPre = tempPre.substring(0, 18) + "...";
   }
   noteDiv.childNodes[1].innerHTML = tempPre
 }
@@ -197,7 +199,7 @@ function autoUpdate() { //uppdaterar selectedNote på text-change.
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
-    let s=quill.getText().split("\n");
+    let s = quill.getText().split("\n");
     selectedNote.title = s[0];
     selectedNote.preview = s[1];
     textUpdate(selectedNote);
@@ -274,8 +276,8 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
     if (targetNote != selectedNote) {
       selectedNote.data = quill.getContents();
 
-      if ((favouriteMode == true && favouriteArray().indexOf(targetNote) == -1)||
-      (deletedMode == true && deletedArray().indexOf(targetNote) == -1)) {
+      if ((favouriteMode == true && favouriteArray().indexOf(targetNote) == -1) ||
+        (deletedMode == true && deletedArray().indexOf(targetNote) == -1)) {
         //foo()
       } else {
         try { setActiveNote(targetNote); }
@@ -312,16 +314,16 @@ function renderAllNotes() {
     //console.log(noteList[i]);
   }
 
-  let a=defaultArray();
-  a.forEach(function(n){
+  let a = defaultArray();
+  a.forEach(function (n) {
     textUpdate(n);
   });
 
-  let tempNote=a[a.length - 1];
+  let tempNote = a[a.length - 1];
   //console.log(defaultArray());
   //console.log(tempNote);
-  try{setActiveNote(tempNote);}
-  catch{activeNote(tempNote);}
+  try { setActiveNote(tempNote); }
+  catch{ activeNote(tempNote); }
 };
 
 function renderSearchedNotes() {
@@ -333,27 +335,29 @@ function renderSearchedNotes() {
   //                   </button>
   //               </div>`;
   // enableSearch();
- innerSideBar.innerHTML = ""
+  innerSideBar.innerHTML = ""
   let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();
   };
 
 
-  if(favouriteMode){
+  if (favouriteMode) {
     favouriteButton.classList.toggle("favActive");
-    favouriteMode=false;}
-  if(deletedMode){
-    deletedButton.classList.toggle("delActive");
-    deletedMode=false;}
-  
-
-  let foundArray=[];
-
-  if(searchString==""){
-    foundArray=defaultArray();
+    favouriteMode = false;
   }
-  else{
+  if (deletedMode) {
+    deletedButton.classList.toggle("delActive");
+    deletedMode = false;
+  }
+
+
+  let foundArray = [];
+
+  if (searchString == "") {
+    foundArray = defaultArray();
+  }
+  else {
     for (let i = 0; i < noteList.length; i++) {
       //console.log(noteList[i].data.ops)
       let ops = noteList[i].data.ops;
@@ -369,10 +373,10 @@ function renderSearchedNotes() {
     }
   }
 
-  foundArray.forEach(function (term){
+  foundArray.forEach(function (term) {
     renderNote(term);
   });
-  activeNote(foundArray[foundArray.length-1]);
+  activeNote(foundArray[foundArray.length - 1]);
 };
 
 function enableSearch() {
@@ -508,12 +512,12 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
   favouriteButton.classList.toggle("favActive");
   favouriteMode = !favouriteMode;
 
-  if(deletedMode){deletedButton.classList.toggle("delActive");}
-  deletedMode=false;
+  if (deletedMode) { deletedButton.classList.toggle("delActive"); }
+  deletedMode = false;
   if (favouriteButton.classList.contains('favActive')) {
     showOnlyFavourites();
-    let a=favouriteArray();
-    a.forEach(function(n){
+    let a = favouriteArray();
+    a.forEach(function (n) {
       textUpdate(n);
     });
   } else {
@@ -531,7 +535,7 @@ function showOnlyFavourites() {
   //                   <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
   //               </button>
   //           </div>`;
-allNotes.innerHTML = ""
+  allNotes.innerHTML = ""
   let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();
@@ -539,21 +543,21 @@ allNotes.innerHTML = ""
 
   enableSearch()
 
-  noteList.filter(note => note.favourite === true && note.deleted !==true).forEach(renderNote);
+  noteList.filter(note => note.favourite === true && note.deleted !== true).forEach(renderNote);
 
   favArray = favouriteArray();
   if (favArray.length > 0) {
     activeNote(favArray[favArray.length - 1]);
   };
 
-    /*   let onlyFavs = filterNotes(showFavourites);
-    onlyFavs.forEach(function (note) {
-      renderNote(note);
-    });
-    function filterNotes(func = () => true) { //function som return true
-      let filtered = noteList.filter(func)
-      return filtered;
-    }; */
+  /*   let onlyFavs = filterNotes(showFavourites);
+  onlyFavs.forEach(function (note) {
+    renderNote(note);
+  });
+  function filterNotes(func = () => true) { //function som return true
+    let filtered = noteList.filter(func)
+    return filtered;
+  }; */
 };
 
 
@@ -580,15 +584,15 @@ function deleteNote(id) {
 
 function toggleDeletedButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
   deletedButton.classList.toggle("delActive");
-  deletedMode=!deletedMode;
+  deletedMode = !deletedMode;
 
-  if(favouriteMode){favouriteButton.classList.toggle("favActive");}
-  favouriteMode=false;
+  if (favouriteMode) { favouriteButton.classList.toggle("favActive"); }
+  favouriteMode = false;
   //star.classList.toggle("starActive");
   if (deletedButton.classList.contains('delActive')) {
     showOnlyDeleted();
-    let a=deletedArray();
-    a.forEach(function(n){
+    let a = deletedArray();
+    a.forEach(function (n) {
       textUpdate(n);
     });
   } else {
@@ -638,24 +642,24 @@ function showOnlyDeleted() {
 
 
 //Mall i quill (Malin)
-function createQuillTemplate() {
-  let toolbar = document.getElementsByClassName("ql-toolbar")[0]
-  let template = document.createElement("span");
-  template.className = "ql-formats";
-  var templateButton = document.createElement("button");
-  templateButton.textContent = "Mall2";
-  template.appendChild(templateButton);
-  templateButton.className = "ql-picker-label";
-  toolbar.appendChild(template);
-  templateButton.addEventListener('click', formTemplate)
-};
+// function createQuillTemplate() {
+//   let toolbar = document.getElementsByClassName("ql-toolbar")[0]
+//   let template = document.createElement("span");
+//   template.className = "ql-formats";
+//   var templateButton = document.createElement("button");
+//   templateButton.textContent = "Mall2";
+//   template.appendChild(templateButton);
+//   templateButton.className = "ql-picker-label";
+//   toolbar.appendChild(template);
+//   templateButton.addEventListener('click', formTemplate)
+// };
 
-function formTemplate() {
-  quill.setSelection(0, quill.getLength());
-  quill.format('underline', true);
-  quill.format('align', 'center');
-  quill.format('color', 'red');
-  quill.format('list', 'ordered');
-  quill.format('size', 'large');
-  quill.format('backgroundcolor', 'beige');
-}
+// function formTemplate() {
+//   quill.setSelection(0, quill.getLength());
+//   quill.format('underline', true);
+//   quill.format('align', 'center');
+//   quill.format('color', 'red');
+//   quill.format('list', 'ordered');
+//   quill.format('size', 'large');
+//   quill.format('backgroundcolor', 'beige');
+// }
