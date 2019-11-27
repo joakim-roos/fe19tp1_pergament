@@ -29,6 +29,14 @@ background-color: rgb(240, 240, 240);
  padding-left: 120px;
 } 
 
+div .ql-editor{
+  overflow-y:hidden;
+}
+
+div #editor-container.printableArea.editor.ql-container.ql-snow{
+  overflow-y: auto;
+}
+
 
 .sideBar{
 display: flex;
@@ -166,7 +174,11 @@ overflow-y: scroll;
 overflow-x: hidden;
 
 }
+#leftSection {
+display: flex;
+flex-direction: column;
 
+}
 .note {
 flex-shrink: 0;
 color: black;
@@ -183,8 +195,9 @@ border-bottom: 1px solid grey;
 display: flex;
 flex-direction: row;
 justify-content: space-between;
-height: 40px;
+height: 45px;
 width: 252px;
+border-bottom: solid lightgrey 1px;
 }
 
 #searchInput{
@@ -254,24 +267,28 @@ background: red;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgba(0,0,0,0.4);
 }
+.text-icon {
+height: 23px;
+margin: 3px;
 
+}
 
 .info-text {
   color: black;
-  text-align: center;
   background-color: whitesmoke;
   margin: auto;
   border: 2px solid black;
   height: 50vh;
   width: 50vw;
   position: relative;
-  border-radius: 10px;    
+  border-radius: 10px;
+   padding-bottom: 25px;
 }
 .info-text #info-text-text {
   padding: 40px;
-  font-size: 10px;
+  font-size: 13px;
+  margin-left: 25px;
 }
-
 .tox .tox-notification {
   display: none !important; 
 }

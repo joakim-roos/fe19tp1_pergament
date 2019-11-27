@@ -120,7 +120,7 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
 
 function createDeletedButton(note, notes) { //funktion som skapar en delete-knapp. Kallas i renderNote.
   let button = document.createElement('button');
-  let date = document.querySelector('.pDate')
+  let date = note.querySelector('.pDate')
   let img = document.createElement('img');
   button.className = 'del-button-note';
   button.setAttribute('onclick', 'deleteNote(' + notes.id + ')');
@@ -136,7 +136,7 @@ function createDeletedButton(note, notes) { //funktion som skapar en delete-knap
 
 function createFavouriteButton(note, notes) { //funktion som skapar en favorite-knapp. Kallas i renderNote.
   let button = document.createElement('button');
-  let date = document.querySelector('.pDate')
+  let date = note.querySelector('.pDate')
   let img = document.createElement('img');
   button.id = 'fav-button-note';
   button.setAttribute('onclick', 'favouriteNote(' + notes.id + ')');
@@ -292,13 +292,14 @@ addNoteButton.onclick = function () {
 
 function renderAllNotes() {
   let innerSideBar = document.querySelector('#innerSideBar');
-  innerSideBar.innerHTML = `<div class="searchNotes">
-                    <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
-                    <button class="addNote">
-                        <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-                    </button>
-                </div>`;
-  enableSearch();
+  // innerSideBar.innerHTML = `<div class="searchNotes">
+  //                   <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+  //                   <button class="addNote">
+  //                       <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+  //                   </button>
+  //               </div>`;
+  // enableSearch();
+  innerSideBar.innerHTML = ""
   let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();
@@ -325,14 +326,14 @@ function renderAllNotes() {
 
 function renderSearchedNotes() {
   let innerSideBar = document.querySelector('#innerSideBar');
-  innerSideBar.innerHTML = `<div class="searchNotes">
-                    <input type="search" name="searchNote" placeholder="search notes..." id="searchInput" value="${searchString}" onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
-                    <button class="addNote">
-                        <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-                    </button>
-                </div>`;
-  enableSearch();
-
+  // innerSideBar.innerHTML = `<div class="searchNotes">
+  //                   <input type="search" name="searchNote" placeholder="search notes..." id="searchInput" value="${searchString}" onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
+  //                   <button class="addNote">
+  //                       <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+  //                   </button>
+  //               </div>`;
+  // enableSearch();
+ innerSideBar.innerHTML = ""
   let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();
@@ -524,13 +525,13 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
 
 function showOnlyFavourites() {
   let allNotes = document.querySelector('#innerSideBar');
-  allNotes.innerHTML = `<div class="searchNotes">
-                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
-                <button class="addNote">
-                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-                </button>
-            </div>`;
-
+  // allNotes.innerHTML = `<div class="searchNotes">
+  //               <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+  //               <button class="addNote">
+  //                   <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+  //               </button>
+  //           </div>`;
+allNotes.innerHTML = ""
   let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();
@@ -600,12 +601,13 @@ function toggleDeletedButton() { //funktion som endast visar anteckningar som ha
 
 function showOnlyDeleted() {
   let allNotes = document.querySelector('#innerSideBar');
-  allNotes.innerHTML = `<div class="searchNotes">
-                <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
-                <button class="addNote">
-                    <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-                </button>
-            </div>`;
+  // allNotes.innerHTML = `<div class="searchNotes">
+  //               <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
+  //               <button class="addNote">
+  //                   <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
+  //               </button>
+  //           </div>`;
+  allNotes.innerHTML = ""
   let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();

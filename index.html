@@ -47,25 +47,31 @@
     </nav>
 
     <section class="noteSection">
-        <div id="innerSideBar">
+        <div id="leftSection">
             <div class="searchNotes">
                 <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
                 <button class="addNote">
                     <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-                </button>
+                </button> </div>
+
+            <div id="innerSideBar">
             </div>
         </div>
         <span class="editor">
             <div id="editor-container" class="printableArea editor"></div> <!-- QUILL JS CONTAINER -->
         </span>
     </section>
+
     <div id="myModal" class="modal">
         <div class="info-text">
-            <p id="info-text-text">To add a new note, push the grey button to the right.
-                To delete a note, click on the X next to the note you wish to delete.
-
-                To wiev this information again, go to the menu on your upper right side and chose "Help".
-                From here you can also Search among your notes, Print a note and add you Favourites. </p>
+            <p id="info-text-text">
+                <img src="img/edit-regular.svg" class="text-icon" alt="Add Note"> Add note<br>
+                <img src="img/star-note.svg" class="text-icon" alt="Favourites"> Make note favourite or wiev
+                favourites<br>
+                <img src="img/question-text.svg" class="text-icon" alt="Help"> Wiev this information again <br>
+                <img src="img/print-text.svg" class="text-icon" alt="Print"> Print note <br>
+                <img src="img/delete-note.svg" class="text-icon" alt="Deleted"> Delete or wiev delted notes<br>
+            </p>
         </div>
     </div>
 
