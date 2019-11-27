@@ -304,28 +304,49 @@ function renderSearchedNotes() {
     addNote();
   };
 
-  for (let i = 0; i < noteList.length; i++) {
-    //console.log(noteList[i].data.ops)
-    let ops = noteList[i].data.ops;
-    for (let j = 0; j < ops.length; j++) {
-      if (ops[j].insert.toLowerCase().includes(searchString)) {
-        //console.log("match found" + noteList[i].id)
-        renderNote(noteList[i]);
-        break;
-        //console.log(noteList[i]);
+
+  if(favouriteMode){
+    favouriteButton.classList.toggle("favActive");
+    favouriteMode=false;}
+  if(deletedMode){
+    deletedButton.classList.toggle("delActive");
+    deletedMode=false;}
+  
+
+  let foundArray=[];
+
+  if(searchString==""){
+    foundArray=defaultArray();
+  }
+  else{
+    for (let i = 0; i < noteList.length; i++) {
+      //console.log(noteList[i].data.ops)
+      let ops = noteList[i].data.ops;
+      for (let j = 0; j < ops.length; j++) {
+        if (ops[j].insert.toLowerCase().includes(searchString)) {
+          //console.log("match found" + noteList[i].id)
+          foundArray.push(noteList[i]);
+          //renderNote(noteList[i]);
+          //console.log(noteList[i]);
+          break;
+        }
       }
     }
   }
-  activeNote(event);
+
+  foundArray.forEach(function (term){
+    renderNote(term);
+  });
+  activeNote(foundArray[foundArray.length-1]);
 };
 
 function enableSearch() {
   textSearch = document.querySelector('#searchInput');
   textSearch.addEventListener('input', (event) => {
-    console.log("yo")
+    //console.log("yo")
     searchString = textSearch.value.toLowerCase();
     renderSearchedNotes();
-    console.log(searchString)
+    //console.log(searchString)
   });
   textSearch.focus();
 };
