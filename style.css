@@ -11,21 +11,12 @@ font-family: 'Raleway', sans-serif;
 }
 
 #editor-container {
-<<<<<<< Updated upstream
-  padding-top: 20px;
-  padding-left: 120px;
-  padding-right: 120px;
-  height: 100vh;
-  width: 65vw;
-  background-color: rgb(240, 240, 240);
-=======
 padding-top: 20px;
 padding-left: 120px;
 height: 100vh;
 width: 73vw;
 background-color: rgb(240, 240, 240);
 }
->>>>>>> Stashed changes
 
 /* background: #ECE9E6; */  /* fallback for old browsers */
 /* background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6); */  /* Chrome 10-25, Safari 5.1-6 */
@@ -36,8 +27,6 @@ background-color: rgb(240, 240, 240);
    padding-left: 120px;
 } 
 
-<<<<<<< Updated upstream
-=======
 div.ql-editor{
 padding-right: 120px;
 }
@@ -60,7 +49,6 @@ div.ql-editor::-webkit-scrollbar-thumb{
 }
 
 
->>>>>>> Stashed changes
 .sideBar{
   display: flex;
   flex-direction: row;
@@ -186,17 +174,6 @@ div.ql-editor::-webkit-scrollbar-thumb{
 } 
 
 #innerSideBar{
-<<<<<<< Updated upstream
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(240, 240, 240);
-  height: 100vh;
-  width: 250px;
-  /* overflow: hidden; */
-  border: none;
-  /* margin-top: 44px; */
-  overflow-y: scroll;
-=======
 display: flex;
 flex-direction: column;
 background-color: rgb(240, 240, 240);
@@ -207,7 +184,6 @@ border: none;
 /* margin-top: 44px; */
 overflow-y: auto;
 overflow-x: hidden;
->>>>>>> Stashed changes
 
   /* From uiGradients */
   /* background: #ED4264; */  /* fallback for old browsers */
@@ -417,18 +393,6 @@ overflow-x: hidden;
 }
 
 
-<<<<<<< Updated upstream
-  @media print {
-    @page { margin: 0; }
-    body { margin: 1.6cm; }
-  }
-
-@media only screen and (max-width: 764) {
- #showHideBtn {
-   display: inline-block;
- }
-}
-=======
 @media only screen and (max-width: 764px) {
   #showHideBtn {
     display: inline-block;
@@ -455,4 +419,3 @@ overflow-x: hidden;
 
 }
 
->>>>>>> Stashed changes
