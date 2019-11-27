@@ -37,7 +37,6 @@ function Id2Object(n) {
   };
 };
 
-
 function defaultArray() {
   defArray = [];
   noteList.forEach(function (def) {
@@ -68,9 +67,15 @@ function deletedArray() {
   return delArray;
 };
 
-
-
-
+/* function quill2HTML(input) { //används ej, men radera inte!
+  (new Quill(tempCont)).setContents(input);
+  return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
+};
+function NoteData2HTML(noteObj) { //används ej, men radera inte!
+  var s = ('<button class="delete-button" onclick="deleteNote(' + noteObj.id + ')">X' + '</button>' +
+    quill2HTML(noteObj.data));
+  return s;
+}; */
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////FUNKTIONER/////////////////////////////////////////////////
@@ -170,7 +175,40 @@ function saveNotes() { // sparar i local Storage
 };
 
 
-quill.on('text-change', update);
+quill.on('text-change', autoUpdate);
+
+function textUpdate(note){
+  noteDiv = document.querySelector(`div[id="${note.id}"]`);
+
+  let tempTitle=note.title;
+  if(tempTitle.length>18){
+    tempTitle=tempTitle.substring(0,18)+"...";
+  }
+  noteDiv.childNodes[0].innerHTML = tempTitle;
+
+  let tempPre=note.preview;
+  if(tempPre.length>18){
+    tempPre=tempPre.substring(0,18)+"...";
+  }
+  noteDiv.childNodes[1].innerHTML = tempPre
+}
+
+function autoUpdate() { //uppdaterar selectedNote på text-change. 
+  var data = quill.getContents();
+  if (selectedNote) {
+    selectedNote.data = data;
+    let s=quill.getText().split("\n");
+    selectedNote.title = s[0];
+    selectedNote.preview = s[1];
+    textUpdate(selectedNote);
+    saveNotes();
+  };
+};
+
+
+
+
+
 
 function update() { //uppdaterar selectedNote på text-change. 
   var data = quill.getContents();
@@ -200,15 +238,6 @@ function updateTitle(note) { //uppdaterar titlen
 
 
 
-/* function quill2HTML(input) { //används ej, men radera inte!
-  (new Quill(tempCont)).setContents(input);
-  return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
-};
-function NoteData2HTML(noteObj) { //används ej, men radera inte!
-  var s = ('<button class="delete-button" onclick="deleteNote(' + noteObj.id + ')">X' + '</button>' +
-    quill2HTML(noteObj.data));
-  return s;
-}; */
 
 function activeNote(targetNote) {
   selectedNote = targetNote;
@@ -282,9 +311,14 @@ function renderAllNotes() {
     //console.log(noteList[i]);
   }
 
-  let tempNote=defaultArray()[defaultArray().length - 1];
-  console.log(defaultArray());
-  console.log(tempNote);
+  let a=defaultArray();
+  a.forEach(function(n){
+    textUpdate(n);
+  });
+
+  let tempNote=a[a.length - 1];
+  //console.log(defaultArray());
+  //console.log(tempNote);
   try{setActiveNote(tempNote);}
   catch{activeNote(tempNote);}
 };
@@ -477,6 +511,10 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
   deletedMode=false;
   if (favouriteButton.classList.contains('favActive')) {
     showOnlyFavourites();
+    let a=favouriteArray();
+    a.forEach(function(n){
+      textUpdate(n);
+    });
   } else {
     //noteList.filter(note => note.favourite === false && note.deleted === false).forEach(renderNote);
     //noteList.filter(note => !note.deleted).forEach(renderNote);
@@ -492,6 +530,7 @@ function showOnlyFavourites() {
                     <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
                 </button>
             </div>`;
+
   let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
   addNoteButton.onclick = function () {
     addNote();
@@ -547,6 +586,10 @@ function toggleDeletedButton() { //funktion som endast visar anteckningar som ha
   //star.classList.toggle("starActive");
   if (deletedButton.classList.contains('delActive')) {
     showOnlyDeleted();
+    let a=deletedArray();
+    a.forEach(function(n){
+      textUpdate(n);
+    });
   } else {
     //console.log(noteList.forEach(noteList.deleted));
     //noteList.filter(note => note.favourite === false && note.deleted === false).forEach(renderNote);
