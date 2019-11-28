@@ -30,6 +30,7 @@ var tempCont = document.createElement("div"); //temporär icke-existerande div f
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////FUNKTIONER/////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function Id2Object(n) {
   var i;
   for (i = 0; i < noteList.length; i++) {
@@ -102,7 +103,7 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   let note = document.createElement('div');
   let title = document.createElement('p');
   let preview = document.createElement('p');
-  let topOfList = allNotes.children[1];
+  let topOfList = allNotes.children[0];
   note.className = 'note';
   title.className = 'noteTitle';
   preview.className = 'notePreview';
@@ -112,7 +113,13 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   //note.addEventListener('click', swapNote);
   title.innerHTML += notes.title;
   preview.innerHTML += notes.preview;
-  allNotes.insertBefore(note, topOfList); //.nextsibling
+  if (noteList.filter(note => note.id == notes.id).length < 1) {
+    allNotes.insertBefore(note, topOfList)
+  } else {
+    allNotes.appendChild(note)
+  }
+
+  //allNotes.insertBefore(note, topOfList); //.nextsibling
   //console.log(allNotes.children[1]);
   note.addEventListener('click', swapNote);
   displayDate(notes); // visar datum och tid i anteckningen
@@ -192,8 +199,8 @@ function textUpdate(note) {
   if (tempPre.length > 18) {
     tempPre = tempPre.substring(0, 18) + "...";
   }
-  noteDiv.childNodes[1].innerHTML = tempPre
-}
+  noteDiv.childNodes[1].innerHTML = tempPre;
+};
 
 function autoUpdate() { //uppdaterar selectedNote på text-change. 
   var data = quill.getContents();
@@ -207,12 +214,7 @@ function autoUpdate() { //uppdaterar selectedNote på text-change.
   };
 };
 
-
-
-
-
-
-function update() { //uppdaterar selectedNote på text-change. 
+/* function update() { //uppdaterar selectedNote på text-change. 
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
@@ -223,25 +225,23 @@ function update() { //uppdaterar selectedNote på text-change.
     updateTitle()
     saveNotes();
   };
-};
+}; */
 
-function updatePreview(note) { //uppdaterar objektets preview. 
+/* function updatePreview(note) { //uppdaterar objektets preview. 
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
   let dots = "..."
   //console.log(note.childNodes)
   note.childNodes[1].innerHTML = selectedNote.preview + dots;
-};
+}; */
 
-function updateTitle(note) { //uppdaterar titlen
+/* function updateTitle(note) { //uppdaterar titlen
   note = document.querySelector(`div[id="${selectedNote.id}"]`);
   let dots = "..."
   note.childNodes[0].innerHTML = selectedNote.title + dots;
-};
+}; */
 
 
-
-
-function activeNote(targetNote) {
+/* function activeNote(targetNote) {
   selectedNote = targetNote;
   if (typeof selectedNote != "undefined") {
     var noteDiv = document.getElementById(selectedNote.id);
@@ -251,11 +251,12 @@ function activeNote(targetNote) {
       quill.setContents(selectedNote.data);
     };
   };
-};
+}; */
 
 function activeNote(targetNote) {
   selectedNote = targetNote;
   setHighlight(targetNote.id);
+  console.log("ran")
 };
 
 function setHighlight(targetID) {
@@ -273,9 +274,9 @@ function setHighlight(targetID) {
 
 function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
   //console.log(document.getElementById(event.target.id).innerHTML); //de här raderna har buggar
-  //console.log(Id2Object(event.target.id).data); //samma här,buggar
+  //console.log(Id2Object(event.target.id).data); //samma här, buggar
   var targetNote = Id2Object(event.target.closest("div").id);
-
+  //console.log(targetNote);
   if (event.target.classList.contains('del-icon-note')) {
     console.log(event.target)
     event.target.closest('div').remove();
@@ -287,9 +288,11 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
 
       if ((favouriteMode == true && favouriteArray().indexOf(targetNote) == -1) ||
         (deletedMode == true && deletedArray().indexOf(targetNote) == -1)) {
-        //foo()
+
       } else {
         activeNote(targetNote);
+        console.log(targetNote + "in swapnote")
+        console.log("activenote in swapnote ran")
       }
     }
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
@@ -349,7 +352,6 @@ function renderSearchedNotes() {
     addNote();
   };
 
-
   if (favouriteMode) {
     favouriteButton.classList.toggle("favActive");
     favouriteMode = false;
@@ -358,7 +360,6 @@ function renderSearchedNotes() {
     deletedButton.classList.toggle("delActive");
     deletedMode = false;
   }
-
 
   let foundArray = [];
 
@@ -384,6 +385,8 @@ function renderSearchedNotes() {
   foundArray.forEach(function (term) {
     renderNote(term);
   });
+  //console.log(foundArray[0])
+  activeNote(event.target.closest("div").id);
 };
 
 function enableSearch() {
@@ -409,10 +412,12 @@ function addNote() {
     deleted: deletedMode
   };
   renderNote(notes);
-  noteList.push(notes);
+  noteList.unshift(notes);
   activeNote(notes);
+  console.log(notes.id);
   firstNote();
   saveNotes();
+  //renderAllNotes();
 };
 
 function firstNote() {
@@ -563,10 +568,6 @@ function showOnlyFavourites() {
     return filtered;
   }; */
 };
-
-
-
-//////////////////////
 
 ////////// DELETED BUTTON ////////////
 deletedButton = document.querySelector("#deletedBtn");
