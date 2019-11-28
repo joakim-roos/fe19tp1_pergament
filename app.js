@@ -91,7 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (noteList.length > 0) {
     //console.log(noteList);
     noteList.filter(note => !note.deleted).forEach(renderNote);
-    setActiveNote(noteList[0]);
+    activeNote(noteList[0]);
     console.log('DOM fully loaded');
     //  createQuillTemplate();
   };
@@ -253,13 +253,22 @@ function activeNote(targetNote) {
   };
 };
 
-function setActiveNote(targetNote) {
-  if (selectedNote !== null && typeof selectedNote !== "undefined") {
-    document.getElementById(selectedNote.id).style.backgroundColor = "rgb(233, 233, 233)"; //återställ styling på fd vald note
-    document.getElementById(selectedNote.id).style.borderLeft = "7px solid rgb(233, 233, 233)";
-    //console.log("setActiveNote Ran 1")
-  };
-  activeNote(targetNote);
+function activeNote(targetNote) {
+  selectedNote = targetNote;
+  setHighlight(targetNote.id);
+};
+
+function setHighlight(targetID) {
+  let notes = document.querySelectorAll('.note');
+  for (i = 0; i < notes.length; i++) {
+    //console.log("loop: " + notes[i].id)
+    if (Number(targetID) === Number(notes[i].id)) {
+      notes[i].classList.add('selected')
+      quill.setContents(selectedNote.data);
+    } else {
+      notes[i].classList.remove('selected')
+    }
+  }
 };
 
 function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
@@ -280,8 +289,7 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
         (deletedMode == true && deletedArray().indexOf(targetNote) == -1)) {
         //foo()
       } else {
-        try { setActiveNote(targetNote); }
-        catch { activeNote(targetNote); }
+        activeNote(targetNote);
       }
     }
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
@@ -323,8 +331,7 @@ function renderAllNotes() {
   let tempNote = a[0];
   //console.log(defaultArray());
   //console.log(tempNote);
-  try { setActiveNote(tempNote); }
-  catch{ activeNote(tempNote); }
+  activeNote(tempNote);
 };
 
 function renderSearchedNotes() {
@@ -377,7 +384,6 @@ function renderSearchedNotes() {
   foundArray.forEach(function (term) {
     renderNote(term);
   });
-  activeNote(foundArray[0]);
 };
 
 function enableSearch() {
@@ -404,8 +410,7 @@ function addNote() {
   };
   renderNote(notes);
   noteList.push(notes);
-  try { setActiveNote(notes); }
-  catch { activeNote(notes); }
+  activeNote(notes);
   firstNote();
   saveNotes();
 };
@@ -463,10 +468,10 @@ window.addEventListener("click", function (event) {
 
 
 printDiv = function () {
- // let printContents = quill.root.innerHTML;
- // document.body.innerHTML = printContents;
+  // let printContents = quill.root.innerHTML;
+  // document.body.innerHTML = printContents;
   window.print();
- // location.reload();
+  // location.reload();
 };
 
 //DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent

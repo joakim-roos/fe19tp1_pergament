@@ -224,6 +224,11 @@ transition: background-color 100ms linear;
 border-bottom: 1px solid grey;
 }
 
+.selected {
+  background-color: whitesmoke; 
+  border-left: 7px solid darkcyan;
+}
+
 .searchNotes {
 display: flex;
 flex-direction: row;
