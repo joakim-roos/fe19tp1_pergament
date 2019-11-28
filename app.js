@@ -91,7 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (noteList.length > 0) {
     //console.log(noteList);
     noteList.filter(note => !note.deleted).forEach(renderNote);
-    setActiveNote(noteList[noteList.length - 1]);
+    setActiveNote(noteList[0]);
     console.log('DOM fully loaded');
     //  createQuillTemplate();
   };
@@ -319,7 +319,8 @@ function renderAllNotes() {
     textUpdate(n);
   });
 
-  let tempNote = a[a.length - 1];
+
+  let tempNote = a[0];
   //console.log(defaultArray());
   //console.log(tempNote);
   try { setActiveNote(tempNote); }
@@ -376,7 +377,7 @@ function renderSearchedNotes() {
   foundArray.forEach(function (term) {
     renderNote(term);
   });
-  activeNote(foundArray[foundArray.length - 1]);
+  activeNote(foundArray[0]);
 };
 
 function enableSearch() {
@@ -427,7 +428,7 @@ function deleteSelectedNote(id) {
   };
   noteList.splice(index, 1);
   if (toDelete == document.getElementById(selectedNote.id)) {
-    setActiveNote(noteList[noteList.length - 1]); //fixes utifall att du tar bort active note
+    setActiveNote(noteList[0]); //fixes utifall att du tar bort active note
     console.log("removed selected");
   };
   toDelete.parentNode.removeChild(toDelete);//tar bort anteckningen 
@@ -499,7 +500,7 @@ function favouriteNote(id) {
       showOnlyFavourites();
       let favArray = favouriteArray();
       if (favArray.length > 0) {
-        activeNote(favArray[favArray.length - 1]);
+        activeNote(favArray[0]);
       }
     }
   }
@@ -545,7 +546,7 @@ function showOnlyFavourites() {
 
   favArray = favouriteArray();
   if (favArray.length > 0) {
-    activeNote(favArray[favArray.length - 1]);
+    activeNote(favArray[0]);
   };
 
   /*   let onlyFavs = filterNotes(showFavourites);
@@ -621,7 +622,7 @@ function showOnlyDeleted() {
 
   delArray = deletedArray();
   if (delArray.length > 0) {
-    activeNote(delArray[delArray.length - 1]);
+    activeNote(delArray[0]);
   };
   /* 
     let onlyDeleted = filterNotes(showDeleted);
