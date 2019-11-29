@@ -98,6 +98,26 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 });
 
+
+///////////////EVENT LISTENER FÖR HELA INNER-SIDEBAR/////////////////
+const sideBarNav = document.querySelector("#leftSection");
+
+sideBarNav.addEventListener('click', function(event){
+  if(event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNoteBtn") ){
+    addNote();
+    console.log("addNote, ran from new eventlistener");
+  }
+  // if(event.target.classList.contains("del-icon-note") || event.target.classList.contains("del-button-note") ){
+  //   deleteNote();
+  //   console.log("hello");
+  // }
+  // if(event.target.classList.contains("fav-icon-note") || event.target.classList.contains("fav-button-note") ){
+  //   console.log("favouriteNote, ran from new eventlistener");
+  //   favouriteNote()
+  // }
+  console.log("hejsan");
+},false);
+
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById('innerSideBar');
   let note = document.createElement('div');
@@ -298,10 +318,10 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
 };
 
-let addNoteButton = document.querySelector('.addNote');
-addNoteButton.onclick = function () {
-  addNote();
-};
+// let addNoteButton = document.querySelector('.addNote');
+// addNoteButton.onclick = function () {
+//   addNote();
+// };
 
 function renderAllNotes() {
   let innerSideBar = document.querySelector('#innerSideBar');
@@ -313,10 +333,10 @@ function renderAllNotes() {
   //               </div>`;
   // enableSearch();
   innerSideBar.innerHTML = ""
-  let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  addNoteButton.onclick = function () {
-    addNote();
-  };
+  // let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
+  // addNoteButton.onclick = function () {
+  //   addNote();
+  // };
 
   /* noteList.forEach(renderNote); */
   for (let i = 0; i < noteList.length; i++) {
@@ -347,10 +367,10 @@ function renderSearchedNotes() {
   //               </div>`;
   // enableSearch();
   innerSideBar.innerHTML = ""
-  let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  addNoteButton.onclick = function () {
-    addNote();
-  };
+  // let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
+  // addNoteButton.onclick = function () {
+  //   addNote();
+  // };
 
   if (favouriteMode) {
     favouriteButton.classList.toggle("favActive");
@@ -545,10 +565,10 @@ function showOnlyFavourites() {
   //               </button>
   //           </div>`;
   allNotes.innerHTML = ""
-  let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  addNoteButton.onclick = function () {
-    addNote();
-  };
+  // let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
+  // addNoteButton.onclick = function () {
+  //   addNote();
+  // };
 
   enableSearch()
 
@@ -617,10 +637,10 @@ function showOnlyDeleted() {
   //               </button>
   //           </div>`;
   allNotes.innerHTML = ""
-  let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  addNoteButton.onclick = function () {
-    addNote();
-  };
+  // let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
+  // addNoteButton.onclick = function () {
+  //   addNote();
+  // };
 
   enableSearch()
 
