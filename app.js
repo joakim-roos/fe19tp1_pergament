@@ -70,6 +70,108 @@ function deletedArray() {
   return delArray;
 };
 
+
+
+const SymbolHash={
+  a: 20,
+  b: 18,
+  c: 20,
+  d: 18,
+  e: 20,
+  f: 32,
+  g: 18,
+  h: 18,
+  i: 40,
+  j: 40,
+  k: 18,
+  l: 40,
+  m: 12,
+  n: 18,
+  o: 18,
+  p: 18,
+  q: 18,
+  r: 30,
+  s: 20,
+  t: 34,
+  u: 18,
+  v: 20,
+  w: 14,
+  x: 20,
+  y: 20,
+  z: 22,
+  A: 15,
+  B: 15,
+  C: 15,
+  D: 15,
+  E: 16,
+  F: 18,
+  G: 14,
+  H: 15,
+  I: 40,
+  J: 20,
+  K: 15,
+  L: 18,
+  M: 13,
+  N: 15,
+  O: 14,
+  P: 16,
+  R: 14,
+  S: 16,
+  T: 18,
+  U: 15,
+  V: 16,
+  W: 12,
+  X: 16,
+  Y: 16,
+  Z: 18
+}
+
+
+
+function Symbol2Width(symbol){
+  var width;
+  width=SymbolHash[symbol];
+  if(width==undefined){
+    width=20;
+  }
+  width=100/width;
+  return width
+}
+
+function textUpdate(note) {
+  let noteDiv = document.querySelector(`div[id="${note.id}"]`);
+
+  let r=0;
+  let i=0;
+  let tempTitle="";
+  let n="";
+
+  while(r<100){
+    n=note.title[i]
+    if(n==undefined){
+      break;
+    }
+    //console.log(n);
+    r+=Symbol2Width(n);
+    tempTitle+=n;
+    i+=1;
+    console.log(r);
+  }
+  if(r>=100){
+    tempTitle+="..."
+  }
+
+  noteDiv.childNodes[0].innerHTML = tempTitle;
+
+  let tempPre = note.preview;
+  if (tempPre.length > 18) {
+    tempPre = tempPre.substring(0, 18) + "...";
+  }
+  noteDiv.childNodes[1].innerHTML = tempPre;
+};
+
+
+
 /* function quill2HTML(input) { //används ej, men radera inte!
   (new Quill(tempCont)).setContents(input);
   return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
@@ -210,21 +312,6 @@ function saveNotes() { // sparar i local Storage
 
 quill.on('text-change', autoUpdate);
 
-function textUpdate(note) {
-  noteDiv = document.querySelector(`div[id="${note.id}"]`);
-
-  let tempTitle = note.title;
-  if (tempTitle.length > 18) {
-    tempTitle = tempTitle.substring(0, 18) + "...";
-  }
-  noteDiv.childNodes[0].innerHTML = tempTitle;
-
-  let tempPre = note.preview;
-  if (tempPre.length > 18) {
-    tempPre = tempPre.substring(0, 18) + "...";
-  }
-  noteDiv.childNodes[1].innerHTML = tempPre;
-};
 
 function autoUpdate() { //uppdaterar selectedNote på text-change. 
   var data = quill.getContents();
@@ -232,6 +319,7 @@ function autoUpdate() { //uppdaterar selectedNote på text-change.
     selectedNote.data = data;
     let s = quill.getText().split("\n");
     selectedNote.title = s[0];
+    //console.log("P count: "+s[0].length);
     selectedNote.preview = s[1];
     textUpdate(selectedNote);
     saveNotes();
