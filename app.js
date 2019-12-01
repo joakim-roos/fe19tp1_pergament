@@ -99,34 +99,27 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-///////////////EVENT LISTENER FÖR HELA INNER-SIDEBAR/////////////////
+/////////////// EVENT LISTENER FÖR HELA LEFT-SECTION /////////////////
 const sideBarNav = document.querySelector("#leftSection");
 
 sideBarNav.addEventListener('click', function(event){
+
+  var targetNote = event.target.closest("div").id;
   if(event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNoteBtn") ){
     addNote();
-    console.log("addNote, ran from new eventlistener");
+    // console.log("addNote, ran from new eventlistener");
   }
-
   if(event.target.classList.contains("del-button-note") || event.target.classList.contains("del-icon-note") ) {
-    var targetNote = event.target.closest("div").id;
       deleteNote(targetNote);
-      console.log("deleteNote, ran from new eventlistener");
- }
+      event.target.closest('div').remove();
 
+      // console.log("deleteNote, ran from new eventlistener");
+ }
   if(event.target.classList.contains("fav-button-note") || event.target.classList.contains("fav-icon-note") ) {
-     var targetNote = event.target.closest("div").id;
        favouriteNote(targetNote);
-       console.log("favouriteNote, ran from new eventlistener");
+      //  console.log("favouriteNote, ran from new eventlistener");
   }
-  // function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
-  //   var targetNote = Id2Object(event.target.closest("div").id);
-  //   //console.log(targetNote);
-  //   if (event.target.classList.contains('del-icon-note')) {
-  //     console.log(event.target)
-  //     event.target.closest('div').remove();
-  //   };
-  console.log("hejsan");
+
 },false);
 
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
