@@ -19,7 +19,6 @@ height: 100vh;
 width: 76vw;
 background-color: rgb(240, 240, 240);
 border-right: none;
-
 }
 
 /* background: #ECE9E6; */  /* fallback for old browsers */
@@ -254,7 +253,7 @@ font-size: 12px;
 outline: none;
 }
 
-.addNote {
+.addNoteBtn {
 border: none;
 position: relative; 
 height: 23px;
@@ -263,15 +262,15 @@ margin-right: 22px;
 outline: none;
 background-color: whitesmoke;
 }
+
 .addNoteSvg {
 height: 23px;
 transition: filter 0.07s ease-in-out;
 opacity: 0.8;
 margin-top: 2px;
-
 }
-.addNoteSvg:active {
 
+.addNoteSvg:active {
 filter: invert(.5) sepia(1) saturate(5) hue-rotate(175deg);
 }
 
