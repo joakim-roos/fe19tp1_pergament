@@ -145,8 +145,9 @@ function textUpdate(note) {
   let i=0;
   let tempTitle="";
   let n="";
+  let max=100;
 
-  while(r<100){
+  while(r<max){
     n=note.title[i]
     if(n==undefined){
       break;
@@ -155,18 +156,36 @@ function textUpdate(note) {
     r+=Symbol2Width(n);
     tempTitle+=n;
     i+=1;
-    console.log(r);
+    //console.log(r);
   }
-  if(r>=100){
+  if(r>=max){
     tempTitle+="..."
   }
 
   noteDiv.childNodes[0].innerHTML = tempTitle;
 
-  let tempPre = note.preview;
-  if (tempPre.length > 18) {
-    tempPre = tempPre.substring(0, 18) + "...";
+
+  r=0;
+  i=0;
+  let tempPre="";
+  n="";
+  max=110
+
+  while(r<max){
+    n=note.preview[i]
+    if(n==undefined){
+      break;
+    }
+    //console.log(n);
+    r+=Symbol2Width(n);
+    tempPre+=n;
+    i+=1;
+    //console.log(r);
   }
+  if(r>=max){
+    tempPre+="..."
+  }
+
   noteDiv.childNodes[1].innerHTML = tempPre;
 };
 
@@ -251,6 +270,7 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   displayDate(notes); // visar datum och tid i anteckningen
   createFavouriteButton(note, notes);
   createDeletedButton(note, notes);
+  textUpdate(notes);
 };
 
 function createDeletedButton(note, notes) { //funktion som skapar en delete-knapp. Kallas i renderNote.
