@@ -107,14 +107,25 @@ sideBarNav.addEventListener('click', function(event){
     addNote();
     console.log("addNote, ran from new eventlistener");
   }
-  // if(event.target.classList.contains("del-icon-note") || event.target.classList.contains("del-button-note") ){
-  //   deleteNote();
-  //   console.log("hello");
-  // }
-  // if(event.target.classList.contains("fav-icon-note") || event.target.classList.contains("fav-button-note") ){
-  //   console.log("favouriteNote, ran from new eventlistener");
-  //   favouriteNote()
-  // }
+
+  if(event.target.classList.contains("del-button-note") || event.target.classList.contains("del-icon-note") ) {
+    var targetNote = event.target.closest("div").id;
+      deleteNote(targetNote);
+      console.log("deleteNote, ran from new eventlistener");
+ }
+
+  if(event.target.classList.contains("fav-button-note") || event.target.classList.contains("fav-icon-note") ) {
+     var targetNote = event.target.closest("div").id;
+       favouriteNote(targetNote);
+       console.log("favouriteNote, ran from new eventlistener");
+  }
+  // function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
+  //   var targetNote = Id2Object(event.target.closest("div").id);
+  //   //console.log(targetNote);
+  //   if (event.target.classList.contains('del-icon-note')) {
+  //     console.log(event.target)
+  //     event.target.closest('div').remove();
+  //   };
   console.log("hejsan");
 },false);
 
@@ -152,7 +163,7 @@ function createDeletedButton(note, notes) { //funktion som skapar en delete-knap
   let date = note.querySelector('.pDate')
   let img = document.createElement('img');
   button.className = 'del-button-note';
-  button.setAttribute('onclick', 'deleteNote(' + notes.id + ')');
+  // button.setAttribute('onclick', 'deleteNote(' + notes.id + ')');
   if (notes.deleted == true) {
     img.src = 'img/delete-fill.svg';
   } else {
@@ -168,7 +179,7 @@ function createFavouriteButton(note, notes) { //funktion som skapar en favorite-
   let date = note.querySelector('.pDate')
   let img = document.createElement('img');
   button.id = 'fav-button-note';
-  button.setAttribute('onclick', 'favouriteNote(' + notes.id + ')');
+  // button.setAttribute('onclick', 'favouriteNote(' + notes.id + ')');
   if (notes.favourite == true) {
     img.src = "img/star-fill.svg";
   } else {
@@ -297,10 +308,10 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
   //console.log(Id2Object(event.target.id).data); //samma här, buggar
   var targetNote = Id2Object(event.target.closest("div").id);
   //console.log(targetNote);
-  if (event.target.classList.contains('del-icon-note')) {
-    console.log(event.target)
-    event.target.closest('div').remove();
-  };
+  // if (event.target.classList.contains('del-icon-note')) { //Borttagen pga den nya eventlistenern (??)
+  //   console.log(event.target)
+  //   event.target.closest('div').remove();
+  // };
 
   if (typeof targetNote != "undefined") {
     if (targetNote != selectedNote) {
