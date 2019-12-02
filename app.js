@@ -72,7 +72,7 @@ function deletedArray() {
 
 
 
-const SymbolHash={
+const SymbolHash = {
   a: 20,
   b: 18,
   c: 20,
@@ -128,62 +128,62 @@ const SymbolHash={
 
 
 
-function Symbol2Width(symbol){
+function Symbol2Width(symbol) {
   var width;
-  width=SymbolHash[symbol];
-  if(width==undefined){
-    width=20;
+  width = SymbolHash[symbol];
+  if (width == undefined) {
+    width = 20;
   }
-  width=100/width;
+  width = 100 / width;
   return width
 }
 
 function textUpdate(note) {
   let noteDiv = document.querySelector(`div[id="${note.id}"]`);
 
-  let r=0;
-  let i=0;
-  let tempTitle="";
-  let n="";
-  let max=100;
+  let r = 0;
+  let i = 0;
+  let tempTitle = "";
+  let n = "";
+  let max = 100;
 
-  while(r<max){
-    n=note.title[i]
-    if(n==undefined){
+  while (r < max) {
+    n = note.title[i]
+    if (n == undefined) {
       break;
     }
     //console.log(n);
-    r+=Symbol2Width(n);
-    tempTitle+=n;
-    i+=1;
+    r += Symbol2Width(n);
+    tempTitle += n;
+    i += 1;
     //console.log(r);
   }
-  if(r>=max){
-    tempTitle+="..."
+  if (r >= max) {
+    tempTitle += "..."
   }
 
   noteDiv.childNodes[0].innerHTML = tempTitle;
 
 
-  r=0;
-  i=0;
-  let tempPre="";
-  n="";
-  max=110
+  r = 0;
+  i = 0;
+  let tempPre = "";
+  n = "";
+  max = 110
 
-  while(r<max){
-    n=note.preview[i]
-    if(n==undefined){
+  while (r < max) {
+    n = note.preview[i]
+    if (n == undefined) {
       break;
     }
     //console.log(n);
-    r+=Symbol2Width(n);
-    tempPre+=n;
-    i+=1;
+    r += Symbol2Width(n);
+    tempPre += n;
+    i += 1;
     //console.log(r);
   }
-  if(r>=max){
-    tempPre+="..."
+  if (r >= max) {
+    tempPre += "..."
   }
 
   noteDiv.childNodes[1].innerHTML = tempPre;
@@ -223,25 +223,25 @@ window.addEventListener('DOMContentLoaded', () => {
 /////////////// EVENT LISTENER FÖR HELA LEFT-SECTION /////////////////
 const sideBarNav = document.querySelector("#leftSection");
 
-sideBarNav.addEventListener('click', function(event){
+sideBarNav.addEventListener('click', function (event) {
 
   var targetNote = event.target.closest("div").id;
-  if(event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNoteBtn") ){
+  if (event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNote")) {
     addNote();
     // console.log("addNote, ran from new eventlistener");
   }
-  if(event.target.classList.contains("del-button-note") || event.target.classList.contains("del-icon-note") ) {
-      deleteNote(targetNote);
-      event.target.closest('div').remove();
+  if (event.target.classList.contains("del-button-note") || event.target.classList.contains("del-icon-note")) {
+    deleteNote(targetNote);
+    event.target.closest('div').remove();
 
-      // console.log("deleteNote, ran from new eventlistener");
- }
-  if(event.target.classList.contains("fav-button-note") || event.target.classList.contains("fav-icon-note") ) {
-       favouriteNote(targetNote);
-      //  console.log("favouriteNote, ran from new eventlistener");
+    // console.log("deleteNote, ran from new eventlistener");
+  }
+  if (event.target.classList.contains("fav-button-note") || event.target.classList.contains("fav-icon-note")) {
+    favouriteNote(targetNote);
+    //  console.log("favouriteNote, ran from new eventlistener");
   }
 
-},false);
+}, false);
 
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById('innerSideBar');
