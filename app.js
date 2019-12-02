@@ -310,7 +310,7 @@ function loadNotes() { // laddar local storage.
   if (data) {
     noteList = JSON.parse(data);
   } else {
-    console.log('localstorage empty')
+    //console.log('localstorage empty')
     //  createQuillTemplate();
     firstPopup(); //so the help popup only auto-renders when notelist is empty. 
   };
@@ -388,7 +388,7 @@ function autoUpdate() { //uppdaterar selectedNote på text-change.
 function activeNote(targetNote) {
   selectedNote = targetNote;
   setHighlight(targetNote.id);
-  console.log("ran")
+  //console.log("ran")
 };
 
 function setHighlight(targetID) {
@@ -423,8 +423,8 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
 
       } else {
         activeNote(targetNote);
-        console.log(targetNote + "in swapnote")
-        console.log("activenote in swapnote ran")
+        //console.log(targetNote + "in swapnote")
+        //console.log("activenote in swapnote ran")
       }
     }
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
@@ -503,12 +503,16 @@ function renderSearchedNotes() {
       //console.log(noteList[i].data.ops)
       let ops = noteList[i].data.ops;
       for (let j = 0; j < ops.length; j++) {
+        try{
         if (ops[j].insert.toLowerCase().includes(searchString)) {
           //console.log("match found" + noteList[i].id)
           foundArray.push(noteList[i]);
           //renderNote(noteList[i]);
           //console.log(noteList[i]);
           break;
+        }}
+        catch{
+
         }
       }
     }
@@ -546,7 +550,7 @@ function addNote() {
   renderNote(notes);
   noteList.unshift(notes);
   activeNote(notes);
-  console.log(notes.id);
+  //console.log(notes.id);
   firstNote();
   saveNotes();
   //renderAllNotes();
@@ -571,7 +575,7 @@ function deleteSelectedNote(id) {
   noteList.splice(index, 1);
   if (toDelete == document.getElementById(selectedNote.id)) {
     setActiveNote(noteList[0]); //fixes utifall att du tar bort active note
-    console.log("removed selected");
+    //console.log("removed selected");
   };
   toDelete.parentNode.removeChild(toDelete);//tar bort anteckningen 
   saveNotes();
