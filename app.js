@@ -221,26 +221,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /////////////// EVENT LISTENER FÖR HELA LEFT-SECTION /////////////////
-const sideBarNav = document.querySelector("#leftSection");
-
-sideBarNav.addEventListener('click', function (event) {
-
+const sideBarNotes = document.querySelector("#innerSideBar");
+sideBarNotes.addEventListener('click', function (event) {
   var targetNote = event.target.closest("div").id;
-  if (event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNote")) {
-    addNote();
-    // console.log("addNote, ran from new eventlistener");
-  }
   if (event.target.classList.contains("del-button-note") || event.target.classList.contains("del-icon-note")) {
     deleteNote(targetNote);
     event.target.closest('div').remove();
-
     // console.log("deleteNote, ran from new eventlistener");
   }
   if (event.target.classList.contains("fav-button-note") || event.target.classList.contains("fav-icon-note")) {
     favouriteNote(targetNote);
     //  console.log("favouriteNote, ran from new eventlistener");
   }
+}, false);
 
+const searchNotes = document.querySelector('.searchNotes');
+searchNotes.addEventListener('click', function (event) {
+  if (event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNote")) {
+    addNote();
+  }
 }, false);
 
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
@@ -503,14 +502,15 @@ function renderSearchedNotes() {
       //console.log(noteList[i].data.ops)
       let ops = noteList[i].data.ops;
       for (let j = 0; j < ops.length; j++) {
-        try{
-        if (ops[j].insert.toLowerCase().includes(searchString)) {
-          //console.log("match found" + noteList[i].id)
-          foundArray.push(noteList[i]);
-          //renderNote(noteList[i]);
-          //console.log(noteList[i]);
-          break;
-        }}
+        try {
+          if (ops[j].insert.toLowerCase().includes(searchString)) {
+            //console.log("match found" + noteList[i].id)
+            foundArray.push(noteList[i]);
+            //renderNote(noteList[i]);
+            //console.log(noteList[i]);
+            break;
+          }
+        }
         catch{
 
         }
