@@ -752,7 +752,7 @@ darkModeButton.addEventListener('click', toggleDarkMode);
 function setDarkMode() {
   //console.log("dm mode:" +darkMode);
 
-  let darkArray = ["body", "#innerSideBar",];
+  let darkArray = ["body" ,"#innerSideBar" ,"#editor-container" ,".searchNotes" ,"#searchInput" ,".ql-stroke" ,"#sideNav" ,"#toggleNotes"];
   if (darkMode == false) {
     //console.log("true"+darkMode);
     darkArray.forEach(function (obj) {
