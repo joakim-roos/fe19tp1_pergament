@@ -853,3 +853,54 @@ function toggleDarkMode() {
 
   setDarkMode();
 }
+
+
+window.onresize = function ()
+{
+ 
+var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+var quireLogo = document.querySelector(".quireLogo");
+
+
+var text = document.getElementById("favouriteBtn");
+var text1 = document.getElementById("deletedBtn");
+var text2 = document.getElementById("helpBtn");
+var text3 = document.getElementById("printBtn");
+
+var sidebar = document.querySelector(".noteSection");
+
+
+    if (width <= 550) {
+      text.innerHTML = '<img src="img/star.svg" class="fav-icon" alt="Favourites"><div class="button-text"></div>';
+      text1.innerHTML = '<img src="img/delete_outline-24px.svg" class="del-icon" alt="Deleted"> <div class="button-text del-self-text"></div>';
+      text2.innerHTML = '<img src="img/question.svg" class="help-icon" alt="Help"><div class="button-text"></div>';
+      text3.innerHTML = '<img src="img/print.svg" class="print-icon" alt="Print"> <div class="button-text print-self-text"></div>';
+
+
+      text.style.position.fixed;
+
+      if (width <=500 ){
+        // quireLogo.appendChild(btn);
+        // btn.setAttribute("click", toggleInnersidebar)
+        sidebar.style.z = "1";
+
+      }
+    }
+
+    else{
+      text.innerHTML = '<img src="img/star.svg" class="fav-icon" alt="Favourites"> <div class="button-text">Favourites</div>';
+      text1.innerHTML = '<img src="img/delete_outline-24px.svg" class="del-icon" alt="Deleted"><div class="button-text del-self-text">Deleted</div>';
+      text2.innerHTML = '<img src="img/question.svg" class="help-icon" alt="Help"><div class="button-text">Help</div>';
+      text3.innerHTML = '<img src="img/print.svg" class="print-icon" alt="Print"><div class="button-text print-self-text">Print</div>';
+    }
+      return;
+  }
+
+  function toggleInnersideBar(){
+    var sidebar = document.querySelector(".noteSection");
+    sidebar.classList.toggle("hidden");
+    if (sidebar.classList.contains("hidden")) {
+      sidebar.style.display = "column";
+    }
+  }
