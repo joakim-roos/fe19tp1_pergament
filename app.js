@@ -11,20 +11,19 @@ let quill = new Quill('#editor-container', {
     ]
   },
   placeholder: 'Write your note here..',
-  theme: 'snow'  // or 'bubble'
+  theme: 'snow'
 });
 
 
 const addNewNote = document.getElementById("newNoteBtn");
-let noteList = []; //tom array för samtliga notes
+let noteList = [];
 var selectedNote = null;
 let searchString = "";
 var favouriteMode = false;
 var deletedMode = false;
-var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
+var tempCont = document.createElement("div");
 var darkMode;
 
-///////////////////////////////////////////////FUNKTIONER/////////////////////////////////////////////////
 
 function Id2Object(n) {
   var i;
@@ -64,8 +63,6 @@ function deletedArray() {
   });
   return delArray;
 };
-
-
 
 const SymbolHash = {
   a: 20,
@@ -146,11 +143,11 @@ function textUpdate(note) {
     if (n == undefined) {
       break;
     }
-    //console.log(n);
+
     r += Symbol2Width(n);
     tempTitle += n;
     i += 1;
-    //console.log(r);
+
   }
   if (r >= max) {
     tempTitle += "..."
@@ -170,11 +167,11 @@ function textUpdate(note) {
     if (n == undefined) {
       break;
     }
-    //console.log(n);
+
     r += Symbol2Width(n);
     tempPre += n;
     i += 1;
-    //console.log(r);
+
   }
   if (r >= max) {
     tempPre += "..."
@@ -183,25 +180,6 @@ function textUpdate(note) {
   noteDiv.childNodes[1].innerHTML = tempPre;
 };
 
-
-
-/* function quill2HTML(input) { //används ej, men radera inte!
-  (new Quill(tempCont)).setContents(input);
-  return tempCont.getElementsByClassName("ql-editor")[0].innerHTML;
-};
-function NoteData2HTML(noteObj) { //används ej, men radera inte!
-  var s = ('<button class="delete-button" onclick="deleteNote(' + noteObj.id + ')">X' + '</button>' +
-    quill2HTML(noteObj.data));
-  return s;
-}; */
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////FUNKTIONER/////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 window.addEventListener('DOMContentLoaded', () => {
 
   darkMode = (localStorage.getItem("darkmode") || false) === "true";
@@ -209,16 +187,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   loadNotes();
   if (noteList.length > 0) {
-    //console.log(noteList);
     noteList.filter(note => !note.deleted).forEach(renderNote);
     activeNote(noteList[0]);
     console.log('DOM fully loaded');
-    //  createQuillTemplate();
   };
 });
 
 
-/////////////// EVENT LISTENER FÖR HELA LEFT-SECTION /////////////////
 const sideBarNotes = document.querySelector(".noteSection");
 sideBarNotes.addEventListener('click', function (event) {
   var targetNote = event.target.closest("div").id;
@@ -229,20 +204,13 @@ sideBarNotes.addEventListener('click', function (event) {
   if (event.target.classList.contains("del-button-note") || event.target.classList.contains("del-icon-note")) {
     deleteNote(targetNote);
     event.target.closest('div').remove();
-    // console.log("deleteNote, ran from new eventlistener");
   }
   if (event.target.classList.contains("fav-button-note") || event.target.classList.contains("fav-icon-note")) {
     favouriteNote(targetNote);
-    //  console.log("favouriteNote, ran from new eventlistener");
   }
 }, false);
 
-// const searchNotes = document.querySelector('.searchNotes');
-// searchNotes.addEventListener('click', function (event) {
-
-// }, false);
-
-function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
+function renderNote(notes) {
   let allNotes = document.getElementById('innerSideBar');
   let note = document.createElement('div');
   let title = document.createElement('p');
@@ -254,7 +222,6 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
   note.setAttribute('id', notes.id)
   note.appendChild(preview);
   note.insertBefore(title, preview);
-  //note.addEventListener('click', swapNote);
   title.innerHTML += notes.title;
   preview.innerHTML += notes.preview;
   if (noteList.filter(note => note.id == notes.id).length < 1) {
@@ -263,21 +230,18 @@ function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar 
     allNotes.appendChild(note)
   }
 
-  //allNotes.insertBefore(note, topOfList); //.nextsibling
-  //console.log(allNotes.children[1]);
   note.addEventListener('click', swapNote);
-  displayDate(notes); // visar datum och tid i anteckningen
+  displayDate(notes);
   createFavouriteButton(note, notes);
   createDeletedButton(note, notes);
   textUpdate(notes);
 };
 
-function createDeletedButton(note, notes) { //funktion som skapar en delete-knapp. Kallas i renderNote.
+function createDeletedButton(note, notes) {
   let button = document.createElement('button');
   let date = note.querySelector('.pDate')
   let img = document.createElement('img');
   button.className = 'del-button-note';
-  // button.setAttribute('onclick', 'deleteNote(' + notes.id + ')');
   if (notes.deleted == true) {
     img.src = 'img/delete-fill.svg';
   } else {
@@ -288,12 +252,11 @@ function createDeletedButton(note, notes) { //funktion som skapar en delete-knap
   button.appendChild(img);
 };
 
-function createFavouriteButton(note, notes) { //funktion som skapar en favorite-knapp. Kallas i renderNote.
+function createFavouriteButton(note, notes) {
   let button = document.createElement('button');
   let date = note.querySelector('.pDate')
   let img = document.createElement('img');
   button.id = 'fav-button-note';
-  // button.setAttribute('onclick', 'favouriteNote(' + notes.id + ')');
   if (notes.favourite == true) {
     img.src = "img/star-fill.svg";
   } else {
@@ -304,14 +267,12 @@ function createFavouriteButton(note, notes) { //funktion som skapar en favorite-
   button.appendChild(img);
 };
 
-function loadNotes() { // laddar local storage. 
+function loadNotes() {
   let data = localStorage.getItem('note');
   if (data) {
     noteList = JSON.parse(data);
   } else {
-    //console.log('localstorage empty')
-    //  createQuillTemplate();
-    firstPopup(); //so the help popup only auto-renders when notelist is empty. 
+    firstPopup();
   };
 };
 
@@ -324,7 +285,7 @@ function firstPopup() {
 };
 
 
-function saveNotes() { // sparar i local Storage
+function saveNotes() {
   localStorage.setItem('note', JSON.stringify(noteList));
 };
 
@@ -332,57 +293,17 @@ function saveNotes() { // sparar i local Storage
 quill.on('text-change', autoUpdate);
 
 
-function autoUpdate() { //uppdaterar selectedNote på text-change. 
+function autoUpdate() {
   var data = quill.getContents();
   if (selectedNote) {
     selectedNote.data = data;
     let s = quill.getText().split("\n");
     selectedNote.title = s[0];
-    //console.log("P count: "+s[0].length);
     selectedNote.preview = s[1];
     textUpdate(selectedNote);
     saveNotes();
   };
 };
-
-/* function update() { //uppdaterar selectedNote på text-change. 
-  var data = quill.getContents();
-  if (selectedNote) {
-    selectedNote.data = data;
-    selectedNote.preview = quill.getText(25, 60);
-    selectedNote.title = quill.getText(0, 25);
-    //note.innerHTML += selectedNote.preview;
-    updatePreview();
-    updateTitle()
-    saveNotes();
-  };
-}; */
-
-/* function updatePreview(note) { //uppdaterar objektets preview. 
-  note = document.querySelector(`div[id="${selectedNote.id}"]`);
-  let dots = "..."
-  //console.log(note.childNodes)
-  note.childNodes[1].innerHTML = selectedNote.preview + dots;
-}; */
-
-/* function updateTitle(note) { //uppdaterar titlen
-  note = document.querySelector(`div[id="${selectedNote.id}"]`);
-  let dots = "..."
-  note.childNodes[0].innerHTML = selectedNote.title + dots;
-}; */
-
-
-/* function activeNote(targetNote) {
-  selectedNote = targetNote;
-  if (typeof selectedNote != "undefined") {
-    var noteDiv = document.getElementById(selectedNote.id);
-    if (noteDiv != null) {
-      noteDiv.style.backgroundColor = "whitesmoke"; //styling så du ser vilken du valt, bör ändras
-      noteDiv.style.borderLeft = "7px solid darkcyan";
-      quill.setContents(selectedNote.data);
-    };
-  };
-}; */
 
 function activeNote(targetNote) {
   selectedNote = targetNote;
@@ -403,15 +324,8 @@ function setHighlight(targetID) {
   }
 };
 
-function swapNote(event) {   //click funktion- när man klickar på en anteckningen syns det man skrivit i quillen
-  //console.log(document.getElementById(event.target.id).innerHTML); //de här raderna har buggar
-  //console.log(Id2Object(event.target.id).data); //samma här, buggar
+function swapNote(event) {
   var targetNote = Id2Object(event.target.closest("div").id);
-  //console.log(targetNote);
-  // if (event.target.classList.contains('del-icon-note')) { //Borttagen pga den nya eventlistenern (??)
-  //   console.log(event.target)
-  //   event.target.closest('div').remove();
-  // };
 
   if (typeof targetNote != "undefined") {
     if (targetNote != selectedNote) {
@@ -422,17 +336,10 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
 
       } else {
         activeNote(targetNote);
-        //console.log(targetNote + "in swapnote")
-        //console.log("activenote in swapnote ran")
       }
     }
   } else console.log("For some reason, event was undefined. (Swapnote-function)");
 };
-
-// let addNoteButton = document.querySelector('.addNote');
-// addNoteButton.onclick = function () {
-//   addNote();
-// };
 
 function renderAllNotes() {
   let innerSideBar = document.querySelector('#innerSideBar');
@@ -441,7 +348,6 @@ function renderAllNotes() {
   for (let i = 0; i < noteList.length; i++) {
     if (noteList[i].deleted === false)
       renderNote(noteList[i]);
-    //console.log(noteList[i]);
   };
   let a = defaultArray();
   a.forEach(function (n) {
@@ -490,17 +396,14 @@ function renderSearchedNotes() {
   foundArray.forEach(function (term) {
     renderNote(term);
   });
-  //console.log(foundArray[0])
   activeNote(event.target.closest("div").id);
 };
 
 function enableSearch() {
   textSearch = document.querySelector('#searchInput');
   textSearch.addEventListener('input', (event) => {
-    //console.log("yo")
     searchString = textSearch.value.toLowerCase();
     renderSearchedNotes();
-    //console.log(searchString)
   });
   textSearch.focus();
 };
@@ -508,7 +411,7 @@ enableSearch();
 
 
 function addNote() {
-  let notes = {    //objekt som skapas. Innehåller ID , data (texten), och andra properties vi behöver senare. ett objekt = en anteckning.
+  let notes = {
     id: Date.now(),
     title: "",
     preview: "",
@@ -519,10 +422,8 @@ function addNote() {
   renderNote(notes);
   noteList.unshift(notes);
   activeNote(notes);
-  //console.log(notes.id);
   firstNote();
   saveNotes();
-  //renderAllNotes();
 };
 
 function firstNote() {
@@ -532,7 +433,7 @@ function firstNote() {
 };
 
 function deleteSelectedNote(id) {
-  var toDelete = document.getElementById(id);//spar anteckningen i en variabel
+  var toDelete = document.getElementById(id);
   var i;
   var index;
   for (i = 0; i < noteList.length; i++) {
@@ -543,15 +444,13 @@ function deleteSelectedNote(id) {
   };
   noteList.splice(index, 1);
   if (toDelete == document.getElementById(selectedNote.id)) {
-    setActiveNote(noteList[0]); //fixes utifall att du tar bort active note
-    //console.log("removed selected");
+    setActiveNote(noteList[0]);
   };
-  toDelete.parentNode.removeChild(toDelete);//tar bort anteckningen 
+  toDelete.parentNode.removeChild(toDelete);
   saveNotes();
 };
 
 var showBtn = document.getElementById("showHideBtn");
-//showBtn.onclick = function () { showHideFunction() };
 function showHideFunction() {
   var sideNav = document.querySelector("#sideNav");
   if (sideNav.style.display === "block") {
@@ -561,11 +460,11 @@ function showHideFunction() {
   };
 };
 
-let modal = document.getElementById("myModal"); // första diven 
-let btn = document.getElementById("helpBtn"); // Get the button that opens the modal
-let span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
+let modal = document.getElementById("myModal");
+let btn = document.getElementById("helpBtn");
+let span = document.getElementsByClassName("close")[0];
 let body = document.body;
-btn.onclick = function () {  // When the user clicks the button, open the modal 
+btn.onclick = function () {
   modal.style.display = "block";
   body.classList.toggle("backgroundBlur");
 };
@@ -578,13 +477,9 @@ window.addEventListener("click", function (event) {
 
 
 printDiv = function () {
-  // let printContents = quill.root.innerHTML;
-  // document.body.innerHTML = printContents;
   window.print();
-  // location.reload();
 };
 
-//DISPLAYA NÄR ANTECKNINGEN SKAPADES | se efter setContent och getContent
 function displayDate(notes) {
   let note = document.querySelector(`div[id = "${notes.id}"]`);
   var d = new Date(notes.id);
@@ -595,15 +490,12 @@ function displayDate(notes) {
   pDateId.innerHTML = date;
 };
 
-
-////////// FAVOURITE BUTTONS ////////////
 favouriteButton = document.querySelector("#favouriteBtn");
 favouriteButton.addEventListener('click', toggleFavouriteButton);
 
 const showFavourites = (note) => note.favourite === true;
 
 function favouriteNote(id) {
-  //let button = document.querySelector('#fav-button-note');
   let img = event.target;
   let note = Id2Object(id);
   note.favourite = !note.favourite;
@@ -622,7 +514,7 @@ function favouriteNote(id) {
   saveNotes();
 };
 
-function toggleFavouriteButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
+function toggleFavouriteButton() {
   favouriteButton.classList.toggle("favActive");
   favouriteMode = !favouriteMode;
 
@@ -635,8 +527,6 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
       textUpdate(n);
     });
   } else {
-    //noteList.filter(note => note.favourite === false && note.deleted === false).forEach(renderNote);
-    //noteList.filter(note => !note.deleted).forEach(renderNote);
     renderAllNotes();
   }
 };
@@ -654,13 +544,11 @@ function showOnlyFavourites() {
   };
 };
 
-////////// DELETED BUTTON ////////////
 deletedButton = document.querySelector("#deletedBtn");
 deletedButton.addEventListener('click', toggleDeletedButton);
 const showDeleted = (note) => note.deleted === true;
 
 function deleteNote(id) {
-  //let button = document.querySelector('#fav-button-note');
   let img = event.target;
   let note = Id2Object(id);
   note.deleted = !note.deleted;
@@ -672,13 +560,12 @@ function deleteNote(id) {
   saveNotes();
 };
 
-function toggleDeletedButton() { //funktion som endast visar anteckningar som har favourite.true. Ej klar än.
+function toggleDeletedButton() {
   deletedButton.classList.toggle("delActive");
   deletedMode = !deletedMode;
 
   if (favouriteMode) { favouriteButton.classList.toggle("favActive"); }
   favouriteMode = false;
-  //star.classList.toggle("starActive");
   if (deletedButton.classList.contains('delActive')) {
     showOnlyDeleted();
     let a = deletedArray();
@@ -686,9 +573,6 @@ function toggleDeletedButton() { //funktion som endast visar anteckningar som ha
       textUpdate(n);
     });
   } else {
-    //console.log(noteList.forEach(noteList.deleted));
-    //noteList.filter(note => note.favourite === false && note.deleted === false).forEach(renderNote);
-    //noteList.filter(note => note.deleted === false).forEach(renderNote);
     renderAllNotes();
   };
 };
@@ -706,61 +590,17 @@ function showOnlyDeleted() {
   };
 };
 
-//////////////////////
-
-
-//Mall i quill (Malin)
-// function createQuillTemplate() {
-//   let toolbar = document.getElementsByClassName("ql-toolbar")[0]
-//   let template = document.createElement("span");
-//   template.className = "ql-formats";
-//   var templateButton = document.createElement("button");
-//   templateButton.textContent = "Mall2";
-//   template.appendChild(templateButton);
-//   templateButton.className = "ql-picker-label";
-//   toolbar.appendChild(template);
-//   templateButton.addEventListener('click', formTemplate)
-// };
-
-// function formTemplate() {
-//   quill.setSelection(0, quill.getLength());
-//   quill.format('underline', true);
-//   quill.format('align', 'center');
-//   quill.format('color', 'red');
-//   quill.format('list', 'ordered');
-//   quill.format('size', 'large');
-//   quill.format('backgroundcolor', 'beige');
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////Dark mode moon moonBtn
-////////// DELETED BUTTON ////////////
 darkModeButton = document.querySelector(".darkmode");
 darkModeButton.addEventListener('click', toggleDarkMode);
 
 function setDarkMode() {
-  //console.log("dm mode:" +darkMode);
-
-  let darkArray = ["body" ,"#innerSideBar" ,"#editor-container" ,".searchNotes" ,"#searchInput" ,".ql-stroke" ,"#sideNav" ,"#toggleNotes"];
+  let darkArray = ["body", "#innerSideBar", "#editor-container", ".searchNotes", "#searchInput", ".ql-stroke", "#sideNav", "#toggleNotes"];
   if (darkMode == false) {
-    //console.log("true"+darkMode);
     darkArray.forEach(function (obj) {
       document.querySelector(obj).classList.add("dark");
     });
   }
   else {
-    //console.log("false"+darkMode);
     darkArray.forEach(function (obj) {
       document.querySelector(obj).classList.remove("dark");
     });
@@ -773,7 +613,6 @@ function toggleDarkMode() {
 
   setDarkMode();
 }
-
 
 window.onresize = function () {
 
@@ -800,10 +639,7 @@ window.onresize = function () {
     text.style.position.fixed;
 
     if (width <= 500) {
-      // quireLogo.appendChild(btn);
-      // btn.setAttribute("click", toggleInnersidebar)
       sidebar.style.z = "1";
-
     }
   }
 

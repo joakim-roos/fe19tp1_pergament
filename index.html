@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Free editor">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Quire</title>
@@ -13,9 +14,6 @@
 </head>
 
 <body>
-    <!-- <section>
-
-    </section> -->
     <nav class="sideBar">
 
         <button id="showHideBtn">
@@ -24,12 +22,10 @@
 
         <div id="sideNav">
             <button id="toggleNotes" form="button" onclick="toggleInnersideBar()">
-            <div class="quireLogo">
-                <img src="img/quire-logo.svg" class="quireLogoSvg" alt="Quire Logo">
-            </div>
+                <div class="quireLogo">
+                    <img src="img/quire-logo.svg" class="quireLogoSvg" alt="Quire Logo">
+                </div>
             </button>
-
-            <!-- En "container" till vänster för de olika knapparna -->
             <div class="sidenavbuttons">
                 <button id="favouriteBtn" form="button">
                     <img src="img/star.svg" class="fav-icon" alt="Favourites">
@@ -47,13 +43,10 @@
                     <img src="img/print.svg" class="print-icon" alt="Print">
                     <div class="button-text print-self-text">Print</div>
                 </button>
-                <!-- <button id="darkmodeBtn" form="button"> -->
-                <!-- <img src="img/moon-solid.svg" class="darkMode-icon" alt="Dark mode"> -->
                 <label class="switch">
                     <input type="checkbox" class="darkmode">
                     <span class="slider round"></span>
                 </label>
-                <!-- <div class="button-text darkmode-self-text">Dark Mode</div> -->
                 </button>
             </div>
         </div>
@@ -71,7 +64,7 @@
         </div>
     </section>
     <span class="editor">
-        <div id="editor-container" class="printableArea editor"></div> <!-- QUILL JS CONTAINER -->
+        <div id="editor-container" class="printableArea editor"></div>
     </span>
 
     <div id="myModal" class="modal">
