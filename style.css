@@ -85,6 +85,7 @@ display: flex;
 flex-direction: column;
 margin-top: 50px;
 }
+
 #helpBtn {
 border: none;
 outline: none;
@@ -120,6 +121,89 @@ height: 20px;
 }
 .print-self-text {
 padding-top: 2px;
+}
+
+.darkMode-icon {
+  height: 17px;
+}
+
+#darkmodeBtn {
+  height: 39px;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  padding: 10px 10px 10px 3px;
+  background: rgb(59, 60, 65);
+}
+
+#darkmodeBtn:hover {
+  background-color: darkcyan;
+}
+
+.darkmode-self-text {
+  margin-top: 1px;
+}
+
+.switch {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  display: inline-block;
+  width: 48px;
+  height: 22px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(225, 225, 225, 0.85);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: darkcyan;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px darkcyan;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 #favouriteBtn {
@@ -169,10 +253,6 @@ background-color: darkcyan !important;
 }
 .del-self-text {
 margin-top: 2px;
-}
-
-.darkMode-icon {
-  height: 16px;
 }
 
 .noteSection {
@@ -499,7 +579,7 @@ and (max-width: 1024px) {
 body {
   display: grid;
   grid-template-rows: 20% 70% 1fr;
-  grid-template-columns: 26.5% 74%;
+  grid-template-columns: 220px 74%;
   margin: 0 auto;
 }
 
@@ -507,22 +587,24 @@ body {
   display: flex;
   grid-column: 1/2;
   grid-row: 3;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   height: 50px;
   width: 100vw;
 }
 
 .sidenavbuttons{
   margin-top: 0px;
+  align-content: center;
 }
+
 
 .noteSection{
   grid-row: 1/2;
   grid-column: 1;
-  border: 1px solid red;
-  width: 200px;
+  /* border: 1px solid red; */
+  width: 220px;
 }
 
 #editor-container{
@@ -550,8 +632,8 @@ border-right: none;
   grid-row: 2;
   grid-template-columns: 1;
   grid-template-rows: repeat();
-  border: 1px solid red;  
-  width: 200px;
+  /* border: 1px solid red;   */
+  width: 220px;
   grid-gap: 0;
 
 /*   display: flex;
@@ -565,11 +647,22 @@ overflow-x: hidden;
 margin: 0px; */
 }
 
+.quireLogo {
+display: flex;
+justify-content: space-around;
+padding-top: 8px;
+padding-left: 8px;
+}
+
+.quireLogoSvg {
+height: 35px;
+}
+
 .ql-toolbar.ql-snow {
   border-left:none !important;
   border-top:none !important;
   border-right: none !important;
-  height: 88px;
+  height: 60px;
   grid-row: 1;
   grid-column: 2;
 }
@@ -586,33 +679,33 @@ transition: background-color 100ms linear;
 border-bottom: 1px solid grey;
 }
 
-.editor{
+.editor {
   grid-row: 1;
   grid-column: 2;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   /* display: flex;
   flex-direction: row; */
   /* flex-wrap: wrap; */
 }
 
-.searchNotes{
-  border: 1px solid red;
+.searchNotes {
   /* display: grid; */
   grid-row: 1;
   grid-column: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  height: 42px;
-  width: 200px;
+  height: 59px;
+  width: 220px;
   border-bottom: solid lightgrey 1px;
 }
 
-#searchInput{
-  width: 90px;
+#searchInput {
+  width: 140px;
   padding: 0;
-  margin-left: 8px;
-  margin-top: 8px;
+  margin-left: 15px;
+  margin-top: 18px;
+  padding-left: 10px;
 /* 
 -moz-appearance: none;
 -webkit-appearance: none;
@@ -622,22 +715,23 @@ height: 26px;
 border-radius: 6px;
 margin-left: 18px;
 margin-top: 8px;
-padding-left: 15px;
+
 padding-right: 6px;
 border: 1px solid rgb(153, 152, 152); 
 outline: none;
 background-color: whitesmoke; */
 }
 
-.addNote{
+.addNote {
     display: flex;
     justify-content: right;
+    margin-left: 20px;
     /* border: 1px solid red; */
     display: grid; 
     grid-row: 1;
     grid-column: 1;
+    margin-top: 16px;
     /* padding-right: 60px; */
-
   }
   
 .selected {
@@ -647,6 +741,33 @@ background-color: whitesmoke; */
 
 .pDate{
   width: 150px;
+}
+
+#deletedBtn {
+height: 50px;
+padding: 12px 25px 10px 0px;
+width: 115px; 
+}
+
+#helpBtn {
+  height: 50px;
+  padding-top: 12px;
+  width: 115px;
+}
+.button-text {
+  margin-left: 14px;
+}
+
+#printBtn {
+  height: 50px;
+  padding-top: 12px;
+}
+
+.switch {
+  left: 60px;
+  display: inline-block;
+  width: 48px;
+  height: 22px;
 }
 
 .notePreview {

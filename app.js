@@ -211,7 +211,7 @@ function NoteData2HTML(noteObj) { //används ej, men radera inte!
 
 window.addEventListener('DOMContentLoaded', () => {
 
-  darkMode=(localStorage.getItem("darkmode") || false)==="true";
+  darkMode = (localStorage.getItem("darkmode") || false) === "true";
   setDarkMode();
 
   loadNotes();
@@ -826,22 +826,22 @@ function showOnlyDeleted() {
 
 ///////////Dark mode moon moonBtn
 ////////// DELETED BUTTON ////////////
-darkModeButton = document.querySelector("#darkmodeBtn");
+darkModeButton = document.querySelector(".darkmode");
 darkModeButton.addEventListener('click', toggleDarkMode);
 
-function setDarkMode(){
+function setDarkMode() {
   //console.log("dm mode:" +darkMode);
 
 
-  let darkArray=["body"];
+  let darkArray = ["body"];
 
-  if(darkMode==true){
+  if (darkMode == true) {
     //console.log("true"+darkMode);
     darkArray.forEach(function (obj) {
       document.querySelector(obj).classList.add("dark");
     });
   }
-  else{
+  else {
     //console.log("false"+darkMode);
     darkArray.forEach(function (obj) {
       document.querySelector(obj).classList.remove("dark");
@@ -849,9 +849,9 @@ function setDarkMode(){
   }
 }
 
-function toggleDarkMode(){
-  darkMode=!darkMode;
-  localStorage.setItem("darkmode",darkMode);
+function toggleDarkMode() {
+  darkMode = !darkMode;
+  localStorage.setItem("darkmode", darkMode);
 
   setDarkMode();
 
