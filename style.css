@@ -11,6 +11,11 @@ font-family: 'Raleway', sans-serif;
 overflow-y: hidden;
 display: flex;
 }
+body.dark {
+  background-color: rgb(0, 0, 0);
+}
+
+
 
 #editor-container {
 padding-top: 20px;
@@ -163,6 +168,10 @@ background-color: darkcyan !important;
 }
 .del-self-text {
 margin-top: 2px;
+}
+
+.darkMode-icon {
+  height: 16px;
 }
 
 .noteSection {

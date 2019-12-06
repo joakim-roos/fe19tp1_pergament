@@ -22,6 +22,7 @@ let searchString = "";
 var favouriteMode = false;
 var deletedMode = false;
 var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
+var darkMode;
 /* sideBar = document.addEventListener('click', (event.target) => {
   //if statements for each button in innersidebar, event.target.contains('knappis')
 }); */
@@ -209,6 +210,10 @@ function NoteData2HTML(noteObj) { //används ej, men radera inte!
 
 
 window.addEventListener('DOMContentLoaded', () => {
+
+  darkMode=(localStorage.getItem("darkmode") || false)==="true";
+  setDarkMode();
+
   loadNotes();
   if (noteList.length > 0) {
     //console.log(noteList);
@@ -804,3 +809,48 @@ function showOnlyDeleted() {
 //   quill.format('size', 'large');
 //   quill.format('backgroundcolor', 'beige');
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////Dark mode moon moonBtn
+////////// DELETED BUTTON ////////////
+darkModeButton = document.querySelector("#darkmodeBtn");
+darkModeButton.addEventListener('click', toggleDarkMode);
+
+function setDarkMode(){
+  //console.log("dm mode:" +darkMode);
+
+
+  let darkArray=["body"];
+
+  if(darkMode==true){
+    //console.log("true"+darkMode);
+    darkArray.forEach(function (obj) {
+      document.querySelector(obj).classList.add("dark");
+    });
+  }
+  else{
+    //console.log("false"+darkMode);
+    darkArray.forEach(function (obj) {
+      document.querySelector(obj).classList.remove("dark");
+    });
+  }
+}
+
+function toggleDarkMode(){
+  darkMode=!darkMode;
+  localStorage.setItem("darkmode",darkMode);
+
+  setDarkMode();
+
+}
