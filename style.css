@@ -39,10 +39,6 @@ background-color: rgb(240, 240, 240);
 border-right: none;
 }
 
-/* background: #ECE9E6; */  /* fallback for old browsers */
-/* background: -webkit-linear-gradient(to left, #FFFFFF, #ECE9E6); */  /* Chrome 10-25, Safari 5.1-6 */
-/* background: linear-gradient(to left, #FFFFFF, #ECE9E6); */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 .ql-editor::before {
  padding-left: 120px;
 } 
@@ -88,7 +84,7 @@ box-sizing: border-box;
 .quireLogo {
 display: flex;
 justify-content: space-around;
-padding-top: 12px;
+padding-top: 0px;
 }
 .quireLogoSvg {
 height: 82px;
@@ -534,37 +530,6 @@ outline: none;
 }
 
 
-
-/* @media only screen 
-and (min-width: 375px)
-and (max-width: 812px) {
-  #showHideBtn {
-    display: inline-block;
-  }
-  .sideBar {
-        display: none;
-  }
-  #leftSection {
-    display: none;
-  }
-
-#editor-container {
-padding-top: 20px;
-padding-left: 20px;
-padding-right: 20px;
-height: 85vh;
-width: 100vw;
-background-color: rgb(240, 240, 240);
-border-right: none;
-}
-.editor {
-  position: absolute;
-  top: 50px;
-}
-} */
-
-
-
 @media print {
   @page { 
     margin: 0;
@@ -590,15 +555,7 @@ border-right: none;
   width: 100%;
   float: none;
 }
-
 }
-
-/* @media only screen 
-and (min-device-width : 375px) 
-and (max-device-width : 812px)
-and (-webkit-device-pixel-ratio : 3) {
-}
- */
 
 @media screen 
 and (min-width: 100px) 
@@ -629,9 +586,18 @@ body {
   z-index: 1;
 }
 
+#toggleNotes .quireLogo {
+padding-top: 8px;
+padding-left: 8px;
+position: fixed;
+left: 0px; 
+bottom: 5px;
+}
+
 .sidenavbuttons{
   margin-top: 0px;
   align-content: center;
+  width: 800px;
 }
 
 .noteSection{
@@ -661,7 +627,7 @@ body {
   grid-template-columns: 1;
   grid-template-rows: repeat();
   width: 220px;
-  height: 90vh;
+  height: 86vh;
   grid-gap: 0;
 }
 
@@ -726,32 +692,17 @@ border-bottom: 1px solid grey;
   margin-left: 15px;
   margin-top: 18px;
   padding-left: 10px;
-/* 
--moz-appearance: none;
--webkit-appearance: none;
-appearance: none;
-width: 170px;
-height: 26px;
-border-radius: 6px;
-margin-left: 18px;
-margin-top: 8px;
 
-padding-right: 6px;
-border: 1px solid rgb(153, 152, 152); 
-outline: none;
-background-color: whitesmoke; */
 }
 
 .addNote {
     display: flex;
     justify-content: right;
     margin-left: 20px;
-    /* border: 1px solid red; */
     display: grid; 
     grid-row: 1;
     grid-column: 1;
     margin-top: 16px;
-    /* padding-right: 60px; */
   }
   
 .selected {
@@ -783,14 +734,10 @@ width: 115px;
   padding-top: 12px;
   }
 
-/* .quireLogo{
-  width: 25px;
-  justify-content: flex-start;
-} */
-
 .switch {
+  position: fixed;
   bottom: 13px;
-  left: 92vw;
+  left: 90vw;
   display: inline-block;
   width: 48px;
   height: 22px;
@@ -804,8 +751,10 @@ and (max-width: 500px) {
   .noteSection {
     z-index: 1;
   }
-
-  .editor{
+  .sideBar, #sideNav, .sidenavbuttons{
+    z-index: 1;
+  }
+  .editor {
     grid-column: 1/2 !important;
   }
 
@@ -818,16 +767,23 @@ and (max-width: 500px) {
    
   }
   
-  #ql-editor{
+  .ql-editor{
     grid-column: 1/2;
     grid-row: 1/2;
+    width: 100vw;
+    height: 100vh;
   }
+
+  .ql-editor::before {
+  padding-left: 0px;
+  } 
 
   .ql-toolbar.ql-snow {
     border-left:none !important;
     border-top:none !important;
     border-right: none !important;
     height: 60px;
+    width: 100vw;
     grid-row: 1;
     grid-column: 1/2 !important;
   }
@@ -853,5 +809,19 @@ padding: 15px;
 .switch {
 left: 80vw;
 }
+
+#toggleNotes .quireLogo {
+padding-top: 8px;
+padding-left: 8px;
+position: fixed;
+left: 0px; 
+bottom: 5px;
+}
+
+.sidenavbuttons {
+  margin: 0;
+  width: 200px;
+}
+
 
 }

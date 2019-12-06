@@ -5,11 +5,11 @@ FE19 Team Project 1.
 https://trello.com/invite/teampergament/bc26d0f282b889006d70bf850c1f27c5
 
 ### Contributors: 
-Elin Desta - 
-Fabian Thoma - https://github.com/fabbethoma
-Jakob Silvmark - 
-Joakim Roos - https://github.com/joakim-roos
-Malin Dufva-Hjerpe - https://github.com/mlndh/Malin-DH.git
+-   Elin Desta - 
+-   Fabian Thoma - https://github.com/fabbethoma
+-   Jakob Silvmark - 
+-   Joakim Roos - https://github.com/joakim-roos
+-   Malin Dufva-Hjerpe - https://github.com/mlndh/Malin-DH.git
 
 
 ### What is quire? 
@@ -29,12 +29,12 @@ https://github.com/quilljs/quill
 -   Help-button
 -   Add pictures
 -   Change font sizes and font styles
--   Dark mode!
+-   Dark mode (in progress)
 
 
 ### Upcoming Features: 
 -   Permanently delete notes
--   Responsitivity on all mobile devices
+-   Responsitivity on all mobile devices (in progress)
 -   Themes!
 -   More fonts!
 
@@ -42,7 +42,4 @@ https://github.com/quilljs/quill
 ### How: 
 This app doesn't need a manual for anyone to get you writing down your notes. The app saves automatically on every key-press in the editor so you never have to remember where that save-button is located on your screen. 
 
-If you, for any reason, need a helping hand - the help button is there to assist. 
-
-
-![alt text](img/quill-SC.png)
+If you, for any reason, need a helping hand - the help button is there to assist you. 

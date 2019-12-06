@@ -23,14 +23,8 @@ var favouriteMode = false;
 var deletedMode = false;
 var tempCont = document.createElement("div"); //temporär icke-existerande div för quill2HTML
 var darkMode;
-/* sideBar = document.addEventListener('click', (event.target) => {
-  //if statements for each button in innersidebar, event.target.contains('knappis')
-}); */
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////FUNKTIONER/////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function Id2Object(n) {
   var i;
@@ -126,7 +120,6 @@ const SymbolHash = {
   Y: 16,
   Z: 18
 }
-
 
 
 function Symbol2Width(symbol) {
@@ -443,52 +436,25 @@ function swapNote(event) {   //click funktion- när man klickar på en antecknin
 
 function renderAllNotes() {
   let innerSideBar = document.querySelector('#innerSideBar');
-  // innerSideBar.innerHTML = `<div class="searchNotes">
-  //                   <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
-  //                   <button class="addNote">
-  //                       <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-  //                   </button>
-  //               </div>`;
-  // enableSearch();
   innerSideBar.innerHTML = ""
-  // let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  // addNoteButton.onclick = function () {
-  //   addNote();
-  // };
 
-  /* noteList.forEach(renderNote); */
   for (let i = 0; i < noteList.length; i++) {
     if (noteList[i].deleted === false)
       renderNote(noteList[i]);
     //console.log(noteList[i]);
-  }
-
+  };
   let a = defaultArray();
   a.forEach(function (n) {
     textUpdate(n);
   });
 
-
   let tempNote = a[0];
-  //console.log(defaultArray());
-  //console.log(tempNote);
   activeNote(tempNote);
 };
 
 function renderSearchedNotes() {
   let innerSideBar = document.querySelector('#innerSideBar');
-  // innerSideBar.innerHTML = `<div class="searchNotes">
-  //                   <input type="search" name="searchNote" placeholder="search notes..." id="searchInput" value="${searchString}" onfocus="this.selectionStart = this.selectionEnd = this.value.length;">
-  //                   <button class="addNote">
-  //                       <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-  //                   </button>
-  //               </div>`;
-  // enableSearch();
   innerSideBar.innerHTML = ""
-  // let addNoteButton = document.querySelector('.addNote'); //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  // addNoteButton.onclick = function () {
-  //   addNote();
-  // };
 
   if (favouriteMode) {
     favouriteButton.classList.toggle("favActive");
@@ -506,15 +472,11 @@ function renderSearchedNotes() {
   }
   else {
     for (let i = 0; i < noteList.length; i++) {
-      //console.log(noteList[i].data.ops)
       let ops = noteList[i].data.ops;
       for (let j = 0; j < ops.length; j++) {
         try {
           if (ops[j].insert.toLowerCase().includes(searchString)) {
-            //console.log("match found" + noteList[i].id)
             foundArray.push(noteList[i]);
-            //renderNote(noteList[i]);
-            //console.log(noteList[i]);
             break;
           }
         }
@@ -681,18 +643,7 @@ function toggleFavouriteButton() { //funktion som endast visar anteckningar som 
 
 function showOnlyFavourites() {
   let allNotes = document.querySelector('#innerSideBar');
-  // allNotes.innerHTML = `<div class="searchNotes">
-  //               <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
-  //               <button class="addNote">
-  //                   <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-  //               </button>
-  //           </div>`;
   allNotes.innerHTML = ""
-  // let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  // addNoteButton.onclick = function () {
-  //   addNote();
-  // };
-
   enableSearch()
 
   noteList.filter(note => note.favourite === true && note.deleted !== true).forEach(renderNote);
@@ -701,15 +652,6 @@ function showOnlyFavourites() {
   if (favArray.length > 0) {
     activeNote(favArray[0]);
   };
-
-  /*   let onlyFavs = filterNotes(showFavourites);
-  onlyFavs.forEach(function (note) {
-    renderNote(note);
-  });
-  function filterNotes(func = () => true) { //function som return true
-    let filtered = noteList.filter(func)
-    return filtered;
-  }; */
 };
 
 ////////// DELETED BUTTON ////////////
@@ -753,18 +695,7 @@ function toggleDeletedButton() { //funktion som endast visar anteckningar som ha
 
 function showOnlyDeleted() {
   let allNotes = document.querySelector('#innerSideBar');
-  // allNotes.innerHTML = `<div class="searchNotes">
-  //               <input type="search" name="searchNote" id="searchInput" placeholder="search notes..">
-  //               <button class="addNote">
-  //                   <img src="img/edit-regular.svg" class="addNoteSvg" alt="Add Note">
-  //               </button>
-  //           </div>`;
   allNotes.innerHTML = ""
-  // let addNoteButton = document.querySelector('.addNote');   //Tas bort och fixas när vi lägger till en global eventlisterner på innersidebar??
-  // addNoteButton.onclick = function () {
-  //   addNote();
-  // };
-
   enableSearch()
 
   noteList.filter(note => note.deleted === true).forEach(renderNote);
@@ -773,17 +704,6 @@ function showOnlyDeleted() {
   if (delArray.length > 0) {
     activeNote(delArray[0]);
   };
-  /* 
-    let onlyDeleted = filterNotes(showDeleted);
-    onlyDeleted.forEach(function (note) {
-      renderNote(note);
-    });
-  
-    function filterNotes(func = () => true) { //function som return true
-      //console.log(func(1));
-      let filtered = noteList.filter(func)
-      return filtered;
-    }; */
 };
 
 //////////////////////
@@ -855,52 +775,51 @@ function toggleDarkMode() {
 }
 
 
-window.onresize = function ()
-{
- 
-var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+window.onresize = function () {
 
-var quireLogo = document.querySelector(".quireLogo");
+  var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-
-var text = document.getElementById("favouriteBtn");
-var text1 = document.getElementById("deletedBtn");
-var text2 = document.getElementById("helpBtn");
-var text3 = document.getElementById("printBtn");
-
-var sidebar = document.querySelector(".noteSection");
+  var quireLogo = document.querySelector(".quireLogo");
 
 
-    if (width <= 550) {
-      text.innerHTML = '<img src="img/star.svg" class="fav-icon" alt="Favourites"><div class="button-text"></div>';
-      text1.innerHTML = '<img src="img/delete_outline-24px.svg" class="del-icon" alt="Deleted"> <div class="button-text del-self-text"></div>';
-      text2.innerHTML = '<img src="img/question.svg" class="help-icon" alt="Help"><div class="button-text"></div>';
-      text3.innerHTML = '<img src="img/print.svg" class="print-icon" alt="Print"> <div class="button-text print-self-text"></div>';
+  var text = document.getElementById("favouriteBtn");
+  var text1 = document.getElementById("deletedBtn");
+  var text2 = document.getElementById("helpBtn");
+  var text3 = document.getElementById("printBtn");
+
+  var sidebar = document.querySelector(".noteSection");
 
 
-      text.style.position.fixed;
+  if (width <= 550) {
+    text.innerHTML = '<img src="img/star.svg" class="fav-icon" alt="Favourites"><div class="button-text"></div>';
+    text1.innerHTML = '<img src="img/delete_outline-24px.svg" class="del-icon" alt="Deleted"> <div class="button-text del-self-text"></div>';
+    text2.innerHTML = '<img src="img/question.svg" class="help-icon" alt="Help"><div class="button-text"></div>';
+    text3.innerHTML = '<img src="img/print.svg" class="print-icon" alt="Print"> <div class="button-text print-self-text"></div>';
 
-      if (width <=500 ){
-        // quireLogo.appendChild(btn);
-        // btn.setAttribute("click", toggleInnersidebar)
-        sidebar.style.z = "1";
 
-      }
-    }
+    text.style.position.fixed;
 
-    else{
-      text.innerHTML = '<img src="img/star.svg" class="fav-icon" alt="Favourites"> <div class="button-text">Favourites</div>';
-      text1.innerHTML = '<img src="img/delete_outline-24px.svg" class="del-icon" alt="Deleted"><div class="button-text del-self-text">Deleted</div>';
-      text2.innerHTML = '<img src="img/question.svg" class="help-icon" alt="Help"><div class="button-text">Help</div>';
-      text3.innerHTML = '<img src="img/print.svg" class="print-icon" alt="Print"><div class="button-text print-self-text">Print</div>';
-    }
-      return;
-  }
+    if (width <= 500) {
+      // quireLogo.appendChild(btn);
+      // btn.setAttribute("click", toggleInnersidebar)
+      sidebar.style.z = "1";
 
-  function toggleInnersideBar(){
-    var sidebar = document.querySelector(".noteSection");
-    sidebar.classList.toggle("hidden");
-    if (sidebar.classList.contains("hidden")) {
-      sidebar.style.display = "column";
     }
   }
+
+  else {
+    text.innerHTML = '<img src="img/star.svg" class="fav-icon" alt="Favourites"> <div class="button-text">Favourites</div>';
+    text1.innerHTML = '<img src="img/delete_outline-24px.svg" class="del-icon" alt="Deleted"><div class="button-text del-self-text">Deleted</div>';
+    text2.innerHTML = '<img src="img/question.svg" class="help-icon" alt="Help"><div class="button-text">Help</div>';
+    text3.innerHTML = '<img src="img/print.svg" class="print-icon" alt="Print"><div class="button-text print-self-text">Print</div>';
+  }
+  return;
+}
+
+function toggleInnersideBar() {
+  var sidebar = document.querySelector(".noteSection");
+  sidebar.classList.toggle("hidden");
+  if (sidebar.classList.contains("hidden")) {
+    sidebar.style.display = "column";
+  }
+}
