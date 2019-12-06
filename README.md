@@ -5,7 +5,7 @@ FE19 Team Project 1.
 https://trello.com/invite/teampergament/bc26d0f282b889006d70bf850c1f27c5
 
 ### Contributors: 
--   Elin Desta - 
+-   Elin Desta - https://github.com/elindesta
 -   Fabian Thoma - https://github.com/fabbethoma
 -   Jakob Silvmark - 
 -   Joakim Roos - https://github.com/joakim-roos
