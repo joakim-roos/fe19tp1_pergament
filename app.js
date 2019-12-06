@@ -221,9 +221,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /////////////// EVENT LISTENER FÖR HELA LEFT-SECTION /////////////////
-const sideBarNotes = document.querySelector("#innerSideBar");
+const sideBarNotes = document.querySelector(".noteSection");
 sideBarNotes.addEventListener('click', function (event) {
   var targetNote = event.target.closest("div").id;
+
+  if (event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNote")) {
+    addNote();
+  }
   if (event.target.classList.contains("del-button-note") || event.target.classList.contains("del-icon-note")) {
     deleteNote(targetNote);
     event.target.closest('div').remove();
@@ -235,12 +239,10 @@ sideBarNotes.addEventListener('click', function (event) {
   }
 }, false);
 
-const searchNotes = document.querySelector('.searchNotes');
-searchNotes.addEventListener('click', function (event) {
-  if (event.target.classList.contains("addNoteSvg") || event.target.classList.contains("addNote")) {
-    addNote();
-  }
-}, false);
+// const searchNotes = document.querySelector('.searchNotes');
+// searchNotes.addEventListener('click', function (event) {
+
+// }, false);
 
 function renderNote(notes) { // obs notes är singular: ett noteobjekt //laddar en anteckning. 
   let allNotes = document.getElementById('innerSideBar');

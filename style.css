@@ -65,6 +65,7 @@ height: 100vh;
 width: 115px;
 z-index: 1;
 }
+
 .quireLogo {
 display: flex;
 justify-content: space-around;
@@ -418,7 +419,7 @@ outline: none;
 
 
 
-@media only screen 
+/* @media only screen 
 and (min-width: 375px)
 and (max-width: 812px) {
   #showHideBtn {
@@ -444,7 +445,7 @@ border-right: none;
   position: absolute;
   top: 50px;
 }
-}
+} */
 
 
 
@@ -481,4 +482,172 @@ and (max-device-width : 812px)
 and (-webkit-device-pixel-ratio : 3) {
 }
  */
+
+@media screen 
+and (min-width: 768px) 
+and (max-width: 1024px) {
+
+body {
+  display: grid;
+  grid-template-rows: 20% 70% 1fr;
+  grid-template-columns: 26.5% 74%;
+  margin: 0 auto;
+}
+
+.sideBar, #sideNav, .sidenavbuttons{
+  display: flex;
+  grid-column: 1/2;
+  grid-row: 3;
+  border: 1px solid red;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 50px;
+  width: 100vw;
+}
+
+.sidenavbuttons{
+  margin-top: 0px;
+}
+
+.noteSection{
+  grid-row: 1/2;
+  grid-column: 1;
+  border: 1px solid red;
+  width: 200px;
+}
+
+#editor-container{
+  grid-row: 2;
+  grid-column: 3;
+  height: 90vh;
+  padding: 0px;
+  /*
+  padding-top: 20px;
+padding-left: 120px;
+height: 100vh;
+
+background-color: rgb(240, 240, 240);
+border-right: none;
+}*/
+}
+
+#ql-editor{
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#innerSideBar{
+  grid-column: 1;
+  grid-row: 2;
+  grid-template-columns: 1;
+  grid-template-rows: repeat();
+  border: 1px solid red;  
+  width: 200px;
+  grid-gap: 0;
+
+/*   display: flex;
+flex-direction: column;
+background-color: rgb(240, 240, 240);
+height: 100vh;
+width: 252px;
+border: none;
+overflow-y: auto;
+overflow-x: hidden;
+margin: 0px; */
+}
+
+.ql-toolbar.ql-snow {
+  border-left:none !important;
+  border-top:none !important;
+  border-right: none !important;
+  height: 88px;
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.note {
+flex-shrink: 0;
+color: black;
+display: block;
+height: 100px;
+background-color: rgb(233, 233, 233);
+border-left: 7px solid rgb(233, 233, 233);
+user-select: none;
+transition: background-color 100ms linear;
+border-bottom: 1px solid grey;
+}
+
+.editor{
+  grid-row: 1;
+  grid-column: 2;
+  border: 1px solid red;
+  /* display: flex;
+  flex-direction: row; */
+  /* flex-wrap: wrap; */
+}
+
+.searchNotes{
+  border: 1px solid red;
+  /* display: grid; */
+  grid-row: 1;
+  grid-column: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 42px;
+  width: 200px;
+  border-bottom: solid lightgrey 1px;
+}
+
+#searchInput{
+  width: 90px;
+  padding: 0;
+  margin-left: 8px;
+  margin-top: 8px;
+/* 
+-moz-appearance: none;
+-webkit-appearance: none;
+appearance: none;
+width: 170px;
+height: 26px;
+border-radius: 6px;
+margin-left: 18px;
+margin-top: 8px;
+padding-left: 15px;
+padding-right: 6px;
+border: 1px solid rgb(153, 152, 152); 
+outline: none;
+background-color: whitesmoke; */
+}
+
+.addNote{
+    display: flex;
+    justify-content: right;
+    /* border: 1px solid red; */
+    display: grid; 
+    grid-row: 1;
+    grid-column: 1;
+    /* padding-right: 60px; */
+
+  }
+  
+.selected {
+  background-color: whitesmoke; 
+  border-left: 7px solid darkcyan;
+}
+
+.pDate{
+  width: 150px;
+}
+
+.notePreview {
+  
+}
+.noteTitle {
+
+}
+
+
+
+}
 
