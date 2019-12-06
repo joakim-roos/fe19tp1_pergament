@@ -1,7 +1,6 @@
 *{
   margin: 0; 
   padding: 0;
-
 }
 
 body {
@@ -10,12 +9,18 @@ margin: 0;
 font-family: 'Raleway', sans-serif;
 overflow-y: hidden;
 display: flex;
+transition: 0.5s ease;
 }
+
+.dark{
+  transition: 0.4s ease;
+  background-color:rgb(0, 0, 0);
+}
+
 body.dark {
-  background-color: rgb(0, 0, 0);
+  /* transition: 0.4s ease;
+  background-color: rgb(0, 0, 0); */
 }
-
-
 
 #editor-container {
 padding-top: 20px;
@@ -69,6 +74,7 @@ background: rgb(59, 60, 65);
 height: 100vh;
 width: 115px;
 z-index: 1;
+box-sizing: border-box;
 }
 
 .quireLogo {
@@ -273,8 +279,11 @@ border: none;
 overflow-y: auto;
 overflow-x: hidden;
 margin: 0px;
-
 }
+
+#innerSideBar.dark{
+}
+
 #leftSection {
 display: flex;
 flex-direction: column;
@@ -563,6 +572,7 @@ border-right: none;
   width: 100%;
   float: none;
 }
+
 }
 
 /* @media only screen 
@@ -573,23 +583,25 @@ and (-webkit-device-pixel-ratio : 3) {
  */
 
 @media screen 
-and (min-width: 768px) 
-and (max-width: 1024px) {
+and (min-width: 360px) 
+and (min-height: 360px)
+and (max-height: 1024px)
+and (max-width: 1024px)  {
 
 body {
   display: grid;
-  grid-template-rows: 20% 70% 1fr;
-  grid-template-columns: 220px 74%;
-  margin: 0 auto;
+  grid-template-rows: 20% 68% 1fr;
+  grid-template-columns: 220px auto;
+  margin: 0 0;
 }
 
 .sideBar, #sideNav, .sidenavbuttons{
-  display: flex;
   grid-column: 1/2;
   grid-row: 3;
-  /* border: 1px solid red; */
+  display: flex;
   flex-direction: row;
   justify-content: center;
+  /* align-self: end; */
   height: 50px;
   width: 100vw;
 }
@@ -597,14 +609,16 @@ body {
 .sidenavbuttons{
   margin-top: 0px;
   align-content: center;
+  /* display: flex;
+  flex-direction: row; */
 }
-
 
 .noteSection{
   grid-row: 1/2;
   grid-column: 1;
   /* border: 1px solid red; */
   width: 220px;
+  height: 90vh;
 }
 
 #editor-container{
@@ -634,6 +648,7 @@ border-right: none;
   grid-template-rows: repeat();
   /* border: 1px solid red;   */
   width: 220px;
+  height: 90vh;
   grid-gap: 0;
 
 /*   display: flex;
@@ -764,7 +779,8 @@ width: 115px;
 }
 
 .switch {
-  left: 60px;
+  bottom: 13px;
+  left: 92vw;
   display: inline-block;
   width: 48px;
   height: 22px;
@@ -776,8 +792,6 @@ width: 115px;
 .noteTitle {
 
 }
-
-
 
 }
 

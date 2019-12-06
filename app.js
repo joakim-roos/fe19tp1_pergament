@@ -832,10 +832,8 @@ darkModeButton.addEventListener('click', toggleDarkMode);
 function setDarkMode() {
   //console.log("dm mode:" +darkMode);
 
-
-  let darkArray = ["body"];
-
-  if (darkMode == true) {
+  let darkArray = ["body", "#innerSideBar",];
+  if (darkMode == false) {
     //console.log("true"+darkMode);
     darkArray.forEach(function (obj) {
       document.querySelector(obj).classList.add("dark");
@@ -854,5 +852,4 @@ function toggleDarkMode() {
   localStorage.setItem("darkmode", darkMode);
 
   setDarkMode();
-
 }

@@ -29,12 +29,12 @@ https://github.com/quilljs/quill
 -   Help-button
 -   Add pictures
 -   Change font sizes and font styles
+-   Dark mode!
 
 
 ### Upcoming Features: 
 -   Permanently delete notes
 -   Responsitivity on all mobile devices
--   Dark mode!
 -   Themes!
 -   More fonts!
 
