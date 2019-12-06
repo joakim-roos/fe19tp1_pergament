@@ -17,9 +17,9 @@ transition: 0.5s ease;
   background-color:rgb(0, 0, 0);
 }
 
-body.dark {
-  /* transition: 0.4s ease;
-  background-color: rgb(0, 0, 0); */
+#innerSideBar.dark{
+  transition: 0.4s ease;
+  background-color:rgb(0, 0, 0);
 }
 
 #editor-container {
@@ -266,7 +266,8 @@ background-color: rgb(240, 240, 240);
 display: column;
 flex-direction: row;
 height: 100vh;
-} 
+transition: 0.4s ease;
+}
 
 #innerSideBar{
 display: flex;
@@ -279,10 +280,9 @@ border: none;
 overflow-y: auto;
 overflow-x: hidden;
 margin: 0px;
+transition: 0.4s ease;
 }
 
-#innerSideBar.dark{
-}
 
 #leftSection {
 display: flex;
@@ -593,6 +593,11 @@ body {
   grid-template-rows: 20% 68% 1fr;
   grid-template-columns: 220px auto;
   margin: 0 0;
+  transition: 0.4s ease;
+}
+.quireLogo {
+  position: absolute; 
+  left: 0px; 
 }
 
 .sideBar, #sideNav, .sidenavbuttons{
@@ -604,19 +609,19 @@ body {
   /* align-self: end; */
   height: 50px;
   width: 100vw;
+  position: fixed;
+  bottom: 0px;
+  z-index: 1;
 }
 
 .sidenavbuttons{
   margin-top: 0px;
   align-content: center;
-  /* display: flex;
-  flex-direction: row; */
 }
 
 .noteSection{
   grid-row: 1/2;
   grid-column: 1;
-  /* border: 1px solid red; */
   width: 220px;
   height: 90vh;
 }
@@ -625,15 +630,9 @@ body {
   grid-row: 2;
   grid-column: 3;
   height: 90vh;
-  padding: 0px;
-  /*
+  padding-left: 20px;
   padding-top: 20px;
-padding-left: 120px;
-height: 100vh;
-
-background-color: rgb(240, 240, 240);
-border-right: none;
-}*/
+ 
 }
 
 #ql-editor{
@@ -646,31 +645,20 @@ border-right: none;
   grid-row: 2;
   grid-template-columns: 1;
   grid-template-rows: repeat();
-  /* border: 1px solid red;   */
   width: 220px;
   height: 90vh;
   grid-gap: 0;
-
-/*   display: flex;
-flex-direction: column;
-background-color: rgb(240, 240, 240);
-height: 100vh;
-width: 252px;
-border: none;
-overflow-y: auto;
-overflow-x: hidden;
-margin: 0px; */
 }
 
 .quireLogo {
-display: flex;
-justify-content: space-around;
 padding-top: 8px;
 padding-left: 8px;
+
 }
 
 .quireLogoSvg {
 height: 35px;
+
 }
 
 .ql-toolbar.ql-snow {
@@ -697,11 +685,12 @@ border-bottom: 1px solid grey;
 .editor {
   grid-row: 1;
   grid-column: 2;
-  /* border: 1px solid red; */
-  /* display: flex;
-  flex-direction: row; */
-  /* flex-wrap: wrap; */
+
 }
+
+.ql-editor::before {
+ padding-left: 50px;
+} 
 
 .searchNotes {
   /* display: grid; */
@@ -778,6 +767,11 @@ width: 115px;
   padding-top: 12px;
 }
 
+/* .quireLogo{
+  width: 25px;
+  justify-content: flex-start;
+} */
+
 .switch {
   bottom: 13px;
   left: 92vw;
@@ -786,12 +780,15 @@ width: 115px;
   height: 22px;
 }
 
-.notePreview {
+}
+
+@media screen 
+and (max-width: 400px) {
+
+  .noteSection {
+    display: none;
+  }
+
   
-}
-.noteTitle {
 
 }
-
-}
-
