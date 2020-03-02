@@ -9,7 +9,7 @@ https://trello.com/invite/teampergament/bc26d0f282b889006d70bf850c1f27c5
 -   Fabian Thoma - https://github.com/fabbethoma
 -   Jakob Silvmark - 
 -   Joakim Roos - https://github.com/joakim-roos
--   Malin Dufva-Hjerpe - https://github.com/mlndh/Malin-DH.git
+-   Malin DH - https://github.com/mlndh/Malin-DH.git
 
 
 ### What is quire? 
